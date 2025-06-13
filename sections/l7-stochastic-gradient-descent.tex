@@ -1,0 +1,124 @@
+\section{Stochastic gradient descent}
+
+MOTIVATION EXAMPLE
+
+- Regression: $til y=\phi(til x_i\theta) + \epsilon$
+
+\phi function approximation with parameter \theta
+
+- Data points; $(x_1,y_1)\dots m$ %TODO add tilde 
+
+- Minimize: SOME LS
+
+- Gradient: $-\frac{1}{m} \sum_{i=1}^{m}(y_i-\phi(x_i,\theta))DTF$ %todo proper derivative, tilde
+
+$\rightarrow$ computationally intractable if $m$ is large
+
+\textbf{Goal}
+Obtain approximated solution quickly
+
+$\Rightarrow$ Compute Stochastic gradient
+
+$-(y_i - \phi(x_i,\theta)) DTF,\ i \in Unif?(\{1,...,m\})$
+
+$\Rightarrow$ the gradient is \textbf{unbiased}
+
+More generally we consider
+
+$\min _{x \in \mathbb{R}^{n}} F(x) = \min _{x \in \mathbb{R}^{n}} \mathbb{E} [f(x,\xi)]$
+
+Where $\xi$ is a continuous or discrere Random Variable.
+
+ALGORITHM Stochastic gradient descent
+
+Step 1: $\xi_k \leftarrow$ generate realization of $\xi$
+
+Step 2: $x_{k+1} = x_k - T_k  g(x_k,\xi_k)$ with $T_k$ step sice
+
+Stochastic gradient $g(x_k,\xi_k)$ examples:
+
+$\nabla_xf(x\bar{\xi}),\ \bar{\xi}\ til\ p_\epsilon$ or somesume %todo
+
+$\Rightarrow$ The iterate $x_k$ is now a random variable!
+
+\subsection{Assumptions on $F(x)$ and $g(x_k,\xi_k)$}
+
+A1
+
+A2
+
+A3
+
+\begin{proposition}
+	$F$ is $\mu$-strongly convex and $L$-smooth with stepsize
+
+	$$0<T<\displaystyle\frac{1}{L(M_v + 1)}$$
+
+	satisfies
+
+	$$\mathbb{E} [F(x_k)] - F(x^\star)\le XXX$$
+
+	With T = $\frac{ln(N)}{\mu N}$ we require about
+
+	$$ N ~  ()/\epsilon$$
+
+	iterations to ensure $\mathbb{E} [F(x_k)] - F(x^\star)\le XXX \le \epsilon$
+\end{proposition}
+
+\begin{proof}[Proof with most important SGD-EQ]
+
+	XXX
+
+	$$\mathbb{E} [F(x_{k+1})\mid x_k]\le F(x_k) -T |\nabla F(x_k)|^2 + XXX$$ (1)
+
+	Strong convexity implies:
+
+	$$ F(x) \le F(x^\star) + \frac{1}{2\mu}|\nabla F(x)|\quad \forall{x \in \mathbb{R}^{n}} $$
+
+	from there we can conclude:
+
+	XXX
+
+\end{proof}
+
+
+\textbf{Remarks}
+
+$(1-T\mu)^N\le e^{-T\mu N}$ this  in EQ
+
+- $T_k=\frac{\ln(N)}{N}$ then E[XXX]<=
+
+- $\sum_{k=0}^{\infty}T_k = \infty,\ \sum_{k=0}^{\infty}T_k^2 \le \infty
+
+	- $T_k=\frac{\beta}{\gamma+k}$
+
+	\textbf{The role of mini batches}
+
+	same analysis applies $M \rightarrow{M/n_{mb}}$, $M_v \rightarrow{M_v/n_{mb}}$
+
+	EQ
+
+	But we can also run SGD with step $T/n{mb}$ and get same result
+
+Advantage in computation if paralellization possible
+
+\textbf{Can we do non-(strongly-)convex functions? }
+
+\begin{proposition}
+	F $L$-smooth, then SGD with  stepize $0<T\le \frac{1}{L(1+M_v)}$ achieves
+
+	E[\frac{1}{N}SUM]\le TLM + \frac{2(F(x_0)-F_{inf})}{TN}
+
+	$F_{inf} = \underset{x \in \mathcal{\mathbb{R}}^n}{inf}F(x)$
+\end{proposition}
+
+\begin{proof}[Proof] similat to  previous proposition, from (1) we infer:
+	$$E[F(x_{k+1})]-E[F(x_{k+1})]\le -\frac{T}{2}E[X]XX$$
+
+	XXX
+
+	SUM
+
+\end{proof}
+
+\subsection{Table}

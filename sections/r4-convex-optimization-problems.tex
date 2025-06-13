@@ -1,0 +1,77 @@
+\subsection{Recitation 4}
+
+\subsubsection{Geometric Programming}
+
+\textbf{Motivation}
+
+- Summary Change of variables, transformation of objectives and constraints
+
+\rightarrow convex problem in standard form
+
+- Monomial function
+
+- Posynomial function
+
+- Problem formulation
+
+- Example
+
+- Technique
+
+Variable transformation $y_i=\log{x_i}$ on objective and constraints.
+
+- Transformation
+
+
+
+
+\subsubsection{Sum of Squares}
+
+- Polynomial Optimization
+
+$\rightarrow f,g_i,h_i$ polynomials
+
+General case intractable
+
+- Nonnegative polynomials
+
+Small adaption with \gamma
+
+find largest \gamma such that $f(x)-\gamma$ nonnegative, NP Hard
+
+$\rightarrow$ chose \gamma very high, results in sum of squares
+
+\textbf{Definition}
+A polynomial $f(x)$ is a sum of squares (SOS), if it can be written as
+$$f(x) = \displaystyle\sum_{i}^{}g_i^2(x) \quad g_i \text{: polynomial}$$
+
+- Verification
+
+$z(x)$ as vector that contains all polynomials of degree $\le d$
+
+\begin{theorem}[SOS]
+	$p(x)$ is an SOS if and only if $\exists\ Q$ such that $Q >=0$ and $p(x)=z(x)^{\trans}Qz(x)$
+\end{theorem}
+
+Proof
+
+Example
+
+\textbf{SOS for Lyapunov Stability Analysis}
+
+Dynamic
+
+$\dot{x}_1 = -x_1^3+x_2$
+
+$\dot{x}_2 = -x_1-x_2$
+
+Equilibrium
+
+
+$x = (x_1,x_2) = (0,0)$
+
+$V(x) = ax1^2+bx2^2$
+vdot = dVf(x)
+= [2ax1,2bx2]*dynvec
+
+verify vx>0,-vdot>0

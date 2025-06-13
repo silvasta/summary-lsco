@@ -1,0 +1,207 @@
+
+
+%! TeX program = lualatex
+
+{}\documentclass[a4paper]{article}
+% {}\documentclass[a4paper,landscape]{article}
+% {}\documentclass[a4paper,landscape,twoside]{article}
+
+%-----------------------------------------------------------------
+% GENERAL PACKAGES
+%-----------------------------------------------------------------
+\RequirePackage[ddmmyyyy]{datetime} % change date format
+\renewcommand{\dateseparator}{.} % select date separator character
+\RequirePackage[shortlabels]{enumitem} % pause/resume lists
+\RequirePackage{multicol} % multi column format
+\RequirePackage{graphicx} % used for figures
+\RequirePackage[dvipsnames]{xcolor} %colors, dvips -> extra premade colors
+\RequirePackage[explicit]{titlesec} % formating of titles
+\RequirePackage{siunitx} % SI units
+\usepackage{amsmath, amssymb} % For mathematical symbols and equations
+\RequirePackage{mathtools} % even more math stuff
+\RequirePackage{subcaption}
+\RequirePackage[hidelinks]{hyperref} % used for hyperlinked nodes
+\RequirePackage[document]{ragged2e} % left ragged text
+\RequirePackage{atbegshi}  % special commands that apply tikz to all pages
+\RequirePackage{etoolbox} % Boolean and if/else
+\RequirePackage{calc} % math inside other commands
+\RequirePackage{booktabs}
+\RequirePackage{lipsum}
+\usepackage{float} % For [H] specifier
+\usepackage{parskip} % For paragraph spacing
+\usepackage{longtable}
+\usepackage{tcolorbox}
+%-----------------------------------------------------------------
+% FONT
+%-----------------------------------------------------------------
+\usepackage{fontspec}
+\usepackage[ngerman]{babel}
+% \babelfont{rm}{Lato}
+% \babelfont{rm}{Roboto}
+\babelfont{rm}{Roboto Condensed}
+% \babelprovide[onchar=ids fonts]{russian}
+% \babelfont[russian]{rm}{Roboto Condensed}
+\babelprovide{english}
+% font of math
+% \usepackage{lmodern} # default
+% \usepackage{newtxmath}
+% \usepackage{mathpazo}
+% Custom command for transpose with thinner T
+\newcommand{\trans}{\textnormal{\scriptsize T}}
+%-----------------------------------------------------------------
+% TOGGLE
+%-----------------------------------------------------------------
+
+\newtoggle{do-multicol}
+\togglefalse{do-multicol}
+%-----------------------------------------------------------------
+% \newtoggle{showLecture}
+% \toggletrue{showLecture}
+% \togglefalse{showLecture}
+% \newtoggle{showRecital}
+% \toggletrue{showRecital}
+% \togglefalse{showRecital}
+%-----------------------------------------------------------------
+% GEOMETRY
+%-----------------------------------------------------------------
+%%% regular a4 layout, f.e. 2col
+%-----------------------------------------------------------------
+% \RequirePackage[
+% 	paperheight=297mm,
+% 	paperwidth=210mm,
+% 	top=19mm,
+% 	bottom=19mm,
+% 	footskip=5mm,%TODO
+% 	inner=19mm,
+% 	outer=19mm,
+% 	centering
+% ]{geometry}
+%-----------------------------------------------------------------
+% column settings (% comment for regular  column)
+% \toggletrue{do-multicol}
+% \def\numcolumns{2} 
+% \setlength{\columnsep}{19mm}
+%-----------------------------------------------------------------
+% % %%% tight a4 landscape layout
+%-----------------------------------------------------------------
+% % paper settings
+% \RequirePackage[
+% 	paperheight=210mm,
+% 	paperwidth=297mm,
+% 	top=1mm,
+% 	bottom=1mm,
+% 	inner=1mm,
+% 	outer=1mm,
+% 	centering
+% ]{geometry}
+% % column settings
+% \toggletrue{do-multicol}
+% \def\numcolumns{4} 
+% \setlength{\columnsep}{3mm}
+% % set pagestyle (remove pagenumbering)
+% \pagestyle{empty}
+%-----------------------------------------------------------------
+% \usepackage[skip=0.2mm]{caption} % Reduces space between image and caption
+% \captionsetup{font={footnotesize,sf}}
+% %-----------------------------------------------------------------
+% \setlength{\intextsep}{0.2mm} % Space above/below in text
+% \setlength{\textfloatsep}{0.2mm} % Space between floats
+% \setlength{\floatsep}{0.2mm} % Space between floats
+% % -----------------------------------------------------------------
+% % space around title and fontsize
+% \makeatletter
+% \renewcommand{\section}{\@startsection{section}{1}{\z@}%
+% 	{.5mm}% % Space before
+% 	{.5mm}% % Space after
+% 	{\normalfont\normalsize\bfseries}}
+% 	% {\normalfont\normalsize\bfseries\color{RoyalBlue}}}
+% \renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+% 	{.25mm}%
+% 	{.25mm}%
+% 	{\normalfont\small\bfseries}}
+% 	% {\normalfont\small\bfseries\color{RoyalBlue}}} % Add color to subsection
+% \makeatother
+% %-----------------------------------------------------------------
+% \renewenvironment{quote}
+% {\list{}{\rightmargin0mm\leftmargin0mm}
+% 	\item\relax\centering\arraybackslash}
+% % {\endlist\vspace{0mm}} 
+% {\endlist\vspace{-1mm}}
+% %-----------------------------------------------------------------
+% % %% indent for paragraph
+% \setlength{\parindent}{0mm}
+% % %% space between paragraphs
+% \setlength{\parskip}{0mm}
+% % %% spacing within lists
+% \setlist{itemsep=0mm, topsep=0mm} % For all itemize/enumerate
+% \setlist[itemize]{itemsep=0pt, leftmargin=3mm}
+% \setlist[enumerate]{itemsep=0pt, leftmargin=4mm}
+%-----------------------------------------------------------------
+% %%% very small for 1 col preview
+%-----------------------------------------------------------------
+\RequirePackage[
+	paperheight=297mm,
+	paperwidth=95mm,
+	top=1mm,
+	bottom=1mm,
+	inner=1mm,
+	outer=1mm,
+	centering
+]{geometry}
+% -----------------------------------------------------------------
+% THEOREM STYLE
+%-----------------------------------------------------------------
+\usepackage{amsthm} % For definition environment
+% Define the definition environment
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+% Define the theorem environment
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+% Define the proposition environment
+\theoremstyle{definition}
+\newtheorem{proposition}{Proposition}
+%-----------------------------------------------------------------
+% OTHER FORMATTING
+%-----------------------------------------------------------------
+% \pagestyle{empty}
+% \pagestyle{plain}
+% -----------------------------------------------------------------
+% create lines between columns and define color of columns
+% \setlength{\columnseprule}{.3mm} %set thickness default 1pt
+% \def\columnseprulecolor{\color{RoyalBlue!20}}
+% -----------------------------------------------------------------
+\usepackage{sectsty}
+\setcounter{secnumdepth}{1} % Number subsections (##)
+
+% -----------------------------------------------------------------
+% INHALT
+%-----------------------------------------------------------------
+
+\begin{document}
+
+\iftoggle{do-multicol}{
+	\begin{multicols}{\numcolumns}}{}
+		%-----------------------------------------------------------------
+		\input{title-blue-grey.tex}
+		% footnotesize
+		%-----------------------------------------------------------------
+		% sections
+		% \input{sections/l1-introduction.tex}
+		% \input{sections/l2-convex-set-function.tex}
+		\input{sections/r2-convex-set-function.tex}
+		\input{sections/l3-kkt-lagrange-duality.tex}
+		\input{sections/r3-kkt-lagrange-duality.tex}
+		\input{sections/l4-convex-optimization-problems.tex}
+		\input{sections/r4-convex-optimization-problems.tex}
+		\input{sections/l5-gradient-methods-1.tex}
+		\input{sections/r5-more-on-gradient-methods.tex}
+		\input{sections/l6-gradient-methods-2.tex}
+		% \input{sections/l7-stochastic-gradient-descent.tex}
+		\input{sections/r7-stochastic-gradient-descent.tex}
+
+		%-----------------------------------------------------------------
+		\iftoggle{do-multicol}{
+	\end{multicols}}{}
+
+\end{document}

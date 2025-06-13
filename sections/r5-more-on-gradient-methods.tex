@@ -1,0 +1,77 @@
+\subsection{Recital  5 - More on Gradient Descent}
+
+\subsubsection{Proberties of Smooth Functions}
+
+- L-smoothnes:
+
+\[f(y)\le f(x)+\nabla f(x)^{\trans}(y-x) +\frac{L}{2}|x-y|^2 \quad \forall x,y \in \mathbb{R}^{}\]
+
+\subsubsection{Gradien Descent}
+
+- Smooth and Convex
+
+xstar argmin f
+
+f is also L-smooth
+
+select $\eta = \frac{1}{2L}$
+
+summing up
+
+- sufficient decrease
+
+- this results in
+$$ f(x_T)\le f(x_{T-1})\le \dots \le f(x_1)\le f(x_0)$$
+
+- As a result, with stepsite $\eta = \frac{1}{2L}$
+, GD Converges with
+$$ f(x_T)-minf(x)\le \frac{2L}{T} ||x_0-x^\star||^2 $$
+
+- can do better, nestrov $1/T^2$
+
+\subsubsection{Proberties of Strongly-Convex Functions}
+
+- $\mu$-strong-convexity: $f(y)\ge ..\mu/2 ..$
+
+...this implies
+
+\subsubsection{Smooth and Strongly-Convex}
+
+$\eta = \frac{1}{lL}$ converges with ...
+
+
+\subsection{Stepsize}
+
+- guess if dont know L
+
+- start with $\eta$ ca $\epsilon$
+
+- doulbe $\eta$ until checkable condition does not hold
+\\
+
+--- line search
+
+- 1-dimensional programming
+
+- find $\eta$ with optimization for every step
+
+- can result in stepsive $\ge 1/L$ as it is for normal GD
+\\
+
+--- line search for Heavy Ball Method
+
+- works also for quadratics
+
+- conjugate  GD, orthogonalize?
+\\
+
+--- Adaptive Methods
+
+- normalized GD
+
+- AdaGrad-Norm (Adaptive Gradien estimation)
+
+- AdaM (Adaptive Momentum estimation)
+
+- AdamW
+

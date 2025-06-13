@@ -1,0 +1,95 @@
+\section{Convex Optimization Problem}
+
+minimize $f(x),g\le0,h(x)=0$
+
+1) Feasibility  Problem
+
+minimmize s
+
+s.t. $g_i(x)\le s\quad \forall i,\dots,n_g$, $h(x)=0$
+
+2) Linear Programming
+
+minimmize $c^{\trans}x$ s.t. $Ax-b\ge0$ and $x\ge0$
+
+$\rightarrow$ derive dual:
+
+Step 1: $\mathcal{L}(x,\lambda_1,\lambda_1) = c^{\trans}x-\lambda_1^{\trans}(Ax-b) -\lambda_2^{\trans}x$
+
+Step 2:$\underset{x \in \mathcal{\mathbb{R}}^n}{inf}\mathcal{L}(x,\lambda_1,\lambda_1)
+	= \{-\infty else, \lambda_1^{\trans}b, if\ A^{\trans}\lambda_1+\lambda_2=c$
+
+Step 3: Dual Problem
+
+$\underset{\lambda_1 \ge0}{sup}\lambda_1 b$ s.t. $0\le c-A^{\trans}\lambda_2$
+
+\begin{itemize}
+	\item dual as a linear program
+	\item Skech, polyhedron, c-vector normal gives 'Levelsets'
+	      and optimal solution in or trough a corner (if exists)
+\end{itemize}
+
+\begin{proposition}
+	The optimal solution of a linear program (if it exists)
+	lies always on the boundary of the feasible set
+	and there exists an optimal solution that is a vertex of the feasible set.
+\end{proposition}
+
+\textbf{Example} Shortest Path
+
+Analogie with Fluid
+
+Soltuion greater 0, not optimal edges = 0
+
+3) Quadratic Programming
+
+minimmize $\frac{1}{2}x^{\trans}Px+q^Tx$
+
+s.t. $Gx\le h,\ Ax=b$
+
+$\rightarrow$ if $P=P^{\trans}$ is positive semi-definite
+then the problem is convex.
+
+
+\textbf{Example} [optimal control] (basis for mpc)
+
+% \subsubsection{Quadratically constrained quadratic program (QCQP)}
+
+\subsubsection{Second-order cone program (SOCP)}
+
+minimmize $f^Tx$
+
+s.t. $|A_ix+b|\le c_i^Tx+d_i,\ Fx=g$
+
+Cone: Cn+1=
+
+\textbf{Example} [Markovitz portfolio optimization:]
+
+\begin{itemize}
+	\item $n$ number of assets/stocks
+	\item $x_i$ relative value of asset $i$
+	\item $p_i$ price change of stock $i$
+	\item $p^Tx$ overall return
+\end{itemize}
+
+Constraints
+
+\begin{itemize}
+	\item $x^T\textbf{1} = B$, total amount
+	\item $x\ge0$, no short position
+\end{itemize}
+
+CALCULATIONS
+
+\subsection{Semidefinite programming (SDP)}
+
+minimmize $c^{\trans}x$
+
+s.t. $x_1F_1,\dots+x_nF_n <= 0$ and $Ax-b=b$
+
+$\rightarrow$ the 'standard' form
+
+$$\min _{x \in \mathbb{R}^{n*n}} tr(CX)$$
+
+
+\textbf{Diagramm}

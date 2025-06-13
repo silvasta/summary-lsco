@@ -1,0 +1,122 @@
+\section{Convex sets and convex functions}
+
+\begin{definition}[Convex Set]
+	A set $\mathcal{C}$ is convex if and only if
+	$\forall x,y \in \mathcal{C}$ and
+	$\forall \theta \in [0,1]$: \quad
+	$\theta x + (1-\theta)y \in \mathcal{C}$.
+\end{definition}
+
+
+\textbf{Examples of convex sets:}
+\begin{itemize}
+	\item
+	      hyperplane $\{x \in \mathbb{R}^n \mid a^{\trans}x=b\}$
+	\item
+	      half-space $\{x \in \mathbb{R}^n \mid a^{\trans}x\le b\}$
+	\item
+	      polyhedron $\{x \in \mathbb{R}^n \mid Ax \le b ,\ Cx = d\}$
+	\item
+	      ...more...
+
+\end{itemize}
+
+\subsection{Operations that preserve convexity (sets)}
+
+\begin{itemize}
+	\item \textbf{Intersection}
+	      $\mathcal{C}_1, \mathcal{C}_2$ convex $\Rightarrow \mathcal{C}_1 \cap \mathcal{C}_2$ convex
+	\item \textbf{Image under affine map}
+	      $\mathcal{C} \subseteq  \mathbb{R}^{n}$ convex
+	      $\Rightarrow \{Ax+b \mid x \in \mathcal{C} \}$ convex
+	\item inverse image of an affine map:
+	      ...
+\end{itemize}
+
+\subsection{Separating Hyperplane Theorem}
+\begin{theorem}
+	Let $\mathcal{C} \subseteq  \mathbb{R}^{n}$ be a nonempty closed convex set and $y \notin \mathcal{C}$.
+	Then $\exists\ a \ne 0, b \in \mathbb{R}$,
+	s. t. $a^{\trans} x + b < a^{\trans} y + b,\ \forall x \in \mathcal{C}$
+\end{theorem}
+
+\textbf{Proof}
+
+Step 1: Claim $\exists \hat{x} \in C$ s.t. $|\hat{x}-y|\leq |x-y|$
+
+Step 2: hyperplane $a=y-\hat{x}, b=-a^T\hat{x} = -(y-\hat{x})^T\hat{x}$
+
+$\rightarrow$ we note $a^{\trans}y+b=|y-xh|^2>0$
+
+$\rightarrow$ we need to show $a^{\trans}x+b\le 0 \; \forall x \in \mathcal{C}$
+
+$(y-\hat{x})^T(x-\hat{x}) < 0$
+
+(Details in Lecture notes)
+
+\textbf{Corollary}
+
+A closed convex set $\mathcal{C} = \mathbb{R}^n$
+is the intersection of the closed half-spaces that contain $\mathcal{C}$
+
+\textbf{Proof} $\mathcal{S}$ is the intersection of all half-spaces containing $\mathcal{C}$
+
+1) $\mathcal{C} contains \mathcal{S}$: $x \in \mathcal{C}$ => x in all half-spaces...
+
+2) Assume not, ...
+
+\subsection{Support function}
+
+\textbf{Idea} represent any closed convex set by its supporting hyperplanes
+
+support function $\sigma_\mathcal{C}(a) = sup_{x\in \mathcal{C}} a^Tx$
+
+CALCULATION EXAMPLE
+
+If we know the support function, we arrive at at
+$$  \mathcal{C} = \bigcap_{a \in \mathbb{R}^n} \{x \in \mathbb{R}^n \mid a^{\trans}x - \sigma_c(a) \leq 0\}$$
+
+$$   = \{x \in \mathbb{R}^n \mid \underset{x \in \mathcal{C}}{\operatorname{sup}}\ a^Tx - \sigma_\mathcal{C}(a) \le 0\}$$
+
+\begin{definition}
+	A function $f : \mathbb{R}^n \rightarrow \mathbb{R}$
+	is convex if and only if its epigraph is a convex set, where
+	$epi(f):=\{(x,t)\in \mathbb{R}^{n+1} | f(x) \le t \}$
+\end{definition}
+
+$\rightarrow$ this provides a link between sets and functions
+
+\subsection{Operations that preserve convexity (functions)}
+\begin{itemize}
+	\item the pointwise maximum of convex functions is convex
+	\item the sum of convex functions is convex
+	\item $f(Ax+b)$ is convex if $f$ is convex
+\end{itemize}
+
+\subsubsection{How to check f convex?}
+\begin{itemize}
+	\item if $f: \mathbb{R}^n \rightarrow{} \mathbb{R}$ is twice differentiable d2/dx2>=0
+	\item if $g: \mathbb{R} \rightarrow{} \mathbb{R}$ with $g(t)=f(x+tv)$
+	      is convex in $t$ for all $x,v \in \mathbb{R}^{n}$, then $f$ is convex
+\end{itemize}
+
+\rightarrow{} It will be convenient to introduce extended real numbers
+$$\bar{\mathbb{R}} = \mathbb{R} \cup \{+\infty, -\infty\}$$
+
+
+\rightarrow{} Indicator function
+$INF x \notin C$
+$0 x \in C$
+
+\rightarrow{} we can then write minf as minf+y NOTES
+
+
+\begin{definition}[3]
+	f : Rn → R is called proper if f is bounded below and if $∃$ x ∈ Rn s. t. f (x) < ∞.
+\end{definition}
+
+\begin{definition}[name of the definition]
+	Let f : Rn → R. The conjugate function of f is defined as
+	$$f^\star (y) = sup_{CC} y^Tx-f(x)$$
+\end{definition}
+

@@ -1,0 +1,84 @@
+\section{Gradient methods - Part I}
+
+\begin{definition}[smoothness]
+	The function $f : \mathbb{R}^{n}\rightarrow \mathbb{R}$ is $L$-smooth
+	if $\nabla f(x)$ satisfies
+	\[|\nabla f(x)-\nabla f(y)|\le L|x-y| \quad \forall x,y \in \mathbb{R}^{}\]
+\end{definition}
+
+This result (with Taylors'Theorem) in:
+
+
+\[f(y)\le f(x)+\nabla f(x)^{\trans}(y-x) +\frac{L}{2}|x-y|^2 \quad \forall x,y \in \mathbb{R}^{}\]
+
+
+\begin{definition}[strong convexity]
+	The function $f : \mathbb{R}^{n}\rightarrow \mathbb{R}$ is $\mu$ strongly convex
+	it it satisfies
+
+	\[f(y)\ge f(x)+\nabla f(x)^{\trans}(y-x) +\frac{\mu}{2}|x-y|^2 \quad \forall x,y \in \mathbb{R}^{}\]
+\end{definition}
+
+\subsection{Gradient Descent}
+
+PSEUDOCODE
+
+$x = x_0 \in \mathbb{R}^{n}$
+
+for x in range N
+\quad\dots
+
+HERLEITUNG
+
+\textbf{Optimal Step Size}
+
+$\mu \le h \le L$
+
+\[T^\star = \frac{2}{L+M}  \]
+
+GRAFIK
+
+
+$$\rho (T^\star) = |XXX|$$
+
+therefore with stepsize $T^\star$
+
+$|x_N - x^\star| \le \epsilon $
+
+\subsection{Momentum-based methods}
+
+$$ q_{k+1} = q_k + T_{p_{k+1}}$$
+$$p_{k+1} = (1-2dT)p_k-T\nabla f(q_k + \beta p_k)/L$$
+
+Discretization of $\dot{q}=p, \dot{p} = -2d ...$
+
+Spring damper analogy
+
+- for $T = 1, d=\frac{1}{\sqrt{k}+1}, \beta =\frac{\sqrt{k}-1}{\sqrt{k}+1}$ 
+
+Nesterovs accelerated gradient methods
+
+- for $T = \frac{2\sqrt{k}}{\sqrt{k}+1}, d=\frac{1}{\sqrt{k}+1},\beta =0$ 
+
+Heavy Ball (tuned quadratics)
+
+\textbf{What is the convergence rate?}
+
+EXAMPLE DIAGONALIZATION
+
+EIGENVALUE analysis
+
+ROOT Locus
+
+- Nesterov on circle $c=(r/0), r=\lambda_i/L = \mu /L$
+
+- Heavy ball circle $c=((\lambda -L)/2 ,0), r= \lambda +L$
+
+\begin{theorem}[NOT Nesterovs]
+  $f \mu$ strongly convex, $L$ smooth
+  Nesterovs Method satisfies
+  $$|x_N - x^\star|\le (1-\frac{2}{\sqrt{k}+1})|x_0 - x^\star| \forall k\ge 0$$
+  
+\end{theorem}
+
+proof with H Function
