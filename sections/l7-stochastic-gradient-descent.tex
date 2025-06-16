@@ -88,17 +88,17 @@ $(1-T\mu)^N\le e^{-T\mu N}$ this  in EQ
 
 - $T_k=\frac{\ln(N)}{N}$ then E[XXX]<=
 
-- $\sum_{k=0}^{\infty}T_k = \infty,\ \sum_{k=0}^{\infty}T_k^2 \le \infty
+- $\sum_{k=0}^{\infty}T_k = \infty,\ \sum_{k=0}^{\infty}T_k^2 \le \infty$
 
-	- $T_k=\frac{\beta}{\gamma+k}$
+- $T_k=\frac{\beta}{\gamma+k}$
 
-	\textbf{The role of mini batches}
+\textbf{The role of mini batches}
 
-	same analysis applies $M \rightarrow{M/n_{mb}}$, $M_v \rightarrow{M_v/n_{mb}}$
+same analysis applies $M \rightarrow{M/n_{mb}}$, $M_v \rightarrow{M_v/n_{mb}}$
 
-	EQ
+EQ
 
-	But we can also run SGD with step $T/n{mb}$ and get same result
+But we can also run SGD with step $T/n{mb}$ and get same result
 
 Advantage in computation if paralellization possible
 
@@ -107,7 +107,8 @@ Advantage in computation if paralellization possible
 \begin{proposition}
 	F $L$-smooth, then SGD with  stepize $0<T\le \frac{1}{L(1+M_v)}$ achieves
 
-	E[\frac{1}{N}SUM]\le TLM + \frac{2(F(x_0)-F_{inf})}{TN}
+	$E[\frac{1}{N}SUM]\le TLM + \frac{2(F(x_0)-F_{inf})}{TN}$
+
 
 	$F_{inf} = \underset{x \in \mathcal{\mathbb{R}}^n}{inf}F(x)$
 \end{proposition}

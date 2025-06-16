@@ -1,152 +1,169 @@
 \section{Introduction}
 
-\subsection{Goal}
-- skills + background for recognizing, formulating and solving large-scale convex optimization problems
-- glimpse of the research that is being done at the forefront of the field
-- discuss some applications/software frameworks (however, focus is on rigorous understanding))
+\textbf{Large Scale}
+Problem of dimension $n$ but iterations $\ll n$ desired
 
-Large-scale: cannot wait for $n$ iterations, where $n$ is the problem dimension.
+\textbf{Convex}
+One of the only problem classes that are \textquote{solvable}
 
-Convex: one of the only classes of problems that are "solvable".
+\textbf{Mathematical Optimization}
+\begin{equation}
+	\begin{aligned}
+		\operatorname{minimize} & f(x)                               \\
+		\text{s.t.}             & g_i(x) \le 0,\quad i = 1,\dots,n_g \\
+		                        & h_i(x) = 0,\quad i = 1,\dots,n_h   \\
+	\end{aligned}
+	\label{eq:optimization}
+\end{equation}
 
-\section*{Mathematical optimization:}
-$$
-	\begin{array}{ll}
-		\operatorname{minimize} & f(x)                                                        \\
-		\text { s.t. }          & g_{i}(x) \leq 0, \quad i=1, \ldots, n_{\mathrm{g}}  \tag{1} \\
-		                        & h_{i}(x)=0, \quad i=1, \ldots, n_{\mathrm{h}}
-	\end{array}
-$$
-- $x=\left(x_{1}, \ldots, x_{n}\right) \in \mathbb{R}^{n}$ decision variables (most of our algorithms also work for $n \rightarrow \infty$ )
+- $x = (x_1,...,x_n) \in \mathbb{R}^{n}$ decision variable
 
-- $f$ objective function (can also account for maximization)
+\quad (most of our algorithms also work for $n\rightarrow\infty$)
 
-- $g_{i}(x) \leq 0, \quad i=1, \ldots, n_{\mathrm{g}}$ inequality constraints
+- $f$ objectivce function
 
-- $h_{i}(x)=0, \quad i=1, \ldots, n_{\mathrm{h}}$ equality constraints
+- $\mathcal{C} = \{\xi \in \mathbb{R}^{n}: g(\xi)\le0,\ h(\xi)=0\}$ fesabile set
 
-- $\mathcal{C}=\left\{\xi \in \mathbb{R}^{n}: g(\xi) \leqslant 0, h(\xi)=0\right\}$ feasible set
+\subsection{Important Definitions}
 
-\section*{Important definitions:}
-- $x^{\star}$ is a global minimum if $f\left(x^{\star}\right) \leq f(x) \quad \forall x \in \mathcal{C}$.
+- $x^\star$ is a \textit{global minimum} if $f(x^*)\leq f(x)$
 
-- $x^{\star}$ is a local minimum if there exists $\epsilon>0$ such that
-$$
-	f\left(x^{\star}\right) \leq f(x) \forall x \in \mathcal{C} \cap B_{\varepsilon}\left(x^{*}\right),
-$$
-where $B_{\varepsilon}\left(x^{*}\right):=\left\{\xi \in \mathbb{R}^{n}:\left|\xi-x^{*}\right|<\varepsilon\right\}$ is the open ball of radius $\epsilon$ centered at $x^{\star}$, and $|\cdot|$ denotes the Euclidean norm.
+- $x^\star$ is a \textit{local minimum} if there exists $\epsilon > 0$ s.t.
+$$f(x^\star)\leq f(x) \quad \forall x \in C \cap B_\epsilon(x^\star)$$
+$B_\epsilon(x^\star):=\{\xi\in\mathbb{R}^{n}:|\xi-x^\star|<\epsilon\}$ open ball, center $x^\star$, radius $\epsilon$
 
-Figure 1: Examples where the minimum is not attained.
+\subsection{Existance of minimum}
 
-When does the minimum exist? (attainment of min)
-Proposition 1. Let $f$ be continous (lower-semi-continous), $f(x) \rightarrow \infty$ for $|x| \rightarrow$ $\infty$, and let $\mathcal{C}$ be closed, then a minimizer of (1) exists and we write (1) as
-$$
-	\min _{x \in \mathcal{C}} f(x) \quad \text { and } \quad x^{\star} \in \underset{x \in \mathcal{C}}{\operatorname{argmin}} f(x) .
-$$
+\subsubsection{Counter examples}
 
-\section*{Examples:}
-$x$ :
+a) unbounded level sets, f.e. $1/x$
+
+b) $C$ open f.e. $(0,1)$ but minimum at f.e. $0$
+
+c) $f$ not l.s.c. (lower semi-continuous)
+
+% todo Grafik
+%
+\begin{proposition}
+	$f$ (lower-semi-)continuous,
+	$f(x)\rightarrow\infty$ for $|x|\rightarrow\infty$,
+	$\mathcal{C}$ closed
+	$\Rightarrow$ \exists\ minimizer of (\ref{eq:optimization}) described by:
+	$
+		\min_{x \in \mathcal{C}} f(x) \text{\ and\ } \underset{x \in \mathcal{C}}{\operatorname{argmin}} f(x) % todo check argmin
+	$
+\end{proposition}
+
+
+\subsubsection{Examples}
+
+% todo find best way for items
+$x$:
+
 - assets in a portfolio
-- control inputs (airplane control surfaces)
+
+- control inputs
+
 - schedule assignment
+
 - resource allocation
-$\mathcal{C}$ :
-- all possible tradable assets
+
+$\mathcal{C}:$
+
+- all possible trade assets
+
 - actuation limits
-$f$ :
+
+$f$:
+
 - cost (negative returns)
-- deviation from target
-- waiting times/ delays
+
+- deviaton from target
+
+- waiting times / delas
+
 - risk (a certain resource fails)
 
-We will study iterative first-order algorithms:
-Initialize $x_{0}$
-For $k=0, \ldots$, \#iterations - 1
-$\left(f\left(x_{k}\right), \nabla f\left(x_{k}\right)\right) \leftarrow$ call first-order oracle
-Determine $x_{k+1}$ based on $\left\{\left(f\left(x_{k}\right), \nabla f\left(x_{k}\right)\right),\left(f\left(x_{k-1}\right), \nabla f\left(x_{k-1}\right)\right), \ldots,\left(f\left(x_{0}\right), \nabla f\left(x_{0}\right)\right)\right\}$ End
+\subsubsection{First Order Algorithmus}
 
-Figure 2: Unvisited box
+% todo pseudo algorithm
+Initialize $x_0$
 
-Analytical/arithmetic complexity: Analytical complexity is defined by the number of oracle calls to solve a problem up to accuracy $\epsilon$. Accuracy can be measured in terms of function values or distance to the optimizers. This contrasts arithmetic complexity, which measures the number of arithmetic operations (including the work of the oracle and the work of the method), which is required to solve a problem up to accuracy $\epsilon$.
+for k = 0,...,\#iterations -1
 
-Definition 1 (Lipschitz continuity). A function $q: \mathbb{R}^{m} \rightarrow \mathbb{R}^{n}$ is Lipschitz with constant $L$ if
-$$
-	|q(x)-q(y)| \leq L|x-y| \quad \forall x, y \in \mathbb{R}^{m} .
-$$
+$(f(x_k),\nabla f(x_k))$ <-- call first-order oracle
 
-Let $\mathcal{P}$ be the class of optimization problems where $\mathcal{C}=[0,1]^{n}$ (a unit hypecube) and $f$ is $l^{\infty}$ - Lipschitz with constant $L$.
+Determine $x_{k+1}$ based on ${..f..}$
 
-Proposition 2. For any algorithm, there exists a problem in $\mathcal{P}$, such that achieving $\left|f\left(x_{N}\right)-f\left(x^{\star}\right)\right|<\epsilon$ requires
-$$
-	N \geq\left(\left\lfloor\frac{L}{2 \varepsilon}\right\rfloor\right)^{n}-1
-$$
+end
 
-Proof. Idea: construct a function such that $\left(f\left(x_{0}\right), \nabla f\left(x_{0}\right)\right)=0,\left(f\left(x_{1}\right), \nabla f\left(x_{1}\right)\right)=$ $0, \ldots,\left(f\left(x_{N}\right), \nabla f\left(x_{N}\right)\right)=0$, but $\min _{x \in \mathcal{C}} f(x)$ is small.
-Consider the case where $n=2, N=7$ (8 steps), at least one of the squares remains empty (see Figure 2).
+\begin{definition}[Lipschitz continuity]
+	... $q: R^m \rightarrow R^n$ ... if
+	$$|q(x)-q(y)| \le L |x-y| \forall x,y \in R^m$$
+\end{definition}
 
-Thus we can set $f$ as following:
-$$
-	f(x)=\min \left\{0, L\left|x-x^{\star}\right|_{\infty}-\frac{1}{6} L\right\}, \quad x^{\star}=\left(\frac{5}{6}, \frac{5}{6}\right)
-$$
-see also Figure 2.
-We therefore have $\left|f\left(x_{i}\right)-f\left(x^{\star}\right)\right| \geqslant L / 6$, for $i=0, \ldots, 7$.
-We now generalize to $n>2$ by partitioning the box into $s^{n}$ small boxes with side length $1 / s$ and $f\left(x^{\star}\right)=-L / 2 s$.
 
-Thus, we conclude $\left|f\left(x_{i}\right)-f\left(x^{\star}\right)\right| \geqslant L / 2 s$, for $i=0, \ldots, N$, with $N=s^{n}-2$.
-We now eliminate the variable $s$ by choosing $\varepsilon \approx L / 2 s$ (note that $s$ is an integer). This is achieved by $s=\left\lfloor\frac{L}{2 \varepsilon}\right\rfloor$, which implies $\varepsilon \leqslant L / 2 s$.
-We therefore conclude
-$$
-	\left|f\left(x_{i}\right)-f\left(x^{\star}\right)\right| \geqslant \varepsilon \quad \text { for } i=0, \ldots, N=\left(\left\lfloor\frac{L}{2 \varepsilon}\right\rfloor\right)^{n}-2
-$$
-which concludes the proof.
+...definition P... % todo
 
-The fact that $N \geq\left(\left\lfloor\frac{L}{2 \varepsilon}\right\rfloor\right)^{n}-1$ refers to the curse of dimensionality.
+\begin{proposition}
+	For any algorithm, there exists a problem in $P$, such that achieving $|f (xN ) − f (x^⋆)| < ϵ$ requires
+	$$
+		N \ge (upper(L/{2\epsilon}))^n -1
+	$$
+\end{proposition}
 
-We cannot hope to solve an optimization problem in general unless . . .
-$\rightarrow f, \mathcal{C}$ have a special structure
-$\rightarrow$ convexity
-(If $L=1, \varepsilon=0.5 \cdot 10^{-3} \Rightarrow N \sim 10^{3 n}$, for $n=27, N$ is already larger than the number of atoms in the universe.)
+\textbf{Example}
 
-Definition 2. The optimization problem (1) is convex if $f$ and $g_{i}$ are convex functions, $i=1, \ldots, n_{g}$, and $h$ is affine.
-Definition 3. A function $q: \mathbb{R}^{n} \rightarrow \mathbb{R}$ is convex (affine) if for any $x, y \in \mathbb{R}^{n}$
-$$
-	\begin{aligned}
-		q(\theta x+(1-\theta) y) & \leq \theta q(x)+(1-\theta) q(y) \quad \forall \theta \in[0,1] \\
-		(=)                      &
-	\end{aligned}
-$$
+(for L=1, $\epsilon$ = 0.0005, n=27, N larger than \#atoms in universe)
 
-Application areas:
-- machine learning, statistics
-- finance, portfolio management
-- control (MPC, $\mathcal{H}^{\infty}, \mathcal{H}^{2}$ )
-![](https://cdn.mathpix.com/cropped/2025_06_10_303d3d2132c24cacb8b4g-5.jpg?height=443&width=686&top_left_y=459&top_left_x=714)
+\begin{proof}[Proof]
+	\textbf{Idea}
+	Construct $f$ where $(f(x_0) = 0,\nabla f(x_0) = 0)$, $(f(x_1) = 0,\nabla f(x_1) = 0),...$ but the actual $min_{x \in C}f(x)$ is small.
 
-Figure 3: Graph of a convex function
-- signal processing, computer vision
-- ...
-small scale $<1000 s$ variables $\rightarrow$ mature solvers
-median scale $\sim 100^{\prime} 000$ variables $\rightarrow$ not quite technology
-large scale $>1^{\prime} 000^{\prime} 000$ variables $\rightarrow$ research, custom implementation
-software frameworks CVXPY, YALMIP
-$\rightarrow$ these allow "high-level" formulation
-$\rightarrow$ automatic translation to standard form
-$\rightarrow$ solve $\rightarrow$ translate to original form
+	\textbf{Grid(x1,x2)}
 
-Proposition 3. Let $x^{\star}$ be a local minimum of (1). If (1) is convex, then $x^{\star}$ is a global minimum.
+	raster 1/3, 9 boxes in (1,1), for $N\le 7$ (8 steps) one grid cell is not visited
 
-Proof. Assume not. Then there exists $y \neq x^{\star}, y \in \mathcal{C}$ such that $f(y)<f\left(x^{\star}\right)$.
-Let us consider $\eta(t)=(1-t) x^{*}+t y \quad \forall t \in[0,1]$, see also Figure 4 .
-Then $g_{i}(\eta(t)) \leqslant(1-t) g_{i}\left(x^{*}\right)+t g_{i}(y) \leqslant 0$ for all $i=1, \ldots n_{g}$ and $h_{i}(\eta(t))=$ $(1-t) h_{i}\left(x^{*}\right)+t h_{i}(y)=0$ for all $i=1, \ldots n_{h}$.
+	Hence $f(x_i) = 0, i \in [0,7]$ but $f(x^*) = -L/6$
 
-This implies $\eta(t) \in \mathcal{C} \quad \forall t \in[0,1]$.
-Moreover $f(\eta(t)) \leqslant(1-t) f\left(x^{*}\right)+t f(y)<f\left(x^{*}\right), \forall t \in(0,1]$.
-Thus for any ball $B_{\varepsilon}\left(x^{\star}\right)$, we can find $t$ small enough $\left(t<\epsilon /\left|x^{*}-y\right|\right)$, s.t. $\eta(t) \in B_{\varepsilon}\left(x^{\star}\right)$ and $f(\eta(t))<f\left(x^{\star}\right)$. This contradicts the fact that $x^{\star}$ is a local minimum and concludes the proof.
-![](https://cdn.mathpix.com/cropped/2025_06_10_303d3d2132c24cacb8b4g-6.jpg?height=487&width=741&top_left_y=445&top_left_x=697)
+	\textbf{Generalization}
 
-Figure 4: Global and local minimum of convex function
+	- Partition unit cube into $s^n$ small boxes with side length $1/s$ and $min_xinC = -L/2s$
+	- therefore $f(x_i)-f(x_star) \ge L/2s$ for $i=0...s^n-2$
+	- roughly ...
+	- therefore $N=$ ...
 
-Reading:
-- S. Boyd, L. Vandenberghe, "Convex Optimization", 2004
-- Y. Nesterov, "Introductory Lectures to Convex Optimization", 2004
-- D. Bertsekas, "Nonlinear Programming", 1995
+\end{proof}
+
+\begin{definition}[]
+	The optimization problem \ref{eq:optimization} is convex
+	if $f$ and $g_i$ are convex functions,
+	$i = 1, . . . , n_g$ ,
+	and $h$ is affine.
+\end{definition}
+
+\begin{definition}[]
+	Function $q: \mathbb{R}^{n}\rightarrow\mathbb{R}$
+	is convex (affine)
+	if for any $x, y \in \mathbb{R}^{n}$
+	$$
+		q(\theta x+(1 − \theta)y) \le \theta q(x) + (1 − \theta)q(y)\quad\forall\ \theta \in [0, 1]
+	$$
+\end{definition}
+
+\subsubsection{Software Frameworks}
+
+- CVX Python
+- Yalmip
+
+\begin{proposition}
+	$x^\star$ local minimum of (\ref{eq:optimization}),
+	if (\ref{eq:optimization}) convex,
+	then $x^\star$ global minimum of (\ref{eq:optimization})
+\end{proposition}
+
+
+\begin{proof}[Proof ]
+	Counter example, $\exists$ $y\ne x^\star \in C$ such that $f(y)\le f(x^\star)$
+	% todo
+\end{proof}

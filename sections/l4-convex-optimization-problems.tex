@@ -1,33 +1,57 @@
 \section{Convex Optimization Problem}
 
-minimize $f(x),g\le0,h(x)=0$
+Recall general optimization Problem
+\begin{equation}
+	\begin{aligned}
+		\operatorname{minimize}\quad & f(x)                               \\
+		\text{s.t.}                  & g_i(x) \le 0,\quad i = 1,\dots,n_g \\
+		                             & h_i(x) = 0,\quad i = 1,\dots,n_h   \\
+	\end{aligned}
+	\label{eq:optimization}
+\end{equation}
 
-1) Feasibility  Problem
+OPTIMAL VALUE
 
-minimmize s
+\subsection{Feasibility  Problem}
 
-s.t. $g_i(x)\le s\quad \forall i,\dots,n_g$, $h(x)=0$
+\begin{equation}
+	\begin{aligned}
+		\operatorname{minimize}\quad & s                                  \\
+		\text{s.t.}                  & g_i(x) \le s,\quad i = 1,\dots,n_g \\
+		                             & h_i(x) = 0,\quad i = 1,\dots,n_h   \\
+	\end{aligned}
+\end{equation}
 
-2) Linear Programming
+\subsection{Linear Programming}
 
-minimmize $c^{\trans}x$ s.t. $Ax-b\ge0$ and $x\ge0$
+\begin{equation}
+	\begin{aligned}
+		\operatorname{minimize}\  & c\T x & \text{s.t.}\  & Ax-b \ge 0,\ x\ge0
+	\end{aligned}
+\end{equation}
 
-$\rightarrow$ derive dual:
+Derive dual problem:
 
-Step 1: $\mathcal{L}(x,\lambda_1,\lambda_1) = c^{\trans}x-\lambda_1^{\trans}(Ax-b) -\lambda_2^{\trans}x$
+Step 1: $\mathcal{L}(x,\lambda_1,\lambda_2) = c\T x-\lambda_1\T (Ax-b) -\lambda_2\T x,\ \lambda_i \ge0$
 
-Step 2:$\underset{x \in \mathcal{\mathbb{R}}^n}{inf}\mathcal{L}(x,\lambda_1,\lambda_1)
-	= \{-\infty else, \lambda_1^{\trans}b, if\ A^{\trans}\lambda_1+\lambda_2=c$
+Step 2:$\underset{x \in \mathcal{\mathbb{R}}^n}{inf}\mathcal{L}(x,\lambda_1,\lambda_2)
+	= \begin{cases} \lambda_1\T b & \text{if }c-A\T\lambda_1-\lambda_2=0  \\
+              -\infty       & \text{if } c-A\T\lambda_1-\lambda_2=0\end{cases}$
 
-Step 3: Dual Problem
+Step 3: Dual Problem (again linear programm)
+\begin{equation}
+	\begin{aligned}
+		\operatorname{maximize}\  & b\T\lambda & \text{s.t.}\  & c-A\T\lambda \ge 0,\ \lambda\ge0
+	\end{aligned}
+\end{equation}
 
-$\underset{\lambda_1 \ge0}{sup}\lambda_1 b$ s.t. $0\le c-A^{\trans}\lambda_2$
+\subsubsection{Skech}
 
-\begin{itemize}
-	\item dual as a linear program
-	\item Skech, polyhedron, c-vector normal gives 'Levelsets'
-	      and optimal solution in or trough a corner (if exists)
-\end{itemize}
+- Polyhedron
+
+- c-vector normal gives 'Levelsets'
+
+- Optimal solution in or trough a corner (if exists)
 
 \begin{proposition}
 	The optimal solution of a linear program (if it exists)
@@ -35,33 +59,30 @@ $\underset{\lambda_1 \ge0}{sup}\lambda_1 b$ s.t. $0\le c-A^{\trans}\lambda_2$
 	and there exists an optimal solution that is a vertex of the feasible set.
 \end{proposition}
 
-\textbf{Example} Shortest Path
+\subsubsection{Shortest Path}
 
 Analogie with Fluid
 
 Soltuion greater 0, not optimal edges = 0
 
-3) Quadratic Programming
+\subsection{Quadratic Programming}
 
-minimmize $\frac{1}{2}x^{\trans}Px+q^Tx$
-
+minimmize $\frac{1}{2}x\T Px+q\T x$
 s.t. $Gx\le h,\ Ax=b$
 
-$\rightarrow$ if $P=P^{\trans}$ is positive semi-definite
+If $P=P\T$ is positive semi-definite
 then the problem is convex.
 
-
 \textbf{Example} [optimal control] (basis for mpc)
-
-% \subsubsection{Quadratically constrained quadratic program (QCQP)}
+%todo
 
 \subsubsection{Second-order cone program (SOCP)}
 
-minimmize $f^Tx$
+minimmize $f\T x$
 
-s.t. $|A_ix+b|\le c_i^Tx+d_i,\ Fx=g$
+s.t. $|A_ix+b|\le c_i\T x+d_i,\ Fx=g$
 
-Cone: Cn+1=
+Cone: Cn+1= %todo
 
 \textbf{Example} [Markovitz portfolio optimization:]
 
@@ -83,7 +104,7 @@ CALCULATIONS
 
 \subsection{Semidefinite programming (SDP)}
 
-minimmize $c^{\trans}x$
+minimmize $c\T x$
 
 s.t. $x_1F_1,\dots+x_nF_n <= 0$ and $Ax-b=b$
 
@@ -91,5 +112,6 @@ $\rightarrow$ the 'standard' form
 
 $$\min _{x \in \mathbb{R}^{n*n}} tr(CX)$$
 
+Problem Classes
 
-\textbf{Diagramm}
+\includegraphics[width=\columnwidth]{images/problem_class.png}

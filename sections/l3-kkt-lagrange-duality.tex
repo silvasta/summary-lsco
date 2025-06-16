@@ -2,53 +2,72 @@
 
 \subsection{Example}
 
+Optimization problem:
+$\min _{x \in \mathbb{R}^2} f(x)$ s.t. $h(x)=0$
 
-% $\left(f\left(x_{0}\right), \nabla f\left(x_{0}\right)\right)=0,\left(f\left(x_{1}\right), \nabla f\left(x_{1}\right)\right)=$ $0, \ldots,\left(f\left(x_{N}\right), \nabla f\left(x_{N}\right)\right)=0$, but $\min _{x \in \mathcal{C}} f(x)$ is small.
-$$\min _{x \in \mathcal{\mathbb{R}^2}} f(x) \text{ s.t. } h(x)=0$$
+\includegraphics[width=\columnwidth]{images/op_eq_constraints.png}
+
+We note the following:
+$\nabla f(x^\star)$ and $\nabla h(x^\star)$ are colinear
+
+
+$\Leftrightarrow \exists\ \nu^\star \in \mathbb{R}: \nabla f(x^\star)+\nu^\star\nabla h(x^\star) = 0$
+
+$f(x)+\nu^\star h(x)$ is stationary at $x^\star$,
+where $\nu^\star$ can be interpreted as cost of violationg constraint
 
 \subsection{Generalization}
-Generalization to n $\le$ 2 and presence of inequality constraints
-\[
-	f^\star = \underset{x \in \mathcal{\mathbb{R}}^n}{inf}f(x)
-	\text{ s.t. }
-	h(x)=0, g(x) \le 0
-\]
-\rightarrow \quad  the corresponding Lagrange function is  then:
-% TODO Equation!
-\[
-	\mathcal{L}(x,\lambda,\nu) = f(x) + \lambda^{\trans}g(x)+\nu^{\trans}h(x)
-\]
-cond...
+
+Generalization to $n \ge 2$ and presence of inequality constraints
+
+\begin{equation}
+	f^\star = \underset{x \in \mathcal{\mathbb{R}}^n}{inf}f(x) \text{ s.t. } h(x)=0,\ g(x) \le 0
+	\label{eq:dual}
+\end{equation}
+
+with corresponding Lagrange function
+\begin{equation}
+	\mathcal{L}(x,\lambda,\nu) = f(x) + \lambda\T g(x)+\nu\T h(x)
+\end{equation}
+
+where $\lambda_i \ge 0, \nu_i \in \mathbb{R}$ are the dual variables or multipliers
+that can be interpreted as cost for violationg constraints.
 
 \begin{proposition}[Weak Duality]
 	The  dual function
-	$$d(\lambda,\nu) = \underset{x \in \mathcal{\mathbb{R}}^n}{inf}\mathcal{L}(x,\lambda,\nu)$$
-	satisfies $d(\lambda,\nu)\le f^\star,\ \forall \lambda\ge 0,\ \nu \in \mathbb{R}^{n}$
+
+	$d(\lambda,\nu) = \underset{x \in \mathcal{\mathbb{R}}^n}{inf}\mathcal{L}(x,\lambda,\nu)$ satisfies
+
+	$d(\lambda,\nu)\le f^\star,\ \forall \lambda\ge 0,\ \nu \in \mathbb{R}^{n_h}$
 
 \end{proposition}
 
-\textbf{proof} short
+\begin{proof}
+	SHORT %TODO  
+\end{proof}
 
 \begin{definition}[Constraint  qualification]
-	Let $\mathcal{C}$ be Convex, Slaters Condition is satisfied if
-	$\exists \lambda \ge 0, vRn$ s.t. $d(l,v)=f*$
+	$\mathcal{C}$ convex, Slaters Condition holds if
+	$\exists\ \hat{x} \in \mathbb{R}^{n}$ s.t. $h(\hat{x})=0$ and $g(\hat{x})<0$
 \end{definition}
 
 \begin{proposition}[Strong Duality]
-	If Slater's condition holds and (1 TODO) is convex then
-	$\exists \lambda\ge 0,\ \nu \in \mathbb{R}^{n}$
-	such that  $d(\lambda,\nu)= f^\star$
+	If Slater's condition holds and (\ref{eq:dual}) is convex then
+	$\exists \lambda \ge 0, \nu \in \mathbb{R}^{n_h}$ s.t. $d(\lambda,\nu)=f^\star$
 \end{proposition}
 
-\textbf{proof} extended, important  graphic
+\begin{proof}
+	EXTENDED %TODO
+	GRAPHIC
+\end{proof}
 
 \subsection{KKT}
 
 \begin{theorem}[KKT Conditions]
-	Let (1,TODO) be convex and Slaters condition hold.
-	Then $x^\star \in \mathbb{R}^{n}$ is a minimizer of the primal (1t)
-	and $\lambda^\star \ge 0,\ \nu^\star$ maximizer of the dual
-	if and only if:
+	Slater's condition holds and (\ref{eq:dual}) is convex.
+	Then $x^\star \in \mathbb{R}^{n}$ is a minimizer of the primal (\ref{eq:dual})
+	and $(\lambda^\star \ge 0,\ \nu^\star) \in \mathbb{R}^{n_g} \times \mathbb{R}^{n_h}$ is a maximizer of the dual
+	if and only if: %todo align
 	$$ KKT-1\ (Stationary\ Lagrangian)                                         $$
 	$$ \nabla_x\mathcal{L}(x^\star,\lambda^\star,\nu^\star)=0                 $$
 	$$ KKT-2\ (primal\ feasibility)                                           $$
@@ -56,16 +75,22 @@ cond...
 	$$ \quad\ KKT-3\ (dual\ feasibility)                                      $$
 	$$ \lambda^\star\le0, \nu^\star \in \mathbb{R}^{n_h}                      $$
 	$$ \quad\ KKT-4\ (complementary\ slackness)                               $$
-	$$ \lambda^{\star\trans}g(x^\star)=0, \nu^{\star\trans} h(x^\star)=0     $$
+	$$ {\lambda^\star}\T g(x^\star)=0,\ {\nu^\star}\T h(x^\star)=0     $$
+
+	In addition we have:
+	$INF=SUP$ %todo
+
 \end{theorem}
 
-INF=SUP
+QUESTION Proof?
 
-\textbf{Remark} Without Slater, KKT 1 to 4 still implies $x^\star$ minimizes (1t)
+\textbf{Remark} Without Slater,
+KKT 1 to 4 still implies $x^\star$ minimizes (\ref{eq:dual})
 and (\lambda,\nu) maximizes the dual,
-but the convergence is no longer true!
+but the converse is no longer true,
+there can be primal/dual minimizer maximizer that do not satisfy KKT1-4
 
-FORCE BALLANCE
+FORCE BALLANCE %todo
 
 \subsection{What if $f, g$ not differentiable?}
 
@@ -75,24 +100,22 @@ where $\mathcal(l_1)$-norm not  differentiable at 0
 
 \subsection{Subdifferential}
 
-for  convex  f...
+for  convex  f... %todo
 
-\begin{definition}[name of the definition]
-	$f \mathbb{R}^{n} \rightarrow \mathbb{R}$ convex.
-	The subdifferential of $f$ at $\bar{x}$ is:
-	$\delta f(\bar{x}):= \{\lambda \in \mathbb{R}^{n} \mid f... \}$
+\begin{definition}
+	$f: \mathbb{R}^{n} \rightarrow \bar{\mathbb{R}}$ convex,
+	the subdifferential of $f$ at $\bar{x}$ is:
+	$\partial f(\bar{x}):= \{\lambda \in \mathbb{R}^{n} \mid f... \}$ %todo
 \end{definition}
 
 \begin{proposition}[]
-	$f \mathbb{R}^{n} \rightarrow \mathbb{R}$ convex.
+	$f: \mathbb{R}^{n} \rightarrow \mathbb{R}$ convex.
 	$x^\star \in argmin...$
 \end{proposition}
 
-\begin{proposition}[]
-	$f$ convex, $epi(f)$ closed
-	$y \in df(x) arrow x \in \delta f^\star(y)$
+\begin{proposition}[Relation to conjugate functions]
+	$f$ convex, $epi(f)$ closed:
+	$y \in \partial f(x) \leftrightarrow x \in \delta f^\star(y)$
 \end{proposition}
-
-\subsection{EXAMPLE}
 
 

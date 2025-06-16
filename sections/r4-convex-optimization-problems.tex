@@ -22,9 +22,6 @@ Variable transformation $y_i=\log{x_i}$ on objective and constraints.
 
 - Transformation
 
-
-
-
 \subsubsection{Sum of Squares}
 
 - Polynomial Optimization
@@ -50,7 +47,7 @@ $$f(x) = \displaystyle\sum_{i}^{}g_i^2(x) \quad g_i \text{: polynomial}$$
 $z(x)$ as vector that contains all polynomials of degree $\le d$
 
 \begin{theorem}[SOS]
-	$p(x)$ is an SOS if and only if $\exists\ Q$ such that $Q >=0$ and $p(x)=z(x)^{\trans}Qz(x)$
+	$p(x)$ is an SOS if and only if $\exists\ Q$ such that $Q >=0$ and $p(x)=z(x)\T Qz(x)$
 \end{theorem}
 
 Proof
@@ -75,3 +72,4 @@ vdot = dVf(x)
 = [2ax1,2bx2]*dynvec
 
 verify vx>0,-vdot>0
+%TODO

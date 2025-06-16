@@ -3,30 +3,25 @@
 \begin{definition}[smoothness]
 	The function $f : \mathbb{R}^{n}\rightarrow \mathbb{R}$ is $L$-smooth
 	if $\nabla f(x)$ satisfies
-	\[|\nabla f(x)-\nabla f(y)|\le L|x-y| \quad \forall x,y \in \mathbb{R}^{}\]
+	\[|\nabla f(x)-\nabla f(y)|\le L|x-y| \quad \forall x,y \in \mathbb{R}^{n}\]
 \end{definition}
 
 This result (with Taylors'Theorem) in:
 
-
-\[f(y)\le f(x)+\nabla f(x)^{\trans}(y-x) +\frac{L}{2}|x-y|^2 \quad \forall x,y \in \mathbb{R}^{}\]
-
+\[f(y)\le f(x)+\nabla f(x)\T (y-x) +\frac{L}{2}|x-y|^2 \quad \forall x,y \in \mathbb{R}^{}\]
 
 \begin{definition}[strong convexity]
-	The function $f : \mathbb{R}^{n}\rightarrow \mathbb{R}$ is $\mu$ strongly convex
-	it it satisfies
+	The function $f : \mathbb{R}^{n}\rightarrow \mathbb{R}$ is $\mu$-strongly convex
+	if it satisfies
 
-	\[f(y)\ge f(x)+\nabla f(x)^{\trans}(y-x) +\frac{\mu}{2}|x-y|^2 \quad \forall x,y \in \mathbb{R}^{}\]
+	\[f(y)\ge f(x)+\nabla f(x)\T (y-x) +\frac{\mu}{2}|x-y|^2 \quad \forall x,y \in \mathbb{R}^{}\]
 \end{definition}
 
 \subsection{Gradient Descent}
 
-PSEUDOCODE
+Given $x_0$ and stepsize $T$ > 0
 
-$x = x_0 \in \mathbb{R}^{n}$
-
-for x in range N
-\quad\dots
+$\quad x_{k+1}=x_k - T\nabla f(x_k)\quad$for$\ k = (k_0,\dots,k_N)$
 
 HERLEITUNG
 
@@ -34,33 +29,36 @@ HERLEITUNG
 
 $\mu \le h \le L$
 
-\[T^\star = \frac{2}{L+M}  \]
+\[T^\star = \frac{2}{L+\mu}  \]
 
 GRAFIK
 
-
-$$\rho (T^\star) = |XXX|$$
+\textbf{Convergence rate}
+$$\rho (T^\star) = |1-\frac{2L}{L+\mu}|= \frac{L-\mu}{L+\mu}$$
 
 therefore with stepsize $T^\star$
 
 $|x_N - x^\star| \le \epsilon $
+if $N \ge \frac{\kappa+1}{2}\operatorname{ln}(\frac{|x_0 - x^\star|}{\epsilon})$
 
 \subsection{Momentum-based methods}
+\begin{equation}
+	\begin{aligned}
+		q_{k+1} & = q_k + T_{p_{k+1}}                       \\
+		p_{k+1} & = (1-2dT)p_k-T\nabla f(q_k + \beta p_k)/L
+	\end{aligned}
+\end{equation}
 
-$$ q_{k+1} = q_k + T_{p_{k+1}}$$
-$$p_{k+1} = (1-2dT)p_k-T\nabla f(q_k + \beta p_k)/L$$
-
-Discretization of $\dot{q}=p, \dot{p} = -2d ...$
-
-Spring damper analogy
-
-- for $T = 1, d=\frac{1}{\sqrt{k}+1}, \beta =\frac{\sqrt{k}-1}{\sqrt{k}+1}$ 
+SPRING DAMPER ANALOGY
 
 Nesterovs accelerated gradient methods
 
-- for $T = \frac{2\sqrt{k}}{\sqrt{k}+1}, d=\frac{1}{\sqrt{k}+1},\beta =0$ 
+- for $T = 1, d=\frac{1}{\sqrt{k}+1}, \beta =\frac{\sqrt{k}-1}{\sqrt{k}+1}$
 
 Heavy Ball (tuned quadratics)
+
+- for $T = \frac{2\sqrt{k}}{\sqrt{k}+1}, d=\frac{1}{\sqrt{k}+1},\beta =0$
+
 
 \textbf{What is the convergence rate?}
 
@@ -74,11 +72,13 @@ ROOT Locus
 
 - Heavy ball circle $c=((\lambda -L)/2 ,0), r= \lambda +L$
 
+TODO
+%TODO
 \begin{theorem}[NOT Nesterovs]
-  $f \mu$ strongly convex, $L$ smooth
-  Nesterovs Method satisfies
-  $$|x_N - x^\star|\le (1-\frac{2}{\sqrt{k}+1})|x_0 - x^\star| \forall k\ge 0$$
-  
+	$f \mu$ strongly convex, $L$ smooth
+	Nesterovs Method satisfies
+	$$|x_N - x^\star|\le (1-\frac{2}{\sqrt{k}+1})|x_0 - x^\star| \forall k\ge 0$$
+
 \end{theorem}
 
 proof with H Function

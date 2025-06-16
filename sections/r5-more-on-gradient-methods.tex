@@ -4,7 +4,7 @@
 
 - L-smoothnes:
 
-\[f(y)\le f(x)+\nabla f(x)^{\trans}(y-x) +\frac{L}{2}|x-y|^2 \quad \forall x,y \in \mathbb{R}^{}\]
+\[f(y)\le f(x)+\nabla f(x)\T (y-x) +\frac{L}{2}|x-y|^2 \quad \forall x,y \in \mathbb{R}^{}\]
 
 \subsubsection{Gradien Descent}
 
@@ -40,32 +40,29 @@ $$ f(x_T)-minf(x)\le \frac{2L}{T} ||x_0-x^\star||^2 $$
 $\eta = \frac{1}{lL}$ converges with ...
 
 
-\subsection{Stepsize}
+\subsubsection{Stepsize}
 
 - guess if dont know L
 
 - start with $\eta$ ca $\epsilon$
 
 - doulbe $\eta$ until checkable condition does not hold
-\\
 
---- line search
+\textbf{Line search}
 
 - 1-dimensional programming
 
 - find $\eta$ with optimization for every step
 
 - can result in stepsive $\ge 1/L$ as it is for normal GD
-\\
 
---- line search for Heavy Ball Method
+\textbf{Line search for Heavy Ball Method}
 
 - works also for quadratics
 
 - conjugate  GD, orthogonalize?
-\\
 
---- Adaptive Methods
+\textbf{Adaptive Methods}
 
 - normalized GD
 

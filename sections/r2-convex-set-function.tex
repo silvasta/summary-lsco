@@ -1,12 +1,11 @@
-\section{T2 - Convex Sets and Convex Functions}
+\subsection{Recitation}
 
-\subsection{Convex Sets}
+\subsubsection{Convex Sets}
 
-\begin{definition}[conv]
-	A set $\mathcal{C}$ is convex in and only if for all
-	$x,y \in \mathcal{C}$ and $\theta \in [0,1]$:
-	$$\theta x + (1-\theta)y \in \mathcal{C}$$
-\end{definition}
+A set $\mathcal{C}$ is convex if and only if for all
+$x,y \in \mathcal{C}$ and $\theta \in [0,1]$:
+$$\theta x + (1-\theta)y \in \mathcal{C}$$
+
 \subsubsection{Convex Cone}
 
 conic combination
@@ -37,14 +36,16 @@ Example
 
 Sylvester Condition
 
-\subsection{Convex Functions}
+\subsubsection{Convex Functions}
 
 Definition
 
 \subsubsection{Methods for establishing convexity}
 
 1. Verify from definition
+
 2. Second order condition
+
 3. Operations that preserve convexity
 
 \subsubsection{Log-Sum-Exp}
@@ -54,14 +55,15 @@ $$f(x) = log(e^x_1+...+e^x_n)$$
 differentiable approximation of max(x)
 
 How to check convexity?
-\rightarrow second-order condition $\nabla^2f >= 0$
+
+Second-order condition $\nabla^2f\ge 0$
 
 \subsubsection{Nonnegative Weighted Sum}
 
 $\alpha(f_1 + f_2)$ convex if $f_1, f_2$ convex, $\alpha > 0$
 
-\rightarrow
-If f1 , . . . , fm are convex and w1 , . . . , wm ≥ 0, then w1 f1 + . . . + wm fm is convex
+$f_1,\dots,f_m$ convex, $w_1,\dots,w_m \ge 0$
+$\Rightarrow w_1f_1+\dots+w_mf_m$ convex
 
 \subsubsection{Composition with Affine Function }
 
@@ -70,7 +72,7 @@ $$g(x) =f(Ax+b) $$
 Examples
 
 Log barrier for linear inequalities
-\rightarrow transforms constrained problem in unconstrained
+$\rightarrow$ transforms constrained problem in unconstrained
 
 Norm Function
 
