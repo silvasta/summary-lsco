@@ -1,17 +1,18 @@
 
-% ANCIENT, maybe for images or so?
+% Needed  for fontspec
 %! TeX program = lualatex
 %-----------------------------------------------------------------
 % Document type
 %-----------------------------------------------------------------
-\documentclass[layout=tight, columns=4]{sst-custom}
+% \documentclass[layout=tight, columns=4]{sst-custom}
+% \documentclass{sst-custom}
 % \documentclass[layout=regular, columns=2]{sst-custom}
-% \documentclass[layout=preview]{sst-custom}
+\documentclass[layout=preview]{sst-custom}
 %-----------------------------------------------------------------
 % Toggle
 %-----------------------------------------------------------------
 \newtoggle{showRecital}
-% \toggletrue{showRecital}
+\toggletrue{showRecital}
 % \togglefalse{showRecital}
 %-----------------------------------------------------------------
 
@@ -21,11 +22,13 @@
 		%-----------------------------------------------------------------
 		\input{title-blue-grey.tex}
 		%-----------------------------------------------------------------
-		% footnotesize
+		% \tableofcontents
+		%-----------------------------------------------------------------
+		% \footnotesize
 		%-----------------------------------------------------------------
 		\foreach \lecture / \recital in {%
-		% {sections/l1-introduction.tex}/
-		% {sections/r1-introduction.tex},
+		{sections/l1-introduction.tex}/
+		{sections/r1-introduction.tex},
 		{sections/l2-convex-set-function.tex}/
 		{sections/r2-convex-set-function.tex},
 		{sections/l3-kkt-lagrange-duality.tex}/
@@ -36,8 +39,8 @@
 		{sections/r5-more-on-gradient-methods.tex},
 		{sections/l6-gradient-methods-2.tex}/
 		{sections/r6-gradient-methods-2.tex},
-		% {sections/l7-stochastic-gradient-descent.tex}/
-		% {sections/r7-stochastic-gradient-descent.tex},
+		{sections/l7-stochastic-gradient-descent.tex}/
+		{sections/r7-stochastic-gradient-descent.tex},
 		{sections/l8-admm.tex}/
 		{sections/r8-admm.tex},
 		{sections/l9-distributed-optimization-admm.tex}/

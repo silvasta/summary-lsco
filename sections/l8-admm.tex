@@ -1,3 +1,169 @@
 \section{Alternating Direction Method of Multipliers (ADMM)}
 
+Motivation
+
+Last week:
+
+\begin{equation}
+	\min_{x \in \mathbb{R}^{n}} \sum_{i = 1}^{m} f_i(x)
+	\label{eq:sum_f_i}
+\end{equation}
+
+Today: exploit parallesization
+
+\begin{equation}
+	\min_{x_1,\dots,x_m} \sum_{i = 1}^{m} f_i(x_i)\text{ s.t. }x = (x_1,\dots,x_m)
+\end{equation}
+
+\subsection{Dual ascent}
+
+Start with:
+
+\begin{equation}
+	\min_{x \in \mathbb{R}^{n}} f_i(x) \text{ s.t. } Ax=b
+\end{equation}
+
+Derive dual:
+
+$$\mathcal{L}(x,\lambda) = f(x) + \lambda\T (Ax-b)$$
+
+$$\underset{x \in \mathcal{\mathbb{R}}^n}{inf}\mathcal{L}(x,\lambda) =
+	-\underset{x \in \mathcal{\mathbb{R}}^n}{sup}\{(-\lambda\T A)x-f(x)\}-\lambda\T b$$
+
+%todo 
+
+fstar
+
+d(lambda)
+
+The subgradient is given by:
+
+$$ \partial d(\lambda)= A\partial f^\star(-A\T\lambda) -b $$
+
+optimizer satisfies...
+
+%todo 
+
+BOX
+
+Two results in dual subgradient ascent
+
+$\lambda_{k+1}=\lambda_k+T_k(Ax_k-b)$, $x_k \in A$
+
+\subsection{Example 1}
+
+Starting from (\ref{eq:sum_f_i}) and with $Ax=0$
+s.t. $x_1-x_2=x_2-x_3=\dots=x_m-x_1=0$
+
+BLACKBOARD
+
+$$ x_{k}\in \underset{x_1,\dots,x_m\in \mathbb{R}^{n}} {\operatorname{argmin}}
+	(\sum_{i = 1}^{m} f_i(x)) + \lambda_1(x1-x2) + \lambda_2(x2-x3) +\dots$$
+
+With that the subgradient becomes
+
+$$ x_{k_i}\in \underset{\hat{x_i}\in \mathbb{R}^{n}} {\operatorname{argmin}}
+	\{f_i(\hat{x_i})-\lambda_{k_{i-1}}\T\hat{x_i}+\lambda_{k_{i}}\T\hat{x_i}\} $$
+
+for $i=2,3,\dots,m-1$ in parallel
+
+%todo
+
+$\lambda_{k+1,i}=\lambda_{k,i}+T_k(x_{k_i}-x_{k_{i+1}})$
+
+\subsection{Real life examples}
+
+Video Quadcopter
+
+- Not attached Pendulum
+
+- Nonconvex OP
+
+- Trajectory offline computed
+
+- Track it with time-variying LQR feedback controller
+
+Video Robotarm
+
+- Table tennis
+
+- Very flexibel arm
+
+Dynamic control of magnetic navigation
+
+- Balance stick on 4 magnets
+
+- Precise control of fields
+
+\subsection{Example 2}
+
+
+$f(x=) \sum_{i = 1}^{m} f_i(x_i)$ with $Ax=b$
+
+$x = (x_1,\dots,x_n)$ and $A=[A_1,\dots,A_m]$
+
+Dual subgradient becomes
+
+$x_{k_i}\in \underset{\hat{x_i}} {\operatorname{argmin}} \{f_i(\hat{x_i})+\lambda_{k}\T A_i\hat{x_i}\}$
+(local minimization)
+
+
+$\lambda_{k+1}=\lambda_{k}+T_k(\sum_{i = 1}^{m}A_ix_{k_i}-b)$
+(broadcasting)
+
+IMAGE  %todo
+
+\begin{proposition}
+	$f$ convex with closed epigraph, $f$ is $\mu$-strongly convex
+	if and only if $f^\star$ is $1/\mu$-smooth.
+\end{proposition}
+
+From that we conclude
+
+$d(\lambda) = -f^\star(-A\T\lambda)-\lambda\T$
+
+f $\mu$-strongly convex $\rightarrow f^\star$ is $1/\mu$ smooth
+$\rightarrow d(\lambda)$ is $\bar{\sigma}(AA\T)$ $1/\mu$-smooth
+
+f is $L$-smooth $\rightarrow f^\star$ is $1/L$ strongly convex
+$\rightarrow d(\lambda)$ is $\bar{\sigma}(AA\T)$ $1/L$-smoothly convex
+
+Problem
+$f$ $\mu$-strongly convex is hardly restricting condition
+
+\subsection{ADMM}
+
+$$\min_{x \in \mathbb{R}^{n}}f(x)+ \frac{\rho}{2}|Ax-b|^2 $$
+
+s.t. $Ax=b$ with $\rho > 0$
+
+\subsubsection{Augmented Lagrangian}
+
+$$x_k = A$$
+$$\lambda_{k+1} = A$$ %TODO
+
+ADVANTAGE
+
+DISADVANTAGE
+
+SOLUTION
+\subsection{Alternating direction method  of multipliers}
+
+CONSIDER f,g
+
+form augmented objective
+
+augmented  Lagrangian
+
+ADMM
+
+$$x_k=\underset{x \in \mathbb{R}^{n} }{\operatorname{argmin}}\mathcal{L}_p(x,z_{k-1},\lambda_k) $$
+
+$$z_k=\underset{x \in \mathbb{R}^{n} }{\operatorname{argmin}}\mathcal{L}_p(x_k,z,\lambda_k) $$
+
+$$ \lambda_{k+1}=\lambda_k+\rho(Ax_k+Bz_k-c)$$
+
+EXAMPLE Images  Low/High rank
+
+
 

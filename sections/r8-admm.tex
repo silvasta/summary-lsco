@@ -1,1 +1,76 @@
 \subsection{Recitation}
+
+\subsubsection{Recap}
+Optimization Problem
+
+min f,g
+
+Augmented Lagrangian
+
+ADMM
+
+$$x_k=\underset{x \in \mathbb{R}^{n} }{\operatorname{argmin}}\mathcal{L}_p(x,z_{k-1},\lambda_k) $$
+
+$$z_k=\underset{x \in \mathbb{R}^{n} }{\operatorname{argmin}}\mathcal{L}_p(x_k,z,\lambda_k) $$
+
+$$ \lambda_{k+1}=\lambda_k+\rho(Ax_k+Bz_k-c)$$
+
+Wecan also consider completing the square in the augmented Lagrangian as
+
+$$\mathcal{L}_p(x,z,\lambda) =
+	f(x)+g(z)+\frac{\rho}{2}|Ax+Bz-c+\frac{\lambda}{\rho}|^2-\frac{1}{2\rho}|\lambda|^2 $$
+
+and introduce new dual variable
+$\mu=\frac{\lambda}{\rho}$
+to obtain a scaledversion of ADMM.
+
+SYSTEM
+
+$x_k$
+
+$z_k$
+
+$\nu_{k+1}$
+
+\subsubsection{Contrained optimization via ADMM}
+
+min...
+
+Solve with ADMM:
+
+1. Transform
+
+2. Apply ADMM
+
+\subsubsection{Solving  QPs with ADMM}
+
+QP
+
+1. Transform to ADMM form:
+
+min f,g s.t. A..
+
+2. Apply ADMM
+
+$x_k$
+
+$z_k$
+
+$\nu_{k+1}$
+
+3. Simplify the minimization steps
+
+x-minimiztion is again  QP with constraints
+
+- Lagrangian
+
+- KKT $\nabla_x\mathcal{L}(x,\mu)=\dots=0$
+$\Leftrightarrow$ Matrix system
+
+z-minimiztion
+
+- since $g$ indicator function ...
+
+- ..projection step..
+
+$z_k=\underset{\mathbb{R}_+^{n}}{\operatorname{prox}}(x_k+\mu_k)$

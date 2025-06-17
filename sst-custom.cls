@@ -35,6 +35,7 @@
 \RequirePackage{longtable}
 \RequirePackage{tcolorbox}
 \RequirePackage{pgffor}
+\RequirePackage{csquotes}
 %-----------------------------------------------------------------
 % Key-Value options
 %-----------------------------------------------------------------
@@ -66,15 +67,15 @@
 	\RequirePackage[
 		paperheight=297mm,
 		paperwidth=210mm,
-		top=19mm,
-		bottom=19mm,
-		footskip=5mm,
-		inner=19mm,
-		outer=19mm,
+		top=18mm,
+		bottom=18mm,
+		footskip=10mm,
+		inner=18mm,
+		outer=18mm,
 		centering
 	]{geometry}
 	%-----------------------------------------------------------------
-	\setlength{\columnsep}{19mm}
+	\setlength{\columnsep}{11mm}
 	%-----------------------------------------------------------------
 }{}
 %-----------------------------------------------------------------
@@ -98,7 +99,10 @@
 	\setlength{\intextsep}{0.2mm} % Space above/below in text
 	\setlength{\textfloatsep}{0.2mm} % Space between floats
 	\setlength{\floatsep}{0.2mm} % Space between floats
-	% %-----------------------------------------------------------------
+	%-----------------------------------------------------------------
+	\setlength{\parindent}{0mm}
+	\setlength{\parskip}{0mm}
+	%-----------------------------------------------------------------
 	\setlist{itemsep=0mm, topsep=0mm} % For all itemize/enumerate
 	\setlist[itemize]{itemsep=0pt, leftmargin=3mm}
 	\setlist[enumerate]{itemsep=0pt, leftmargin=4mm}
@@ -134,13 +138,14 @@
 % FONT
 %-----------------------------------------------------------------
 \usepackage{fontspec}
-\usepackage[ngerman]{babel}
+% \usepackage[ngerman]{babel}
+\usepackage[english]{babel}
 % \babelfont{rm}{Lato}
 % \babelfont{rm}{Roboto}
 \babelfont{rm}{Roboto Condensed}
 % \babelprovide[onchar=ids fonts]{russian}
 % \babelfont[russian]{rm}{Roboto Condensed}
-\babelprovide{english}
+% \babelprovide{english}
 %-----------------------------------------------------------------
 % font of math
 % \usepackage{lmodern} # default
@@ -149,7 +154,7 @@
 %-----------------------------------------------------------------
 % Custom commands
 %-----------------------------------------------------------------
-\newcommand{\trans}{\textnormal{\scriptsize T}}
+\newcommand{\T}{^\textnormal{\scriptsize T}}
 %-----------------------------------------------------------------
 % Theorem styles
 %-----------------------------------------------------------------
@@ -158,13 +163,10 @@
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
-%-----------------------------------------------------------------
-% Other formatting
-%-----------------------------------------------------------------
-\setlength{\parindent}{0mm}
-\setlength{\parskip}{0mm}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
 %-----------------------------------------------------------------
 % Section depth
 %-----------------------------------------------------------------
 \RequirePackage{sectsty}
-\setcounter{secnumdepth}{1}
+\setcounter{secnumdepth}{3}
