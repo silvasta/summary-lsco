@@ -1,1 +1,128 @@
 \section{Signal denoising and regression}
+
+Linear equation $y=Ax, y \in \mathbb{R}^{n}, x \in \mathbb{R}^{m}, A \in \mathbb{R}^{m \times n}$
+
+- classic setting $m \gg n$
+
+- modern setting $m \ll n$
+
+\subsection{Classic setting with outliers}
+
+$$\min_{x \in \mathbb{R}^{n}}|Ax-y|_2^2$$
+
+uses $l_2$-norm to penaliize large residuals
+
+GRAFIK
+
+but as a result, outliers have a lot of weight
+
+Grafik
+
+Weight of outliers can be reduced with $l_1$-norm
+
+\begin{equation}
+	\begin{aligned}
+		\min_{x \in \mathbb{R}^{n}}|Ax-y|_2^2
+	\end{aligned}
+	\label{eq:l1-norm}
+\end{equation}
+
+Rewrite (\ref{eq:l1-norm}) as convex program
+
+min,sum,zi
+
+s.t.
+
+AGAIN REformulate
+
+-> linear program
+
+For best of both worlds:
+
+$$\phi_\text{Hub}(u) =
+	\begin{cases}
+		\ u^2     & \text{if }|u|\ge M \\
+		\ 2Mu-M^2 & \text{if }|u|>M
+	\end{cases}$$
+
+resulting  OP:
+
+min,sum,fub,()
+
+\subsection{Modern setting}
+
+- $Ax=y$ has infinetly many solutions
+
+- Which one is the best?
+
+- add regulizer
+
+Tikhonov regulizer:
+$\min_{x \in \mathbb{R}^{n}}|Ax-y|_2^2 + \lambda |x|_2^2$
+
+Least Absolute Shrinkage and Selecttion Operator:
+
+$ \min_{x \in \mathbb{R}^{n}}|Ax-y|_2^2 + \lambda |x|_1$
+
+is equalent to
+
+
+$ \min_{x \in \mathbb{R}^{n}}|Ax-y|_2^2$ s.t.$|x|_1\le c$
+
+\subsubsection{Example}
+
+Audio signal, $f_1=102$ Hz, $f_2=305$ Hz
+\begin{equation}
+	\tilde{x}(t)=\cos{(2\pi f_1t)}+\cos{(2\pi f_2t)}+n(t)
+	\label{eq:audio-signal}
+\end{equation}
+
+Signal evaluated at 100 randomly selected points $t_i\in[0,1]$
+
+MATLAB script
+
+-> how choose $\lambda$?
+
+
+Projection  on $l_1$ Ball
+
+Approach to solve
+$\min_{x \in \mathbb{R}^{n}}\frac{1}{2}|Ax-y|_2^2$ s.t.$|x|_1\le c$
+with projection:
+
+$$ \underset{ x \in \mathbb{R}^{n}}{\operatorname{argmin}}\frac{1}{2}|x-y|_2^2$$
+
+results in Lagrange  function:
+$$
+	\begin{aligned}
+		\mathcal{L}(x,\lambda) & =\frac{1}{2}|x-y|_2^2-\lambda(c-|x|_1)                          \\
+		                       & =(\sum_{i=1}^n(x_i-y_i)^2+\lambda|x_i|)-\lambda c, \lambda\ge 0
+		%TODO: big brackets
+	\end{aligned}
+$$
+where we set
+$l_i(x,\lambda) =
+	\frac{1}{2}(x_i-y_i)^2+\lambda |x_i|$
+
+Figure of $\partial_xl_i$ with respect to $x_i$
+
+IMAGE
+
+Result:
+
+$$\begin{aligned}
+		x_i & = \{\underset{ x \in \mathbb{R}^{n}}{\operatorname{argmin}}\mathcal{L}(x,\lambda)\}_i
+		    & = \{t1\}                                                                                         \\
+		    &                                                                                       & = \{t1\} \\
+		    &                                                                                       & = \{t1\} \\
+	\end{aligned}$$
+
+-> how choose $\lambda$?
+
+if ... then ..
+
+Example 3 Image denoising
+
+Example 4 Face recognition
+
+

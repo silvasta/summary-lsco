@@ -1,1 +1,156 @@
 \section{Distributed optimization with ADMM}
+
+Motivation
+
+- Slides
+- Distributed computation
+- Vanilla vs averaging
+
+We start with:
+
+$$	\min_{x \in \mathbb{R}^{n}} \sum_{i = 1}^{m} f_i(x) $$
+
+\textbf{Goal} Solve problem such that each term can be handled by its own processor.
+
+Reformulation:
+
+
+\begin{equation}
+	\min_{x_1,\dots,x_N \in \mathbb{R}^{n}, z \in \mathbb{Z}^{n}} \sum_{i = 1}^{N} f_i(x_i)
+	\quad\text{s.t.}\quad x_i = z,\quad i = 1,\dots,N
+	\label{eq:sum_distributed}
+\end{equation}
+
+and apply ADMM
+
+\subsection{Global consensus problem}
+
+Solve (\ref{eq:sum_distributed}) with ADMM
+
+Step 1: Form augmented Lagrangian
+
+$\mathcal{L}_p()=SUM$
+
+Step 2: Formulate ADMM
+
+% todo reformularte
+% $$x_k=\underset{x \in \mathbb{R}^{n} }{\operatorname{argmin}}\mathcal{L}_p(x,z_{k-1},\lambda_k) $$
+%
+% $$z_k=\underset{x \in \mathbb{R}^{n} }{\operatorname{argmin}}\mathcal{L}_p(x_k,z,\lambda_k) $$
+%
+$$ \lambda_i^{k+1}=\lambda_i^k+\rho(x_i^{k+1}-z^{k+1})$$
+
+$\rho N z_{k+1} =\dots$
+
+$\sum_{i = 1}^{N} \lambda_i = \sum_{i = 1}^{N}\{\lambda_i^k-\lambda_i^k\}=0$
+
+therefore with $\lambda_i = 0$ for $i=1,\dots,N$
+
+$z^{k+1} = ...$
+
+this results in...
+
+GRAFIK
+
+\subsection{Sharing Problem}
+
+$$\min_{x_1,\dots,x_N \in \mathbb{R}^{n}} \sum_{i = 1}^{N} f_i(x_i) +  g( \sum_{i = 1}^{N} x_i )$$
+
+Apply ADMM:
+
+$x_i=z_i,\ i=1,\dots,N$
+
+Step 1: Form augmented Lagrangian
+
+$$\mathcal{L}_p(x_1,\dots,x_N,z_1,\dots,z_\lambda,x_1,\dots,\lambda_N)=
+	\sum_{i = 1}^{N} f_i(x_i) +  g( \sum_{i = 1}^{N} z_i)
+	+ \rho ... $$
+
+Step 2: Formulate ADMM dynamics
+
+\begin{equation}
+	x_i^{k+1}
+	\label{eq:sharing_x}
+\end{equation}
+
+\begin{equation}
+	z_i^{k+1}
+	\label{eq:sharing_z}
+\end{equation}
+
+\begin{equation}
+	\lambda_i^{k+1}
+	\label{eq:sharing_l}
+\end{equation}
+
+Simplify (\ref{eq:sharing_z}) with $a_i=...$
+
+stationary contidions for (\ref{eq:sharing_z})
+$O \in$
+
+...greatly simplified by introducing averages
+$\bar{z}^{k+1}, \bar{a}$
+
+Then we arrive at $N$ stationary contidions...
+
+R
+
+NR
+
+O
+
+$\bar{z}^{k+1}$
+
+$z^{k+1}$
+
+$\lambda_i^{k+1}$
+
+all $\lambda_i^{k+1}$ equal
+
+FINAL DYNAMICS
+
+$$x_i^{k+1}$$
+
+$$\bar{z}^{k+1}$$
+
+$$\lambda^{k+1}$$
+
+Priciples: (not shown)
+
+\subsubsection{Dual of Sharing Problem}
+
+derivations (not shown)
+
+sup
+
+\subsection{Optimization over Graphs}
+
+$g=(V,E)$ undirected graph with vertices $V$ and edges $E$
+
+\textbf{Solve}
+
+$$	\min_{x \in \mathbb{R}^{n}} \sum_{i\in V} f_i(x) $$
+
+where each vertex has local data and we would like to fit a model with shared parameters
+
+GRAFIK
+
+\textbf{Idea} Reformulation with constraints
+
+$$\min_{x_1,\dots,x_{|V|}, z_1,\dots,z_{|V|}} \sum_{i\in V}^{N} f_i(x_i)\ \text{s.t.}\ x_i=z_{ij}, x_j=z_{ij}\quad \forall(i,j)\in E$$
+
+Step 1: Form augmented Lagrangian
+
+$\mathcal{L}_p()=SUM+SUMSUM$
+
+Step 2: Formulate ADMM
+
+DERIVATIONS
+
+FINAL RESULTS
+
+$x_i^{k+1} \in \underset{x \in \mathbb{R}^{n}}{\operatorname{argmin}}f_i(x_i)+SUM$
+
+$\bar{x}_i^{k+1}$
+
+$p_i^{k+1}$

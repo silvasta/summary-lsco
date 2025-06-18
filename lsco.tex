@@ -4,10 +4,10 @@
 %-----------------------------------------------------------------
 % Document type
 %-----------------------------------------------------------------
-% \documentclass[layout=tight, columns=4]{sst-custom}
+\documentclass[layout=tight, columns=4,secnumdepth=3]{sst-custom}
 % \documentclass{sst-custom}
 % \documentclass[layout=regular, columns=2]{sst-custom}
-\documentclass[layout=preview]{sst-custom}
+% \documentclass[layout=preview,secnumdepth=3]{sst-custom}
 %-----------------------------------------------------------------
 % Toggle
 %-----------------------------------------------------------------
@@ -15,7 +15,16 @@
 \toggletrue{showRecital}
 % \togglefalse{showRecital}
 %-----------------------------------------------------------------
-
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+	{.5mm}% Space before
+	{.5mm}% Space after
+	{\normalfont\normalsize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+	{.25mm}%
+	{.25mm}%
+	{\normalfont\small\bfseries}}
+\makeatother
 \begin{document}
 
 \iftoggle{do-multicol}{ \begin{multicols}{\numcolumns}}{}
@@ -23,6 +32,7 @@
 		\input{title-blue-grey.tex}
 		%-----------------------------------------------------------------
 		% \tableofcontents
+		%-----------------------------------------------------------------
 		%-----------------------------------------------------------------
 		% \footnotesize
 		%-----------------------------------------------------------------

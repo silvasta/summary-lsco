@@ -5,8 +5,8 @@
 % probably not needed
 % \DeclareOption{a4paper}{\PassOptionsToClass{a4paper}{article}}
 % \DeclareOption{twoside}{\PassOptionsToClass{twoside}{article}}
-% \DeclareOption{landscape}{\PassOptionsToClass{landscape}{article}}
-% \ProcessOptions\relax
+\DeclareOption{landscape}{\PassOptionsToClass{landscape}{article}}
+\ProcessOptions\relax
 %-----------------------------------------------------------------
 \LoadClass{article}
 %-----------------------------------------------------------------
@@ -47,6 +47,7 @@
 }
 \DeclareStringOption[regular]{layout} % Default: regular
 \DeclareStringOption[1]{columns}      % Default: 1 column
+\DeclareStringOption[2]{secnumdepth}      % Default: 1 column
 \ProcessKeyvalOptions*
 %-----------------------------------------------------------------
 % Multicol toggle and settings
@@ -58,6 +59,11 @@
 	\toggletrue{do-multicol}
 	\def\numcolumns{\myclass@columns}
 \fi
+%-----------------------------------------------------------------
+% Section depth
+%-----------------------------------------------------------------
+\RequirePackage{sectsty}
+\setcounter{secnumdepth}{\myclass@secnumdepth}
 %-----------------------------------------------------------------
 % Geometry and other settings based on layout
 %-----------------------------------------------------------------
@@ -118,6 +124,7 @@
 		{.25mm}%
 		{\normalfont\small\bfseries}}
 	\makeatother
+	\footnotesize
 	%-----------------------------------------------------------------
 }{}
 %-----------------------------------------------------------------
@@ -165,8 +172,4 @@
 \newtheorem{proposition}{Proposition}
 \newtheorem{corollary}{Corollary}
 \newtheorem{remark}{Remark}
-%-----------------------------------------------------------------
-% Section depth
-%-----------------------------------------------------------------
-\RequirePackage{sectsty}
-\setcounter{secnumdepth}{3}
+
