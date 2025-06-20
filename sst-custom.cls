@@ -20,7 +20,8 @@
 \RequirePackage[dvipsnames]{xcolor}
 \RequirePackage[explicit]{titlesec}
 \RequirePackage{siunitx}
-\RequirePackage{amsmath, amssymb}
+\RequirePackage{amssymb}
+% \RequirePackage{amsmath}
 \RequirePackage{mathtools}
 \RequirePackage{subcaption}
 \RequirePackage[hidelinks]{hyperref}
@@ -113,6 +114,8 @@
 	\setlist[itemize]{itemsep=0pt, leftmargin=3mm}
 	\setlist[enumerate]{itemsep=0pt, leftmargin=4mm}
 	% -----------------------------------------------------------------
+	\setlength{\jot}{0mm}
+	% -----------------------------------------------------------------
 	% space around title and fontsize
 	\makeatletter
 	\renewcommand{\section}{\@startsection{section}{1}{\z@}%
@@ -124,8 +127,16 @@
 		{.25mm}%
 		{\normalfont\small\bfseries}}
 	\makeatother
-	\footnotesize
 	%-----------------------------------------------------------------
+	%spacing around eqns --nothing changed
+	% \setlength{\abovedisplayskip}{0pt}
+	% \setlength{\belowdisplayskip}{0pt}
+	% \setlength{\abovedisplayshortskip}{0pt}
+	% \setlength{\belowdisplayshortskip}{0pt}
+	%-----------------------------------------------------------------
+	%changed less, maybe the 2.
+	% \setlength{\mathsurround}{0pt} 
+	% \setlength{\jot}{0mm}
 }{}
 %-----------------------------------------------------------------
 % PREVIEW
@@ -162,6 +173,7 @@
 % Custom commands
 %-----------------------------------------------------------------
 \newcommand{\T}{^\textnormal{\scriptsize T}}
+\DeclareMathOperator*{\argmin}{argmin}
 %-----------------------------------------------------------------
 % Theorem styles
 %-----------------------------------------------------------------
@@ -172,4 +184,5 @@
 \newtheorem{proposition}{Proposition}
 \newtheorem{corollary}{Corollary}
 \newtheorem{remark}{Remark}
+\newtheorem{lemma}{Lemma}
 

@@ -1,4 +1,4 @@
-\section{Convex Optimization Problem}
+\section{Convex Optimization Problems}
 
 Recall general optimization Problem
 \begin{equation}
@@ -70,6 +70,8 @@ Soltuion greater 0, not optimal edges = 0
 minimmize $\frac{1}{2}x\T Px+q\T x$
 s.t. $Gx\le h,\ Ax=b$
 
+Interpretation: minimize a convex quadratic function over a polyhedron.
+
 If $P=P\T$ is positive semi-definite
 then the problem is convex.
 
@@ -82,7 +84,9 @@ minimmize $f\T x$
 
 s.t. $|A_ix+b|\le c_i\T x+d_i,\ Fx=g$
 
-Cone: Cn+1= %todo
+Second-order cone
+$C_{n+1}=\{ (x,t)\mid
+	x\in\mathbb{R}^{n}, t\in \mathbb{R}, |x|\le t \}$
 
 \textbf{Example} [Markovitz portfolio optimization:]
 

@@ -1,4 +1,4 @@
-\section{Gradient Descent - Part II}
+\section{Gradient Methods - Part II}
 
 Projected gradient descent(smooth,strongly convex f)
 
@@ -15,6 +15,7 @@ This implies:
 $|prox_\mathcal{C}(x)-prox_\mathcal{C}(y)|\le|x-y|$
 
 % \end{lemma}
+%
 
 \begin{proof}[Proof Other Information]
 	TODO
@@ -23,7 +24,14 @@ $|prox_\mathcal{C}(x)-prox_\mathcal{C}(y)|\le|x-y|$
 \textbf{Algorithm}
 
 \begin{proposition}
-	satisfaction of GD
+	$f$: $L$-sm, $\mu$-scv
+	$\rightarrow$
+	projected GD with
+	$T=\frac{2}{L+\mu}$
+	satisfies
+	$|x_N - x^\star|\le$
+	$|x_0 - x^\star|(1-\frac{2}{\kappa+1})^N$
+	$(\kappa$ still $\frac{L}{\mu})$
 \end{proposition}
 
 \begin{proof}[Proof]
@@ -106,4 +114,4 @@ Leads to osciliations with $\nabla f = \{+1\mid-1\}$
 
 TABLE
 
-GRAPH with rates, IMPORTANTe
+gRAPH with rates, IMPORTANTe

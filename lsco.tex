@@ -4,7 +4,7 @@
 %-----------------------------------------------------------------
 % Document type
 %-----------------------------------------------------------------
-\documentclass[layout=tight, columns=4,secnumdepth=3]{sst-custom}
+\documentclass[layout=tight, columns=4,secnumdepth=1]{sst-custom}
 % \documentclass{sst-custom}
 % \documentclass[layout=regular, columns=2]{sst-custom}
 % \documentclass[layout=preview,secnumdepth=3]{sst-custom}
@@ -15,61 +15,73 @@
 \toggletrue{showRecital}
 % \togglefalse{showRecital}
 %-----------------------------------------------------------------
-\makeatletter
-\renewcommand{\section}{\@startsection{section}{1}{\z@}%
-	{.5mm}% Space before
-	{.5mm}% Space after
-	{\normalfont\normalsize\bfseries}}
-\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
-	{.25mm}%
-	{.25mm}%
-	{\normalfont\small\bfseries}}
-\makeatother
+\newtoggle{showSummary}
+\toggletrue{showSummary}
+% \togglefalse{showSummary}
+%-----------------------------------------------------------------
+
+%--------------\--------------------------------------------------
 \begin{document}
 
-\iftoggle{do-multicol}{ \begin{multicols}{\numcolumns}}{}
+\iftoggle{do-multicol}{ \begin{multicols*}{\numcolumns}}{}
 		%-----------------------------------------------------------------
 		\input{title-blue-grey.tex}
 		%-----------------------------------------------------------------
 		% \tableofcontents
 		%-----------------------------------------------------------------
+		\footnotesize
 		%-----------------------------------------------------------------
-		% \footnotesize
-		%-----------------------------------------------------------------
-		\foreach \lecture / \recital in {%
+		\foreach \lecture / \recital / \summary in {%
 		{sections/l1-introduction.tex}/
-		{sections/r1-introduction.tex},
+		{sections/r1-introduction.tex}/
+		{sections/s1-introduction.tex},
 		{sections/l2-convex-set-function.tex}/
-		{sections/r2-convex-set-function.tex},
+		{sections/r2-convex-set-function.tex}/
+		{sections/s2-convex-set-function.tex},
 		{sections/l3-kkt-lagrange-duality.tex}/
-		{sections/r3-kkt-lagrange-duality.tex},
+		{sections/r3-kkt-lagrange-duality.tex}/
+		{sections/s3-kkt-lagrange-duality.tex},
 		{sections/l4-convex-optimization-problems.tex}/
-		{sections/r4-convex-optimization-problems.tex},
+		{sections/r4-convex-optimization-problems.tex}/
+		{sections/s4-convex-optimization-problems.tex},
 		{sections/l5-gradient-methods-1.tex}/
-		{sections/r5-more-on-gradient-methods.tex},
+		{sections/r5-more-on-gradient-methods.tex}/
+		{sections/s5-gradient-methods-1.tex},
 		{sections/l6-gradient-methods-2.tex}/
-		{sections/r6-gradient-methods-2.tex},
+		{sections/r6-gradient-methods-2.tex}/
+		% {sections/gm.tex},
+		{sections/why-s6-gradient-methods-2.tex},
 		{sections/l7-stochastic-gradient-descent.tex}/
-		{sections/r7-stochastic-gradient-descent.tex},
+		{sections/r7-stochastic-gradient-descent.tex}/
+		{sections/s7-stochastic-gradient-descent.tex},
 		{sections/l8-admm.tex}/
-		{sections/r8-admm.tex},
+		{sections/r8-admm.tex}/
+		{sections/s8-admm.tex},
 		{sections/l9-distributed-optimization-admm.tex}/
-		{sections/r9-distributed-optimization-admm.tex},
+		{sections/r9-distributed-optimization-admm.tex}/
+		{sections/s9-distributed-optimization-admm.tex},
 		{sections/l10-signal-denoising-regression.tex}/
-		{sections/r10-signal-denoising-regression.tex},
+		{sections/r10-signal-denoising-regression.tex}/
+		{sections/s10-signal-denoising-regression.tex},
 		{sections/l11-classification.tex}/
-		{sections/r11-classification.tex},
+		{sections/r11-classification.tex}/
+		{sections/s11-classification.tex},
 		{sections/l12-adaptive-decision-making.tex}/
-		{sections/r12-adaptive-decision-making.tex},
+		{sections/r12-adaptive-decision-making.tex}/
+		{sections/s12-adaptive-decision-making.tex},
 		}{%
-		\typeout{Including lecture: \lecture}%
-		\input\lecture%
-		\iftoggle{showRecital}{%
-			\typeout{Including recital: \recital}%
-			\input\recital%
-		}{}%
+		\iftoggle{showSummary}{
+			\typeout{Including summary: \summary}%
+			\input\summary
+		}{
+			\typeout{Including lecture: \lecture}%
+			\input\lecture%
+			\iftoggle{showRecital}{
+				\typeout{Including recital: \recital}%
+				\input\recital
+			}{}}
 		}
 		%-----------------------------------------------------------------
-		\iftoggle{do-multicol}{\end{multicols}}{}
+		\iftoggle{do-multicol}{\end{multicols*}}{}
 
 \end{document}

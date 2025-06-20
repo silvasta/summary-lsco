@@ -11,8 +11,10 @@ We note the following:
 $\nabla f(x^\star)$ and $\nabla h(x^\star)$ are colinear
 
 
-$\Leftrightarrow \exists\ \nu^\star \in \mathbb{R}: \nabla f(x^\star)+\nu^\star\nabla h(x^\star) = 0$
+$\Leftrightarrow$
+$\exists\ \nu^\star \in \mathbb{R}: \nabla f(x^\star)+\nu^\star\nabla h(x^\star) = 0$
 
+$\Leftrightarrow$
 $f(x)+\nu^\star h(x)$ is stationary at $x^\star$,
 where $\nu^\star$ can be interpreted as cost of violationg constraint
 
@@ -43,7 +45,7 @@ that can be interpreted as cost for violationg constraints.
 \end{proposition}
 
 \begin{proof}
-	SHORT %TODO  
+	%TODO: Proof
 \end{proof}
 
 \begin{definition}[Constraint  qualification]
@@ -57,29 +59,32 @@ that can be interpreted as cost for violationg constraints.
 \end{proposition}
 
 \begin{proof}
-	EXTENDED %TODO
+	%TODO: Proof
 	GRAPHIC
 \end{proof}
 
 \subsection{KKT}
 
-\begin{theorem}[KKT Conditions]
-	Slater's condition holds and (\ref{eq:dual}) is convex.
-	Then $x^\star \in \mathbb{R}^{n}$ is a minimizer of the primal (\ref{eq:dual})
-	and $(\lambda^\star \ge 0,\ \nu^\star) \in \mathbb{R}^{n_g} \times \mathbb{R}^{n_h}$ is a maximizer of the dual
-	if and only if: %todo align
-	$$ KKT-1\ (Stationary\ Lagrangian)                                         $$
-	$$ \nabla_x\mathcal{L}(x^\star,\lambda^\star,\nu^\star)=0                 $$
-	$$ KKT-2\ (primal\ feasibility)                                           $$
-	$$ g(x^\star)\le0, h(x^\star)=0                                           $$
-	$$ \quad\ KKT-3\ (dual\ feasibility)                                      $$
-	$$ \lambda^\star\le0, \nu^\star \in \mathbb{R}^{n_h}                      $$
-	$$ \quad\ KKT-4\ (complementary\ slackness)                               $$
-	$$ {\lambda^\star}\T g(x^\star)=0,\ {\nu^\star}\T h(x^\star)=0     $$
-
-	In addition we have:
-	$INF=SUP$ %todo
-
+$$\begin{aligned}
+		\text{KKT-1 }
+		 & \nabla_x\mathcal{L}(x^\star,\lambda^\star,\nu^\star)=0
+		\quad \text{(Stationary\ Lagrangian)}
+		\\
+		\text{KKT-2 }
+		 & g(x^\star)\le0, h(x^\star)=0
+		\quad \text{(primal\ feasibility)}
+		\\
+		\text{KKT-3 }
+		 & \lambda^\star\le0, \nu^\star \in \mathbb{R}^{n_h}
+		\quad \text{(dual\ feasibility)}
+		\\
+		\text{KKT-4 }
+		 & {\lambda^\star}\T g(x^\star)=0, {\nu^\star}\T h(x^\star)=0
+		\quad \text{(complmntry slackness)}
+		\\
+	\end{aligned}$$
+In addition we have:
+$\sup_{\lambda\ge0,\nu\in\mathbb{R}^{n_h}}q(\lambda,\nu)=\inf_{x\in\mathcal{C}}f(x)$
 \end{theorem}
 
 QUESTION Proof?

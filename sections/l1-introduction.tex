@@ -97,19 +97,23 @@ Determine $x_{k+1}$ based on ${..f..}$
 
 end
 
+Analythic, arithmetic complexity
+
 \begin{definition}[Lipschitz continuity]
-	... $q: R^m \rightarrow R^n$ ... if
-	$$|q(x)-q(y)| \le L |x-y| \forall x,y \in R^m$$
+	$q: \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$
+	is Lipschitz with constant $L$ if:
+	$|q(x)-q(y)| \le L |x-y| \forall x,y \in \mathbb{R}^{m}$
 \end{definition}
 
-
-...definition P... % todo
+Class of OP $P$ with $\mathcal{C}=[0,1]^n$
+and $f$ is $l^\infty$-Lipschitz
 
 \begin{proposition}
-	For any algorithm, there exists a problem in $P$, such that achieving $|f (xN ) − f (x^⋆)| < ϵ$ requires
-	$$
-		N \ge (upper(L/{2\epsilon}))^n -1
-	$$
+	For any algorithm $\exists$ problem in $P$,
+	s.t. achieving $|f(x_N )−f(x^⋆)| < \epsilon$
+	requires
+	$$N \ge \left(\left\lfloor\frac{L}{2\epsilon}\right\rfloor\right)^n-1$$
+	%TODO: check frac
 \end{proposition}
 
 \textbf{Example}
@@ -132,6 +136,7 @@ end
 	- therefore $f(x_i)-f(x_star) \ge L/2s$ for $i=0...s^n-2$
 	- roughly ...
 	- therefore $N=$ ...
+	%TODO: Proof
 
 \end{proof}
 
@@ -165,5 +170,5 @@ end
 
 \begin{proof}[Proof ]
 	Counter example, $\exists$ $y\ne x^\star \in C$ such that $f(y)\le f(x^\star)$
-	% todo
+	%TODO: Proof
 \end{proof}
