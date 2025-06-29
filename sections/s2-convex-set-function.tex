@@ -43,23 +43,19 @@ $\Rightarrow \{x\in\mathbb{R}^{n} \mid  Ax+b\in\mathcal{C}\}$ cv
 \subsection{Support function}
 
 \textbf{Idea} represent any cl,cv set by its supporting hyperplanes
-\vspace{-2mm}
 \[\begin{aligned}
 		\sigma_\mathcal{C}(a) & = \sup_{x \in \mathcal{C}}a\T x
 		\quad\text{if known, one can construct}                                                                                                        \\
 		\mathcal{C}           & = \bigcap_{a \in \mathbb{R}^n} \{x \in \mathbb{R}^n \mid a\T x - \sigma_c(a) \leq 0\}                                  \\
 		                      & = \{x \in \mathbb{R}^n \mid \underset{a \in \mathbb{R}^{n}}{\operatorname{sup}}\ a\T x - \sigma_\mathcal{C}(a) \le 0\}
 	\end{aligned}\]
-\vspace{-2mm}
 
 \begin{definition}
-	\vspace{-2mm}
 	$f:\mathbb{R}^n \rightarrow \mathbb{R}$ cv
 	$\Leftrightarrow$
 	epigraph of $f$ is cv set
 	$$\operatorname{epi}(f):=\{(x,t)\in \mathbb{R}^{n+1} | f(x)\le t\}$$
 \end{definition}
-\vspace{-2mm}
 
 $\rightarrow$ this provides a link between convex sets and functions
 

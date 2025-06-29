@@ -12,8 +12,6 @@
 %-----------------------------------------------------------------
 % General packages
 %-----------------------------------------------------------------
-\RequirePackage[ddmmyyyy]{datetime}
-\renewcommand{\dateseparator}{.}
 \RequirePackage[shortlabels]{enumitem}
 \RequirePackage{multicol}
 \RequirePackage{graphicx}
@@ -34,7 +32,7 @@
 \RequirePackage{float}
 \RequirePackage{parskip}
 \RequirePackage{longtable}
-\RequirePackage{tcolorbox}
+% \RequirePackage{tcolorbox}
 \RequirePackage{pgffor}
 \RequirePackage{csquotes}
 %-----------------------------------------------------------------
@@ -101,6 +99,7 @@
 	%-----------------------------------------------------------------
 	\pagestyle{empty}
 	%-----------------------------------------------------------------
+	% \setlength{\headsep}{10mm}
 	\setlength{\columnsep}{3mm}
 	%-----------------------------------------------------------------
 	\setlength{\intextsep}{0.2mm} % Space above/below in text
@@ -163,12 +162,15 @@
 \babelfont{rm}{Roboto Condensed}
 % \babelprovide[onchar=ids fonts]{russian}
 % \babelfont[russian]{rm}{Roboto Condensed}
+\babelprovide{ngerman}
 % \babelprovide{english}
 %-----------------------------------------------------------------
 % font of math
 % \usepackage{lmodern} # default
 % \usepackage{newtxmath}
 % \usepackage{mathpazo}
+\RequirePackage[ddmmyyyy]{datetime}
+\renewcommand{\dateseparator}{.}
 %-----------------------------------------------------------------
 % Custom commands
 %-----------------------------------------------------------------
