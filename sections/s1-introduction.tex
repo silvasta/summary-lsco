@@ -1,6 +1,5 @@
 \section{Introduction}
 
-
 \textbf{Large Scale}
 Problem of dimension $n$ but iterations $\ll n$ desired
 
@@ -11,8 +10,9 @@ One of the only problem classes that are \textquote{solvable}
 with decision variable $x$, objective function $f$ and
 feasible set $\mathcal{C} = \{\xi \in \mathbb{R}^{n}: g(\xi)\le0,\ h(\xi)=0\}$
 
-$x^\star$ \textbf{local minimum} if $\exists\ \epsilon > 0$ s.t.
-$f(x^\star)\leq f(x)$, $\quad \forall x \in \mathcal{C} \cap B_\epsilon(x^\star)$,
+\textbf{Local minimum}
+$x^\star$ if $\exists\epsilon>0$ s.t. $f(x^\star)\leq f(x)$,
+$\forall x \in \mathcal{C} \cap B_\epsilon(x^\star)$,
 $B_\epsilon(x^\star):=\{\xi\in\mathbb{R}^{n}:|\xi-x^\star|<\epsilon\}$
 
 
@@ -28,15 +28,19 @@ $B_\epsilon(x^\star):=\{\xi\in\mathbb{R}^{n}:|\xi-x^\star|<\epsilon\}$
 
 \begin{definition}[Lipschitz continuity]
 	$q: \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$
-	is Lipschitz with constant $L$ if:
+	is \textbf{Lipschitz} with constant $L$ if:
 	$|q(x)-q(y)| \le L |x-y| \forall x,y \in \mathbb{R}^{m}$
 \end{definition}
 
-Class of OP $P$ with $\mathcal{C}=[0,1]^n$
-and $f$ is $l^\infty$-Lipschitz with L
+$$f \text{ is Lipschitz with constant } L
+	\Leftrightarrow
+	|\nabla f(x)|_2\le L$$
+
+OP class $\mathcal{P}$ with $\mathcal{C}=[0,1]^n$,
+$f$ is $l^\infty$-Lipschitz with constant $L$
 
 \begin{proposition}
-	For any algorithm $\exists$ problem in $P$,
+	For any algorithm $\exists$ problem in $\mathcal{P}$,
 	s.t. achieving $|f(x_N )−f(x^⋆)| < \epsilon$
 	requires
 	$N \ge (\lfloor\frac{L}{2\epsilon}\rfloor)^n-1$

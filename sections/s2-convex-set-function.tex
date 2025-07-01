@@ -17,7 +17,8 @@ polyhedra $\{x\in\mathbb{R}^n\mid A^{q\times n}x\preceq b^{q\times1},C^{r\times 
 \subsection{Operations that preserve convexity (sets)}
 
 \textbf{Intersection}
-$\mathcal{C}_1, \mathcal{C}_2$ cv $\Rightarrow \mathcal{C}_1 \cap \mathcal{C}_2$ convex (cv)
+$\mathcal{C}_1, \mathcal{C}_2$ cv
+$\Rightarrow \mathcal{C}_1 \cap \mathcal{C}_2$ convex \textbf{(cv)}
 
 \textbf{Image under affine map}
 $\mathcal{C} \subseteq  \mathbb{R}^{n}$ cv
@@ -30,7 +31,7 @@ $\Rightarrow \{x\in\mathbb{R}^{n} \mid  Ax+b\in\mathcal{C}\}$ cv
 \subsection{Separating Hyperplane Theorem}
 
 \begin{theorem}
-	$\mathcal{C} \subseteq \mathbb{R}^{n}$ non-empty closed (cl) convex set, $y \notin \mathcal{C}$
+	$\mathcal{C} \subseteq \mathbb{R}^{n}$ non-empty closed \textbf{(cl)} convex set, $y \notin \mathcal{C}$
 	$\rightarrow \exists\ a \ne 0, b \in \mathbb{R}$
 	s.t. $a\T x + b < a\T y + b,
 		\forall x \in \mathcal{C}$
@@ -99,12 +100,17 @@ $\min_{x \in \mathbb{R}^{n}}f(x) + \psi_\mathcal{C}(x)$
 \end{definition}
 
 \begin{definition}[Legendre Transformation]
-	The conjugate function of $f: \mathbb{R}^{n}\rightarrow\bar{\mathbb{R}}$  is defined as
-	$f^\star(y)=\sup_{x \in \mathbb{R}^{n}}y\T x-f(x)$
+	The \textbf{conjugate function} of $f: \mathbb{R}^{n}\rightarrow\bar{\mathbb{R}}$  is defined as
+	$f^*(y)=\sup_{x \in \mathbb{R}^{n}}y\T x-f(x)$
 \end{definition}
 
+\includegraphics[width=\columnwidth]{images/summary_set_functions.png}
 
-% \begin{theorem}[THEOREM2?]
-% 	%TODO:
-% \end{theorem}
-% %TODO: Idea, logsum, r2
+\begin{theorem}[Conjugate of Conjugate]
+	$f:\mathbb{R}^{n}\rightarrow\bar{\mathbb{R}}$
+
+	(i) $f$ proper, cv, epi$(f)$ closed
+	$\Rightarrow f^{**}=f$
+
+	(ii) $f(x)\ge f^{**}(x), \forall x\in\mathbb{R}^{n}$
+\end{theorem}

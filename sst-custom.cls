@@ -134,7 +134,7 @@
 	% \setlength{\belowdisplayshortskip}{0pt}
 	%-----------------------------------------------------------------
 	%changed less, maybe the 2.
-	% \setlength{\mathsurround}{0pt} 
+	% \setlength{\mathsurround}{0pt}
 	% \setlength{\jot}{0mm}
 }{}
 %-----------------------------------------------------------------
@@ -143,7 +143,9 @@
 \ifdefstring{\myclass@layout}{preview}{
 	\RequirePackage[
 		paperheight=297mm,
-		paperwidth=95mm,
+		% paperwidth=95mm, % Standard
+		paperwidth=73.5mm, % fit tight col
+		%TODO: make width a parameter
 		top=1mm,
 		bottom=1mm,
 		inner=1mm,

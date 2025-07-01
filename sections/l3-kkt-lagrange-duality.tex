@@ -65,26 +65,34 @@ that can be interpreted as cost for violationg constraints.
 
 \subsection{KKT}
 
-$$\begin{aligned}
-		\text{KKT-1 }
-		 & \nabla_x\mathcal{L}(x^\star,\lambda^\star,\nu^\star)=0
-		\quad \text{(Stationary\ Lagrangian)}
-		\\
-		\text{KKT-2 }
-		 & g(x^\star)\le0, h(x^\star)=0
-		\quad \text{(primal\ feasibility)}
-		\\
-		\text{KKT-3 }
-		 & \lambda^\star\le0, \nu^\star \in \mathbb{R}^{n_h}
-		\quad \text{(dual\ feasibility)}
-		\\
-		\text{KKT-4 }
-		 & {\lambda^\star}\T g(x^\star)=0, {\nu^\star}\T h(x^\star)=0
-		\quad \text{(complmntry slackness)}
-		\\
-	\end{aligned}$$
-In addition we have:
-$\sup_{\lambda\ge0,\nu\in\mathbb{R}^{n_h}}q(\lambda,\nu)=\inf_{x\in\mathcal{C}}f(x)$
+\begin{theorem}[KKT Conditions]
+	Slater's condition holds
+	and (\ref{eq:dual}) is convex
+	$\rightarrow$
+	$x^\star \in \mathbb{R}^{n}$ is a minimizer of the primal (\ref{eq:dual})
+	and $(\lambda^\star \ge 0,\nu^\star) \in \mathbb{R}^{n_g}\times\mathbb{R}^{n_h}$ is a maximizer of the dual
+	$\Leftrightarrow$
+	$$\begin{aligned}
+			              & \nabla_x\mathcal{L}(x^\star,\lambda^\star,\nu^\star)=0
+			              & \text{KKT-1 }
+			              & \text{(Stationary Lagrangian)}
+			\\
+			              & g(x^\star)\le0, h(x^\star)=0
+			              & \text{KKT-2 }
+			              & \text{(primal feasibility)}
+			\\
+			              & \lambda^\star\le0, \nu^\star \in \mathbb{R}^{n_h}
+			              & \text{KKT-3 }
+			              & \text{(dual feasibility)}
+			\\
+			              & {\lambda^\star}\T g(x^\star)=0={\nu^\star}\T h(x^\star)
+			\hspace{-3mm} &
+			\text{KKT-4 }
+			              & \text{(compementary slackness)}
+			\\
+		\end{aligned}$$
+	In addition we have:
+	$\sup_{\lambda\ge0,\nu\in\mathbb{R}^{n_h}}q(\lambda,\nu)=\inf_{x\in\mathcal{C}}f(x)$
 \end{theorem}
 
 QUESTION Proof?

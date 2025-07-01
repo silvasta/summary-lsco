@@ -1,55 +1,76 @@
 \section{Alternating Direction Method of Multipliers (ADMM)}
 
-Motivation
+\textbf{Motivation}
 
-Last week:
+So far we looked  at:
 
 \begin{equation}
 	\min_{x \in \mathbb{R}^{n}} \sum_{i = 1}^{m} f_i(x)
 	\label{eq:sum_f_i}
 \end{equation}
 
-Today: exploit parallesization
+where $m$ is very large
+$\rightarrow$
+SGD
+$\rightarrow$
+comparably slow convergence
 
-\begin{equation}
-	\min_{x_1,\dots,x_m} \sum_{i = 1}^{m} f_i(x_i)\text{ s.t. }x = (x_1,\dots,x_m)
-\end{equation}
+Now exploit parallelization
+
+$$\min_{x\in\mathbb{R}^{n}}
+	\sum_{i = 1}^{m} f_i(x_i)
+	\text{ s.t. }x_1=x_2=\dots=x_m$$
 
 \subsection{Dual ascent}
 
 Start with:
 
-\begin{equation}
-	\min_{x \in \mathbb{R}^{n}} f_i(x) \text{ s.t. } Ax=b
-\end{equation}
+$$\min_{x \in \mathbb{R}^{n}} f(x)
+	\text{ s.t. } Ax=b, A \in \mathbb{R}^{m\times n}$$
 
 Derive dual:
 
-$$\mathcal{L}(x,\lambda) = f(x) + \lambda\T (Ax-b)$$
+$$\mathcal{L}(x,\lambda) = f(x) + \lambda\T Ax-\lambda\T  b$$
 
-$$\underset{x \in \mathcal{\mathbb{R}}^n}{inf}\mathcal{L}(x,\lambda) =
-	-\underset{x \in \mathcal{\mathbb{R}}^n}{sup}\{(-\lambda\T A)x-f(x)\}-\lambda\T b$$
+$$\inf_{x \in \mathbb{R}^n}\mathcal{L}(x,\lambda) =
+	\underbrace{-\sup_{x\in\mathbb{R}^n}\{(-\lambda\T A)x-f(x)\}}
+	_{-f^\star(-A\T\lambda)}
+	-\lambda\T b$$
 
-%todo 
+Hence the dual can be stated as follows:
+$$
+	\sup_{\lambda\in\mathbb{R}^m}
+	\underbrace{-f^\star(-A\T\lambda)-\lambda\T b}
+	_{:=d(\lambda)}
+$$
+With the subgradient of d given by:
+$$
+	\partial d(\lambda)=A\partial f^\star(-A\T\lambda)- b
+$$
+Recall
+$v\in\partial f^\star(u) \Leftrightarrow u\in\partial f(v)$
+which means that the optimizer in
+$-\sup_{x\in\mathbb{R}^n}\{(-\lambda\T A)x-f(x)\}$
+satisfies:
+$$
+	-A\T\lambda\in\partial f(x^\star)
+	\Leftrightarrow
+	x^\star\in\partial f^\star(-A\T\lambda)
+$$
 
-fstar
+As a Result, the subgradient $\partial d(\lambda)$ can be expressed via
+$$
+	\partial d(\lambda)=Ax-b, \text{where }
+	x\in\operatorname{argmin}_{\hat{x}\in\mathbb{R}^{n}}
+	\{ f(\hat{x})+\hat{x}\T A\T\lambda \}
+$$
 
-d(lambda)
-
-The subgradient is given by:
-
-$$ \partial d(\lambda)= A\partial f^\star(-A\T\lambda) -b $$
-
-optimizer satisfies...
-
-%todo 
-
-BOX
-
-Two results in dual subgradient ascent
-
-$\lambda_{k+1}=\lambda_k+T_k(Ax_k-b)$, $x_k \in A$
-
+Dual Subgradient Method with step size $T_k$ > 0:
+$$
+	x_k\in\operatorname{argmin}_{\hat{x}\in\mathbb{R}^{n}}
+	\{ f(\hat{x})+\hat{x}\T A\T\lambda_k\},\
+	\lambda_{k+1}=\lambda_k+T_k(Ax_k-b)
+$$
 \subsection{Example 1}
 
 Starting from (\ref{eq:sum_f_i}) and with $Ax=0$
@@ -111,7 +132,7 @@ $x_{k_i}\in \underset{\hat{x_i}} {\operatorname{argmin}} \{f_i(\hat{x_i})+\lambd
 $\lambda_{k+1}=\lambda_{k}+T_k(\sum_{i = 1}^{m}A_ix_{k_i}-b)$
 (broadcasting)
 
-IMAGE  %todo
+IMAGE  %TODO: 
 
 \begin{proposition}
 	$f$ convex with closed epigraph, $f$ is $\mu$-strongly convex
@@ -133,22 +154,38 @@ $f$ $\mu$-strongly convex is hardly restricting condition
 
 \subsection{ADMM}
 
-$$\min_{x \in \mathbb{R}^{n}}f(x)+ \frac{\rho}{2}|Ax-b|^2 $$
-
-s.t. $Ax=b$ with $\rho > 0$
+$$
+	\min_{x \in \mathbb{R}^{n}}f(x)+ \frac{\rho}{2}|Ax-b|^2
+	\quad\text{s.t. }Ax=b\text{ with }\rho > 0
+$$
 
 \subsubsection{Augmented Lagrangian}
 
-$$x_k = A$$
-$$\lambda_{k+1} = A$$ %TODO
+$$\begin{aligned}
+		x_k           & =\operatorname{argmin}_{x\in\mathbb{R}^{n}}
+		f(x)+\lambda_k\T Ax+\frac{\rho}{2}|Ax-b|^2
+		\\
+		\lambda_{k+1} & = \lambda_k+T_k(Ax_k-b)
+		\quad\text{(typically }T_k=\rho)
+	\end{aligned}$$
 
-ADVANTAGE
+\textbf{ADVANTAGE}
 
-DISADVANTAGE
+Much better convergence properties even if
+$f$ non-strongly convex.
 
-SOLUTION
+\textbf{DISADVANTAGE}
+
+Loose of decomposability / parallelization
+due to augmentation with quadratic term.
+
+This motivates ADMM which tries to combine
+the best of both worlds.
+(Well conditioned minimization and parallelization)
+
 \subsection{Alternating direction method  of multipliers}
 
+%TODO: page  5 in script!
 CONSIDER f,g
 
 form augmented objective
@@ -163,7 +200,7 @@ $$z_k=\underset{x \in \mathbb{R}^{n} }{\operatorname{argmin}}\mathcal{L}_p(x_k,z
 
 $$ \lambda_{k+1}=\lambda_k+\rho(Ax_k+Bz_k-c)$$
 
-EXAMPLE Images  Low/High rank
+EXAMPLE Images Low/High rank
 
 
 

@@ -17,16 +17,15 @@ $f(x)+\nu^\star h(x)$ is stationary at $x^\star$
 	f^\star = \underset{x \in \mathcal{\mathbb{R}}^n}{inf}f(x) \text{ s.t. } h(x)=0,\ g(x) \le 0
 	\label{eq:dual}
 \end{equation}
-\begin{equation}
-	\text{Lagrange f.}\
+$$
+	\textbf{Lagrange }\
 	\mathcal{L}(x,\lambda,\nu) = f(x) + \lambda\T g(x)+\nu\T h(x)
-\end{equation}
-
+$$ $$
+	\textbf{Dual Function }
+	d(\lambda,\nu) = \inf_{x \in \mathcal{\mathbb{R}}^n}\mathcal{L}(x,\lambda,\nu)
+$$
 \begin{proposition}[Weak Duality]
-	The dual function
-	$d(\lambda,\nu) = \inf_{x \in \mathcal{\mathbb{R}}^n}\mathcal{L}(x,\lambda,\nu)$
-	satisfies
-	$d(\lambda,\nu)\le f^\star,\forall \lambda\ge 0,\nu \in \mathbb{R}^{n_h}$
+	$d(\lambda,\nu)\le f^\star,\forall\lambda\ge0,\nu\in\mathbb{R}^{h}$
 \end{proposition}
 
 \begin{definition}[Constraint  qualification]
@@ -59,7 +58,7 @@ $f(x)+\nu^\star h(x)$ is stationary at $x^\star$
 			              & \text{KKT-2 }
 			              & \text{(primal feasibility)}
 			\\
-			              & \lambda^\star\le0, \nu^\star \in \mathbb{R}^{n_h}
+			              & \lambda^\star\ge0, \nu^\star \in \mathbb{R}^{n_h}
 			              & \text{KKT-3 }
 			              & \text{(dual feasibility)}
 			\\
@@ -89,12 +88,13 @@ $f(x)\ge f(\bar{x})+\nabla f(\bar{x})\T(x-\bar{x}),\ \forall x,\bar{x}\in \mathb
 	the subdifferential of $f$ at $\bar{x}$ is:
 	$\partial f(\bar{x}):=
 		\{\lambda \in \mathbb{R}^{n} \mid
-		f(x)\ge f(\bar{x})+\lambda\T(x-\bar{x},
-		\forall x \in \mathbb{R}^{n})
+		f(x)\ge f(\bar{x})+\lambda\T(x-\bar{x}),
+		\forall x \in \mathbb{R}^{n}
 		\}$
 	\label{def:subdifferential}
 \end{definition}
 
+EXAMPLE?
 
 \begin{proposition}[]
 	$f$ (like D\ref{def:subdifferential}),
@@ -105,7 +105,10 @@ $f(x)\ge f(\bar{x})+\nabla f(\bar{x})\T(x-\bar{x}),\ \forall x,\bar{x}\in \mathb
 
 \begin{proposition}[Relation to conjugate functions]
 	For convex $f$ with $\operatorname{epi}(f)$ closed:
-	$y \in \partial f(x) \leftrightarrow x \in \delta f^\star(y)$
+	$y \in \partial f(x) \leftrightarrow x \in \partial f^\star(y)$
 \end{proposition}
 
-%TODO: s3 (Soft) Margin SVM, Kernel methods
+%TODO: r3 (Soft) Margin SVM, Kernel methods
+%
+
+\includegraphics[width=\columnwidth]{images/conjugate_subdiff.png}

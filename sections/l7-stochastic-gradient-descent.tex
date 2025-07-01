@@ -1,68 +1,100 @@
 \section{Stochastic gradient descent}
 
-MOTIVATION EXAMPLE
+\textbf{Motivation Example}
 
-- Regression: $til y=\phi(til x_i\theta) + \epsilon$
+- Regression: $\tilde{y}=\phi(\tilde{x}_i;\theta) + \epsilon$
 
-\phi function approximation with parameter \theta
+function approximator $\phi$ with parameter $\theta$
 
-- Data points; $(x_1,y_1)\dots m$ %TODO add tilde 
+- Data points; $(x_1,y_1),(x_2,y_2),\dots,(x_m,y_m)$
+with $m$ large
 
-- Minimize: SOME LS
+- Minimized square loss:
+$\frac{1}{2m}\sum_{i=1}^{m}
+	|\tilde{y}_i-\phi(\tilde{x}_i;\theta)|^2$
+$\rightarrow$ min with respect to (w.r.t.) $\theta$
 
-- Gradient: $-\frac{1}{m} \sum_{i=1}^{m}(y_i-\phi(x_i,\theta))DTF$ %todo proper derivative, tilde
+- Gradient:
+$-\frac{1}{m}\sum_{i=1}^{m}
+	(\tilde{y}_i-\phi(\tilde{x}_i;\theta))
+	\frac{\partial}{\partial\theta}
+	\phi(\tilde{x}_i;\theta)$
+
+requires evaluating sum over $m$ elements
 
 $\rightarrow$ computationally intractable if $m$ is large
 
 \textbf{Goal}
 Obtain approximated solution quickly
 
-$\Rightarrow$ Compute Stochastic gradient
+$\Rightarrow$ Compute Stochastic Gradient
 
-$-(y_i - \phi(x_i,\theta)) DTF,\ i \in Unif?(\{1,...,m\})$
+$$(\tilde{y}_i - \phi(\tilde{x}_i;\theta))\T
+	\frac{\partial\phi}{\partial\theta}\Big|_{\tilde{x}_i;\theta}
+	,\ i \sim \operatorname{Unif}(\{1,...,m\})$$
 
-$\Rightarrow$ the gradient is \textbf{unbiased}
 
-More generally we consider
+$\Rightarrow$ this gradients are \textbf{unbiased}
 
-$\min _{x \in \mathbb{R}^{n}} F(x) = \min _{x \in \mathbb{R}^{n}} \mathbb{E} [f(x,\xi)]$
+More generally we consider the problem
+
+$$\min _{x \in \mathbb{R}^{n}} F(x)
+	= \min _{x \in \mathbb{R}^{n}} \mathbb{E} [f(x,\xi)]$$
 
 Where $\xi$ is a continuous or discrere Random Variable.
+
+Recall definition of expected value:
+$$
+	\mathbb{E}_\xi[f(x,\xi)]=
+	\begin{cases}
+		\int_{\mathbb{R}^{q}}f(x,\bar{\xi})p_\xi(\bar\xi)d\bar{\xi} \\
+		\sum_{\bar{\xi}}f(x,\bar{\xi})p_\xi(\bar\xi)
+	\end{cases}
+$$
 
 ALGORITHM Stochastic gradient descent
 
 Step 1: $\xi_k \leftarrow$ generate realization of $\xi$
 
-Step 2: $x_{k+1} = x_k - T_k  g(x_k,\xi_k)$ with $T_k$ step sice
+Step 2: $x_{k+1} = x_k - T_k  g(x_k,\xi_k)$, step size $T_k$
 
 Stochastic gradient $g(x_k,\xi_k)$ examples:
 
-$\nabla_xf(x\bar{\xi}),\ \bar{\xi}\ til\ p_\epsilon$ or somesume %todo
+$\nabla_xf(x,\bar{\xi}),\ \bar{\xi}\ \sim \ p_\epsilon$
+or
+$\frac{1}{n_{mb}}\sum_{i=1}^{n_{mb}}\nabla_xf(x,\bar{\xi_i}), \xi_i \sim p_\epsilon$
 
 $\Rightarrow$ The iterate $x_k$ is now a random variable!
 
 \subsection{Assumptions on $F(x)$ and $g(x_k,\xi_k)$}
 
-A1
+A1 $F(x)$ is bounded below,
+ensures that $\min_{x}F(x)$ exists if $F$ is $L$-smooth.
 
-A2
+A2 $\mathbb{E}_\xi[g(x,\xi)]=\nabla F(x)\quad \forall x \in \mathbb{R}^{n}$
+ensures that stochastic gradients are unbiased.
 
-A3
+A3 $\exists M,M_v\ge0$ s.t.
+$\operatorname{Var}_{\xi}[g(x,\xi)]\le
+	M+M_v|\nabla F(x)|^2
+	\forall x\in\mathbb{R}^{n}$
+ensures that variance is bounded.
 
 \begin{proposition}
-	$F$ is $\mu$-strongly convex and $L$-smooth with stepsize
-
-	$$0<T<\displaystyle\frac{1}{L(M_v + 1)}$$
-
+	$F$ $\mu$-strongly convex and $L$-smooth.
+	SGD with constant stepsize
+	$0<T<\frac{1}{L(M_v + 1)}$
 	satisfies
 
-	$$\mathbb{E} [F(x_k)] - F(x^\star)\le XXX$$
+	$$\mathbb{E}[F(x_k)]-F(x^\star)\le
+		\frac{TLM}{2\mu}+(1-T\mu)^k(F(x_0)-F(x^\star))$$
 
-	With T = $\frac{ln(N)}{\mu N}$ we require about
+	With stepsize $T=\frac{ln(N)}{\mu N}$ we require about
 
-	$$ N ~  ()/\epsilon$$
+	$$N\sim\left(\frac{LM}{2\mu^2}+F(x_0)-F(x^\star)\right)/\epsilon$$
 
-	iterations to ensure $\mathbb{E} [F(x_k)] - F(x^\star)\le XXX \le \epsilon$
+	iterations to ensure
+	$\mathbb{E}[F(x_N)] - F(x^\star)\le\epsilon$
 \end{proposition}
 
 \begin{proof}[Proof with most important SGD-EQ]
@@ -76,7 +108,7 @@ A3
 	$$ F(x) \le F(x^\star) + \frac{1}{2\mu}|\nabla F(x)|\quad \forall{x \in \mathbb{R}^{n}} $$
 
 	from there we can conclude:
-
+	%TODO: proof
 	XXX
 
 \end{proof}
@@ -88,29 +120,33 @@ $(1-T\mu)^N\le e^{-T\mu N}$ this  in EQ
 
 - $T_k=\frac{\ln(N)}{N}$ then E[XXX]<=
 
-- $\sum_{k=0}^{\infty}T_k = \infty,\ \sum_{k=0}^{\infty}T_k^2 \le \infty$
+- $\sum_{k=0}^{\infty}T_k = \infty,
+	\sum_{k=0}^{\infty}T_k^2 \le \infty$
 
 - $T_k=\frac{\beta}{\gamma+k}$
 
 \textbf{The role of mini batches}
 
-same analysis applies $M \rightarrow{M/n_{mb}}$, $M_v \rightarrow{M_v/n_{mb}}$
+same analysis still holds if
+$M\rightarrow{M/n_{mb}}$, $M_v \rightarrow{M_v/n_{mb}}$
 
 EQ
 
-But we can also run SGD with step $T/n{mb}$ and get same result
+but we can also run SGD with step $T/n{mb}$ and get same result
 
 Advantage in computation if paralellization possible
 
 \textbf{Can we do non-(strongly-)convex functions? }
 
 \begin{proposition}
-	F $L$-smooth, then SGD with  stepize $0<T\le \frac{1}{L(1+M_v)}$ achieves
+	F, $L$-smooth, then SGD with stepize
+	$T\le \frac{1}{L(1+M_v)}$ achieves
 
-	$E[\frac{1}{N}SUM]\le TLM + \frac{2(F(x_0)-F_{inf})}{TN}$
+	$$\mathbb{E}[\sum_{k=0}^{N-1}|\nabla F(x_k)^2|]
+		\le NTLM + \frac{2}{T}(F(x_0)-F_{inf})$$
 
 
-	$F_{inf} = \underset{x \in \mathcal{\mathbb{R}}^n}{inf}F(x)$
+	$F_\text{inf} = \operatorname{inf}_{x\in\mathbb{R}^n}F(x)$
 \end{proposition}
 
 \begin{proof}[Proof] similat to  previous proposition, from (1) we infer:

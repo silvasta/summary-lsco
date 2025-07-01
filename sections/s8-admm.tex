@@ -1,0 +1,163 @@
+\section{ADMM}
+
+\textbf{Parallelization}
+$\min_{x\in\mathbb{R}^{n}}
+	\sum_{i = 1}^{m} f_i(x_i)
+	\text{ s.t. }x_1=\dots=x_m$
+
+\subsection{Dual ascent}
+
+Consider:
+$\min_{x \in \mathbb{R}^{n}} f(x)
+	\text{ s.t. } Ax=b, A \in \mathbb{R}^{m\times n}$
+
+Derive dual:
+$\mathcal{L}(x,\lambda) = f(x) + \lambda\T Ax-\lambda\T  b$
+
+$\inf_{x \in \mathbb{R}^n}\mathcal{L}(x,\lambda) =
+	\underbrace{-\sup_{x\in\mathbb{R}^n}\{(-\lambda\T A)x-f(x)\}}
+	_{-f^\star(-A\T\lambda)}
+	-\lambda\T b$
+
+Dual can be stated as:
+$\sup_{\lambda\in\mathbb{R}^m}
+	\underbrace{-f^\star(-A\T\lambda)-\lambda\T b}
+	_{:=d(\lambda)}$
+
+Subgradient of $d$ given by:
+$\partial d(\lambda)=A\partial f^\star(-A\T\lambda)-b$
+
+Recall
+$v\in\partial f^\star(u) \Leftrightarrow u\in\partial f(v)$
+which means that the optimizer in
+$-\sup_{x\in\mathbb{R}^n}\{(-\lambda\T A)x-f(x)\}$
+satisfies:
+$$
+	-A\T\lambda\in\partial f(x^\star)
+	\Leftrightarrow
+	x^\star\in\partial f^\star(-A\T\lambda)
+$$
+As a Result, the subgradient $\partial d(\lambda)$ can be expressed via
+$$
+	\partial d(\lambda)=Ax-b, \text{where }
+	x\in\operatorname{argmin}_{\hat{x}\in\mathbb{R}^{n}}
+	\{ f(\hat{x})+\hat{x}\T A\T\lambda \}
+$$
+
+\subsection{Dual Subgradient Method}
+
+$$\begin{aligned}
+		x_k           & \in\operatorname{argmin}_{\hat{x}\in\mathbb{R}^{n}}
+		\{ f(\hat{x})+\hat{x}\T A\T\lambda_k\}
+		\\
+		\lambda_{k+1} & =\lambda_k+T_k(Ax_k-b),\quad T_k>0
+	\end{aligned} $$
+
+\subsection{Example 1}
+XXX
+% Starting from (\ref{eq:sum_f_i}) and with $Ax=0$
+% s.t. $x_1-x_2=x_2-x_3=\dots=x_m-x_1=0$
+%
+% BLACKBOARD
+% %TODO:
+% $$ x_{k}\in \underset{x_1,\dots,x_m\in \mathbb{R}^{n}} {\operatorname{argmin}}
+% 	(\sum_{i = 1}^{m} f_i(x)) + \lambda_1(x1-x2) + \lambda_2(x2-x3) +\dots$$
+%
+% With that the subgradient becomes
+%
+% $$ x_{k_i}\in \underset{\hat{x_i}\in \mathbb{R}^{n}} {\operatorname{argmin}}
+% 	\{f_i(\hat{x_i})-\lambda_{k_{i-1}}\T\hat{x_i}+\lambda_{k_{i}}\T\hat{x_i}\} $$
+%
+% for $i=2,3,\dots,m-1$ in parallel
+
+
+$\lambda_{k+1,i}=\lambda_{k,i}+T_k(x_{k_i}-x_{k_{i+1}})$
+
+\subsection{Example 2}
+
+$f(x=) \sum_{i = 1}^{m} f_i(x_i)$ with $Ax=b$
+
+$x = (x_1,\dots,x_n)$ and $A=[A_1,\dots,A_m]$
+
+Dual subgradient becomes
+
+$x_{k_i}\in \underset{\hat{x_i}} {\operatorname{argmin}} \{f_i(\hat{x_i})+\lambda_{k}\T A_i\hat{x_i}\}$
+(local minimization)
+
+
+$\lambda_{k+1}=\lambda_{k}+T_k(\sum_{i = 1}^{m}A_ix_{k_i}-b)$
+(broadcasting)
+
+IMAGE  %TODO: 
+
+\begin{proposition}
+	$f$ convex with closed epigraph, $f$ is $\mu$-strongly convex
+	if and only if $f^\star$ is $1/\mu$-smooth.
+\end{proposition}
+
+% From that we conclude
+%
+% $d(\lambda) = -f^\star(-A\T\lambda)-\lambda\T$
+%
+% f $\mu$-strongly convex $\rightarrow f^\star$ is $1/\mu$ smooth
+% $\rightarrow d(\lambda)$ is $\bar{\sigma}(AA\T)$ $1/\mu$-smooth
+%
+% f is $L$-smooth $\rightarrow f^\star$ is $1/L$ strongly convex
+% $\rightarrow d(\lambda)$ is $\bar{\sigma}(AA\T)$ $1/L$-smoothly convex
+%
+% Problem
+% $f$ $\mu$-strongly convex is hardly restricting condition
+
+\subsection{Derive ADMM}
+
+$$
+	\text{Idea: }
+	\min_{x \in \mathbb{R}^{n}}f(x)+ \frac{\rho}{2}|Ax-b|^2
+	\quad\text{s.t. }Ax=b\text{ with }\rho > 0
+$$
+
+Leads to this Augmented Lagrangian
+
+$$\begin{aligned}
+		x_k           & =\operatorname{argmin}_{x\in\mathbb{R}^{n}}
+		f(x)+\lambda_k\T Ax+\frac{\rho}{2}|Ax-b|^2
+		\\
+		\lambda_{k+1} & = \lambda_k+T_k(Ax_k-b)
+		\quad\text{(typically }T_k=\rho)
+	\end{aligned}$$
+
+\textbf{Advantage}
+Improved convergence properties even if
+$f$ non-scv
+
+\textbf{Disadvantage}
+Loose of decomposability/parallelization
+due to augmentation with quadratic term.
+
+\textbf{This motivates ADMM} which tries to combine
+the best of both worlds.
+(Well conditioned minimization and parallelization)
+
+
+Consider:
+$\min_{x \in \mathbb{R}^{n},z \in \mathbb{R}^{m}} f(x) + g(z)
+	\text{ s.t. } Ax+Bz=c$
+
+augmented objective:
+$\min f(x) + g(z)+\frac{\rho}{2}|Ax+Bz-c|^2$
+
+
+augmented lagrangian: objective +
+$\lambda\T(Ax+Bz-c)$
+
+\subsection{Alternating direction method  of multipliers}
+
+$$\begin{aligned}
+		x_k           & =\underset{x \in \mathbb{R}^{n} }{\operatorname{argmin}}\mathcal{L}_p(x,z_{k-1},\lambda_k)
+		\\
+		z_k           & =\underset{z \in \mathbb{R}^{m} }{\operatorname{argmin}}\mathcal{L}_p(x_k,z,\lambda_k)
+		\\
+		\lambda_{k+1} & =\lambda_k+\rho(Ax_k+Bz_k-c)
+	\end{aligned}$$
+
+EXAMPLE Images Low/High rank
