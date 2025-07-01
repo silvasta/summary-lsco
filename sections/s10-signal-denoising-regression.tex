@@ -1,2 +1,49 @@
-
 \section{Signal denoising and regression}
+
+
+Linear equation $y=Ax, y \in \mathbb{R}^{n}, x \in \mathbb{R}^{m}, A \in \mathbb{R}^{m \times n}$
+
+\textbf{classic} setting $m \gg n$
+|
+\textbf{modern} setting $m\ll n$ or $m \sim n$
+
+\subsection{Classic setting with outliers}
+
+$l_2$-norm:
+$\min_{x \in \mathbb{R}^{n}}|Ax-y|_2^2$
+results in heavy impact for outliers
+
+$l_1$-norm:
+$\min_{x \in \mathbb{R}^{n}}|Ax-y|$
+can be reformulated and solved as
+\textbf{LP:}
+$\min_{z\in\mathbb{R}^{m}}z\T\mathbf{1}$
+s.t.
+$-z\le Ax-y\le z, 0\le z$
+
+Combined:
+$\phi_\text{Hub}(u) =
+	\begin{cases}
+		\ u^2     & \text{if }|u|\le M \\
+		\ 2Mu-M^2 & \text{if }|u|>M
+	\end{cases}$
+
+
+\subsection{Modern setting}
+
+$Ax=y$ infinite many solutions
+$\rightarrow$
+add regulizer to find best
+
+\textbf{Tikhonov} regression:
+$\min_{x \in \mathbb{R}^{n}}|Ax-y|_2^2 + \lambda |x|_2^2$
+
+Least Absolute Shrinkage and Selection Operator
+
+\textbf{LASSO}:
+$ \min_{x \in \mathbb{R}^{n}}|Ax-y|_2^2 + \lambda |x|_1$
+
+$\Leftrightarrow$
+$ \min_{x \in \mathbb{R}^{n}}|Ax-y|_2^2$ s.t.$|x|_1\le c$
+results in sparse solution
+

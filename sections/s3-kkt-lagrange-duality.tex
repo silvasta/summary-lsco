@@ -12,18 +12,20 @@ $f(x)+\nu^\star h(x)$ is stationary at $x^\star$
 
 \subsection{Generalization for $n\rightarrow\infty$ and with constraints}
 %TODO: space
+\vspace{-4mm}
 \begin{equation}
 	\text{We consider}\
 	f^\star = \underset{x \in \mathcal{\mathbb{R}}^n}{inf}f(x) \text{ s.t. } h(x)=0,\ g(x) \le 0
 	\label{eq:dual}
 \end{equation}
-$$
-	\textbf{Lagrange }\
-	\mathcal{L}(x,\lambda,\nu) = f(x) + \lambda\T g(x)+\nu\T h(x)
-$$ $$
-	\textbf{Dual Function }
-	d(\lambda,\nu) = \inf_{x \in \mathcal{\mathbb{R}}^n}\mathcal{L}(x,\lambda,\nu)
-$$
+\vspace{-2mm}
+$$\begin{aligned}
+		                           & \textbf{Lagrange }                                              &
+		\mathcal{L}(x,\lambda,\nu) & = f(x) + \lambda\T g(x)+\nu\T h(x)
+		\\
+		                           & \textbf{Dual Function }                                         &
+		d(\lambda,\nu)             & = \inf_{x \in \mathcal{\mathbb{R}}^n}\mathcal{L}(x,\lambda,\nu)
+	\end{aligned}$$
 \begin{proposition}[Weak Duality]
 	$d(\lambda,\nu)\le f^\star,\forall\lambda\ge0,\nu\in\mathbb{R}^{h}$
 \end{proposition}
