@@ -1,9 +1,10 @@
 \section{Gradient Methods - Part II}
 
 \begin{definition}[]
-	$\operatorname{prox}_\mathcal{C}(x)=$
-	$\operatorname{argmin}_{y\in\mathcal{C}}\frac{1}{2}|x-y|^2$
-	with $\mathcal{C}\subset \mathbb{R}^{n}$
+
+	\textcolor{hltext}{\hl{ $\operatorname{prox}_\mathcal{C}(x)=$
+	$\operatorname{argmin}_{y\in\mathcal{C}}\frac{1}{2}|x-y|^2$ }}
+	$\mathcal{C}\subset \mathbb{R}^{n}$
 \end{definition}
 
 \begin{lemma}
@@ -70,6 +71,13 @@ iterations
 	$T = \frac{R}{L_f\sqrt{N}}$
 \end{proposition}
 
-
-\includegraphics[width=\columnwidth]{images/table-gd-methods.png}
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	$f$              & Method          & $N \sim$                         & Optimal \\ \hline
+	$\mu$-sc, $L$-sm & GD              & $\kappa \ln (1/\epsilon)$        & No      \\
+	                 & NAG             & $\sqrt{\kappa} \ln (1/\epsilon)$ & Yes     \\ \hline
+	$L$-smooth       & GD              & $1/\epsilon$                     & No      \\
+	                 & NAG varying $T$ & $1/\sqrt{\epsilon}$              & Yes     \\ \hline
+	$L$-Lip, cmp set & Subgradient     & $1/\epsilon^2$                   & Yes     \\ \hline
+\end{tabular}
 

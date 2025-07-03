@@ -45,10 +45,14 @@ $\Rightarrow \{x\in\mathbb{R}^{n} \mid  Ax+b\in\mathcal{C}\}$ cv
 
 \textbf{Idea} represent any cl,cv set by its supporting hyperplanes
 \[\begin{aligned}
+		\vspace{-2mm}
 		\sigma_\mathcal{C}(a) & = \sup_{x \in \mathcal{C}}a\T x
 		\quad\text{if known, one can construct}                                                                                                        \\
+		\vspace{-2mm}
 		\mathcal{C}           & = \bigcap_{a \in \mathbb{R}^n} \{x \in \mathbb{R}^n \mid a\T x - \sigma_c(a) \leq 0\}                                  \\
+		\vspace{-2mm}
 		                      & = \{x \in \mathbb{R}^n \mid \underset{a \in \mathbb{R}^{n}}{\operatorname{sup}}\ a\T x - \sigma_\mathcal{C}(a) \le 0\}
+		\vspace{-2mm}
 	\end{aligned}\]
 
 \begin{definition}
@@ -99,7 +103,7 @@ $\min_{x \in \mathbb{R}^{n}}f(x) + \psi_\mathcal{C}(x)$
 
 \begin{definition}[Legendre Transformation]
 	The \textbf{conjugate function} of $f: \mathbb{R}^{n}\rightarrow\bar{\mathbb{R}}$  is defined as
-	$f^*(y)=\sup_{x \in \mathbb{R}^{n}}y\T x-f(x)$
+	\textcolor{hltext}{\hl{ $f^*(y)=\sup_{x \in \mathbb{R}^{n}}y^T x-f(x)$ }}
 \end{definition}
 
 \textbf{Concave}

@@ -11,7 +11,6 @@ $\Leftrightarrow$
 $f(x)+\nu^\star h(x)$ is stationary at $x^\star$
 
 \subsection{Generalization for $n\rightarrow\infty$ and with constraints}
-%TODO: space
 \vspace{-5mm}
 \begin{equation}
 	\text{We consider}\
@@ -44,7 +43,7 @@ $$\begin{aligned}
 	$\exists \lambda \ge 0, \nu \in \mathbb{R}^{n_h}$ s.t. $d(\lambda,\nu)=f^\star$
 \end{proposition}
 
-\subsection{KKT} %TODO: name?
+\subsection{KKT (Karush-Kuhn-Tucker) Conditions}
 
 \begin{theorem}[KKT Conditions]
 	Slater's condition holds
@@ -54,22 +53,22 @@ $$\begin{aligned}
 	and $(\lambda^\star \ge 0,\nu^\star) \in \mathbb{R}^{n_g}\times\mathbb{R}^{n_h}$ is a maximizer of the dual
 	$\Leftrightarrow$
 	$$\begin{aligned}
-			              & \nabla_x\mathcal{L}(x^\star,\lambda^\star,\nu^\star)=0
-			              & \text{KKT-1 }
-			              & \text{(Stationary Lagrangian)}
+			 & \nabla_x\mathcal{L}(x^\star,\lambda^\star,\nu^\star)=0
+			 & \text{KKT-1 }
+			 & \text{(Stationary Lagrangian)}
 			\\
-			              & g(x^\star)\le0, h(x^\star)=0
-			              & \text{KKT-2 }
-			              & \text{(primal feasibility)}
+			 & g(x^\star)\le0, h(x^\star)=0
+			 & \text{KKT-2 }
+			 & \text{(primal feasibility)}
 			\\
-			              & \lambda^\star\ge0, \nu^\star \in \mathbb{R}^{n_h}
-			              & \text{KKT-3 }
-			              & \text{(dual feasibility)}
+			 & \lambda^\star\ge0, \nu^\star \in \mathbb{R}^{n_h}
+			 & \text{KKT-3 }
+			 & \text{(dual feasibility)}
 			\\
-			              & {\lambda^\star}\T g(x^\star)=0={\nu^\star}\T h(x^\star)
-			\hspace{-3mm} &
+			 & \lambda^{\star T} g(x^\star)=0=\nu^{\star T} h(x^\star)
+			 &
 			\text{KKT-4 }
-			              & \text{(compementary slackness)}
+			 & \text{(compementary slackness)}
 			\\
 		\end{aligned}$$
 	In addition we have:
@@ -89,7 +88,7 @@ $f(x)\ge f(\bar{x})+\nabla f(\bar{x})\T(x-\bar{x}),\ \forall x,\bar{x}\in \mathb
 
 \begin{definition}
 	$f: \mathbb{R}^{n} \rightarrow \bar{\mathbb{R}}$ cv,
-	the subdifferential of $f$ at $\bar{x}$ is:
+	the \textcolor{hltext}{\hl{ subdifferential of $f$ at $\bar{x}$ }}is:
 	$\partial f(\bar{x}):=
 		\{\lambda \in \mathbb{R}^{n} \mid
 		f(x)\ge f(\bar{x})+\lambda\T(x-\bar{x}),
@@ -98,7 +97,7 @@ $f(x)\ge f(\bar{x})+\nabla f(\bar{x})\T(x-\bar{x}),\ \forall x,\bar{x}\in \mathb
 	\label{def:subdifferential}
 \end{definition}
 
-EXAMPLE?
+%TODO: subdifferential example?
 
 \begin{proposition}[]
 	$f$ (like D\ref{def:subdifferential}),
@@ -111,8 +110,5 @@ EXAMPLE?
 	For convex $f$ with $\operatorname{epi}(f)$ closed:
 	$y \in \partial f(x) \leftrightarrow x \in \partial f^\star(y)$
 \end{proposition}
-
-%TODO: r3 (Soft) Margin SVM, Kernel methods
-%
 
 \includegraphics[width=\columnwidth]{images/conjugate_subdiff.png}

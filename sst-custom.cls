@@ -162,10 +162,13 @@
 % \babelfont{rm}{Lato}
 % \babelfont{rm}{Roboto}
 \babelfont{rm}{Roboto Condensed}
-% \babelprovide[onchar=ids fonts]{russian}
-% \babelfont[russian]{rm}{Roboto Condensed}
 \babelprovide{ngerman}
-% \babelprovide{english}
+%-----------------------------------------------------------------
+% color
+\RequirePackage{soul}
+% \sethlcolor{RoyalBlue}%!90}
+\sethlcolor{BrickRed}%!90}
+\definecolor{hltext}{rgb}{256,256,256}
 %-----------------------------------------------------------------
 % font of math
 % \usepackage{lmodern} # default

@@ -28,13 +28,14 @@ $B_\epsilon(x^\star):=\{\xi\in\mathbb{R}^{n}:|\xi-x^\star|<\epsilon\}$
 
 \begin{definition}[Lipschitz continuity]
 	$q: \mathbb{R}^{n} \rightarrow \mathbb{R}^{m}$
-	is \textbf{Lipschitz} with constant $L$ if:
+	is Lipschitz with constant $L$ if:
 	$|q(x)-q(y)| \le L |x-y| \forall x,y \in \mathbb{R}^{m}$
 \end{definition}
-
-$$f \text{ is Lipschitz with constant } L
+\vspace{-4mm}
+$$f \text{ is\textbf{ Lipschitz }(Lip) with constant } L
 	\Leftrightarrow
 	|\nabla f(x)|_2\le L$$
+\vspace{-4mm}
 
 OP class $\mathcal{P}$ with $\mathcal{C}=[0,1]^n$,
 $f$ is $l^\infty$-Lipschitz with constant $L$
@@ -54,8 +55,11 @@ $f$ is $l^\infty$-Lipschitz with constant $L$
 \begin{definition}
 	$q:\mathbb{R}^{n}\rightarrow\mathbb{R}$
 	convex (affine) if $\forall\ x, y \in \mathbb{R}^{n}$
+	\vspace{-2mm}
 	$$q(\theta x+(1−\theta)y)\le\theta q(x)+(1−\theta)q(y)\quad\forall\ \theta \in [0, 1]$$
+	\vspace{-4mm}
 \end{definition}
+\vspace{-1mm}
 \begin{proposition}
 	If OP convex, local minimum == global minimum
 \end{proposition}

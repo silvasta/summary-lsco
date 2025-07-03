@@ -77,11 +77,12 @@ to achieve
 $|x_{N}-x^\star|\le\epsilon$
 
 \subsection{Momentum-based methods}
-
+\vspace{-3.5mm}
 \[\begin{aligned}
 		q_{k+1} & = q_k + Tp_{k+1}                          \\
 		p_{k+1} & = (1-2dT)p_k-T\nabla f(q_k + \beta p_k)/L
 	\end{aligned}\]
+\vspace{-2.7mm}
 
 \textbf{Nesterov}
 accelerated gradient
@@ -95,7 +96,7 @@ $T = \frac{2\sqrt{k}}{\sqrt{k}+1}$,
 $d=\frac{1}{\sqrt{k}+1}$,
 $\beta=0$
 
-\includegraphics[width=\columnwidth]{images/root-locus-momentum.png}
+% \includegraphics[width=\columnwidth]{images/root-locus-momentum.png}
 
 \begin{centering}
 	$C_\text{Nesterov}(1-\frac{1}{\sqrt{\kappa}})^N$
@@ -107,6 +108,7 @@ $\beta=0$
 	$f$: $L$-sm, $\mu$-scv
 	$\rightarrow$
 	Nesterov's method satisfies:
+	\vspace{-1mm}
 	\[  \begin{aligned}
 			|q_N-q^\star|  & \le
 			\sqrt{\kappa+1}(1-1/\sqrt{\kappa})^{N/2}|q_0-q^\star|
@@ -115,7 +117,7 @@ $\beta=0$
 			\frac{L+\mu}{2}(1-1/\sqrt{\kappa})^{N}|q_0-q^\star|^2
 		\end{aligned}\]
 \end{theorem}
-
+\vspace{-2mm}
 
 Requires
 $N\ge2\sqrt{\kappa}\operatorname{ln}(\frac{|q_{0}-q^\star|}{\epsilon})$
@@ -138,3 +140,4 @@ $\nu_t^*=\argmin_{\nu\in\mathbb{R}}f(x_t-\nu\nabla f(x_t))$
 
 \textbf{Adaptive Methods}
 gradient, momentum to adjust stepsize
+\includegraphics[width=.95\columnwidth]{images/sublinear.png}

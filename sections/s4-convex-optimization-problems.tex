@@ -8,7 +8,6 @@ $f^\star=-\infty$ OP is unbound below
 
 \subsection{Feasibility  Problem}
 
-
 Special case $f(x)=0,\forall x$
 $\Leftrightarrow$
 $\min_s$ s.t. $g_i(x)\le s,h_j(x)=0$
@@ -56,18 +55,18 @@ $C_{n+1}=\{ (x,t)\mid
 
 $|A_ix+b|\le c_i\T x+d_i$
 $\Leftrightarrow$
-(A_ix+b, c_i\T x+d_i)\in C_{n+1}$
+$(A_ix+b, c_i\T x+d_i)\in C_{n+1}$
 
-	\textbf{Semi-Definite Programming} with symmetric $F_i,X,A_i$
+\textbf{Semi-Definite Programming} with symmetric $F_i,X,A_i$
 
-	minimize $c\T x$
-	s.t.
+minimize $c\T x$
+s.t.
 $\sum_{i=1}^{n}x_iF_i+G\preceq0$,
 $Ax=b$
 
-	\textbf{Standard form}
-	minimize $\operatorname{tr}(CX)$
-	s.t.
+\textbf{Standard form}
+minimize $\operatorname{tr}(CX)$
+s.t.
 $X\ge0$,
 $\operatorname{tr}(A_iX)=b_i$
 $\operatorname{tr}(CX)=\sum_{i=1}^{n}\sum_{j=1}^{n}$
@@ -75,10 +74,10 @@ $C_{ij}X_{ij}$,
 $C\in\mathbb{R}^{n\times n}$,
 $i=1,..,m$
 
-	LP$\subset$ QP $\subset$ QCQP
-	\scriptsize
-	(Quadratically Constrained QP)
-	\footnotesize
+LP$\subset$ QP $\subset$ QCQP
+\scriptsize
+(Quadratically Constrained QP)
+\footnotesize
 $\subset$ SOCP $\subset$ SDP
 
 %TODO: r4, sum of squares, geometric programming, SOS for liapunov
