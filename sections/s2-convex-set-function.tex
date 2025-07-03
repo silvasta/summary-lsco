@@ -78,11 +78,9 @@ $\partial^2f/\partial x^2 \succeq 0\ \forall\ x \in \mathbb{R}^{n}$
 
 $g: \mathbb{R} \rightarrow \mathbb{R}$ with $g(t)=f(x+tv)$
 convex in $t\ \forall\ x,v \in \mathbb{R}^{n}$
-
-
+$\rightarrow f$ convex (restriction to a line)
 
 \textbf{Extended real numbers} $\bar{\mathbb{R}} = \mathbb{R} \cup \{+\infty, -\infty\}$
-
 
 \textbf{Indicator function}
 $\psi_\mathcal{C}(x) := \begin{cases} +\infty &\text{if } x \notin\mathcal{C} \ge 0 \\ 0 &\text{if } x \in\mathcal{C} \end{cases}$
@@ -103,6 +101,12 @@ $\min_{x \in \mathbb{R}^{n}}f(x) + \psi_\mathcal{C}(x)$
 	The \textbf{conjugate function} of $f: \mathbb{R}^{n}\rightarrow\bar{\mathbb{R}}$  is defined as
 	$f^*(y)=\sup_{x \in \mathbb{R}^{n}}y\T x-f(x)$
 \end{definition}
+
+\textbf{Concave}
+$\nabla_x^2 f^* \prec0$
+$\Rightarrow$
+maximizer of sup satisfies
+$\nabla_x f^* = 0$
 
 \includegraphics[width=\columnwidth]{images/summary_set_functions.png}
 

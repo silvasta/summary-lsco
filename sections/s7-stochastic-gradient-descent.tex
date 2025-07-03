@@ -23,7 +23,7 @@ $\mathbb{E}_\xi[f(x,\xi)]=
 
 Step 1: $\xi_k \leftarrow$ generate realization of $\xi$
 
-Step 2: $x_{k+1} = x_k - T_k  g(x_k,\xi_k)$, step size $T_k$
+Step 2: $x_{k+1} = x_k - T_k  g(x_k,\xi_k)$, step size $T_k$, SG $g(.)$
 
 $\nabla_xf(x,\bar{\xi}),\ \bar{\xi}\ \sim \ p_\epsilon$
 or
@@ -80,4 +80,11 @@ Advantage in computation if paralellization possible!
 	$F_\text{inf} = \operatorname{inf}_{x\in\mathbb{R}^n}F(x)$
 \end{proposition}
 
-\includegraphics[width=\columnwidth]{images/sgd-table.png}
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	$F$             & Criterion                              $\leq \epsilon$       & $N \sim$       & $T_k \sim$   \\ \hline
+	$\mu$-sc $L$-sm & $\mathbb{E}[F(\bar{x}_N)] - F(x_0)$                          & $1/\epsilon$   & $1/k$        \\ \hline
+	$L$-sm          & $\mathbb{E}[\frac{1}{N} \sum_{k=0}^{N-1} |\nabla F(x_k)|^2]$ & $1/\epsilon^2$ & $1/\sqrt{k}$ \\ \hline
+	Lip, cv         & $\mathbb{E}[F(\bar{x}_N)] - F(x_0) $                         & $1/\epsilon^2$ & $1/\sqrt{k}$ \\ \hline
+\end{tabular}
+

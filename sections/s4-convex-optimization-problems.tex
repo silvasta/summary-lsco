@@ -54,16 +54,20 @@ Second-order cone
 $C_{n+1}=\{ (x,t)\mid
 	x\in\mathbb{R}^{n}, t\in \mathbb{R}, |x|\le t \}$
 
-\textbf{Semi-Definite Programming} with symmetric $F_i,X,A_i$
+$|A_ix+b|\le c_i\T x+d_i$
+$\Leftrightarrow$
+(A_ix+b, c_i\T x+d_i)\in C_{n+1}$
 
-minimize $c\T x$
-s.t.
+	\textbf{Semi-Definite Programming} with symmetric $F_i,X,A_i$
+
+	minimize $c\T x$
+	s.t.
 $\sum_{i=1}^{n}x_iF_i+G\preceq0$,
 $Ax=b$
 
-\textbf{Standard form}
-minimize $\operatorname{tr}(CX)$
-s.t.
+	\textbf{Standard form}
+	minimize $\operatorname{tr}(CX)$
+	s.t.
 $X\ge0$,
 $\operatorname{tr}(A_iX)=b_i$
 $\operatorname{tr}(CX)=\sum_{i=1}^{n}\sum_{j=1}^{n}$
@@ -71,10 +75,10 @@ $C_{ij}X_{ij}$,
 $C\in\mathbb{R}^{n\times n}$,
 $i=1,..,m$
 
-LP$\subset$ QP $\subset$ QCQP
-\scriptsize
-(Quadratically Constrained QP)
-\footnotesize
+	LP$\subset$ QP $\subset$ QCQP
+	\scriptsize
+	(Quadratically Constrained QP)
+	\footnotesize
 $\subset$ SOCP $\subset$ SDP
 
 %TODO: r4, sum of squares, geometric programming, SOS for liapunov

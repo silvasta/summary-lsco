@@ -177,7 +177,7 @@
 % Custom commands
 %-----------------------------------------------------------------
 \newcommand{\T}{^\textnormal{\scriptsize T}}
-\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator{\argmin}{argmin}
 %-----------------------------------------------------------------
 % Theorem styles
 %-----------------------------------------------------------------
