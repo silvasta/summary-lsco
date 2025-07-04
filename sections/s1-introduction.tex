@@ -7,9 +7,10 @@ Problem of dimension $n$ but iterations $\ll n$ desired
 One of the only problem classes that are \textquote{solvable}
 
 \textbf{Optimization}
-with decision variable $x$, objective function $f$ and
-feasible set $\mathcal{C} = \{\xi \in \mathbb{R}^{n}: g(\xi)\le0,\ h(\xi)=0\}$
+of objective function $f$ with decision variable $x$
+considering feasible set $\mathcal{C} = \{\xi \in \mathbb{R}^{n}: g(\xi)\le0,\ h(\xi)=0\}$
 
+\includegraphics[width=\columnwidth]{images/head-image.jpg}
 \textbf{Local minimum}
 $x^\star$ if $\exists\epsilon>0$ s.t. $f(x^\star)\leq f(x)$,
 $\forall x \in \mathcal{C} \cap B_\epsilon(x^\star)$,
@@ -18,11 +19,11 @@ $B_\epsilon(x^\star):=\{\xi\in\mathbb{R}^{n}:|\xi-x^\star|<\epsilon\}$
 
 \begin{proposition}
 	$f$ (lower-semi-)continuous,
-	$f(x)\rightarrow\infty$
-	for $|x|\rightarrow\infty$,
+	radially unbounded,
+	% $|x|\rightarrow\infty\Rightarrow f(x)\rightarrow\infty$,
 	$\mathcal{C}$ closed
-	$\Rightarrow$ \exists\ of OP with:
-	$\min_{x \in \mathcal{C}} f(x)\ \text{and}\ x^\star\in\argmin_{x \in \mathcal{C}}f(x)$
+	$\Rightarrow\exists$
+	$	\min_{x \in \mathcal{C}} f(x)\ \text{and}\ x^\star\in\argmin_{x \in \mathcal{C}}f(x)$
 \end{proposition}
 
 
@@ -55,11 +56,15 @@ $f$ is $l^\infty$-Lipschitz with constant $L$
 \begin{definition}
 	$q:\mathbb{R}^{n}\rightarrow\mathbb{R}$
 	convex (affine) if $\forall\ x, y \in \mathbb{R}^{n}$
-	\vspace{-2mm}
+	\vspace{-1mm}
 	$$q(\theta x+(1−\theta)y)\le\theta q(x)+(1−\theta)q(y)\quad\forall\ \theta \in [0, 1]$$
-	\vspace{-4mm}
+	\vspace{-3mm}
 \end{definition}
 \vspace{-1mm}
 \begin{proposition}
-	If OP convex, local minimum == global minimum
+	OP convex
+	$\Rightarrow$
+	local minimum $=$ global minimum
 \end{proposition}
+
+

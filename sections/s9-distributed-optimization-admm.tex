@@ -3,7 +3,7 @@
 
 \textbf{Goal}
 Solve s.t. each term can be handled by its own processor.
-
+\vspace{-2mm}
 \begin{equation}
 	\min_{x_1..,x_N, z \in \mathbb{R}^{n}}
 	\sum_{i = 1}^{N} f_i(x_i)
@@ -12,9 +12,15 @@ Solve s.t. each term can be handled by its own processor.
 	\label{eq:sum_distributed}
 \end{equation}
 
+\begin{center}
+	\includegraphics[width=0.92\columnwidth]{images/distributed.png}
+
+	(Distributed ADMM)
+\end{center}
 \subsection{Global Consensus Problem}
 
-Step 1: Augmented Lagrangian $i\in[1,N]$
+Step 1: Augmented Lagrangian% $i\in[1,N]$
+\vspace{-2mm}
 to solve (\ref{eq:sum_distributed}) with ADMM.
 
 $$\begin{aligned}
@@ -43,7 +49,6 @@ $$\begin{aligned}
 
 FURTHER REFORMULATIONS...
 
-\includegraphics[width=0.8\columnwidth]{images/distributed.png}
 
 \subsection{Sharing Problem}
 
@@ -76,3 +81,8 @@ Step 1: Augmented Lagrangian
 Step 2: Form the Algorithm
 
 ALGORITHM
+\begin{align*}
+	x_i^{k+1}       & = \arg\min_{x_i \in \mathbb{R}^n} f_i(x_i) + \frac{d_i}{2} \left| x_i - \frac{1}{2} (x_i^k - \bar{x}_i^k) + \frac{1}{\rho} p_i^k \right|^2, & \text{(local update)}                  \\
+	\bar{x}_i^{k+1} & = \frac{1}{d_i} \sum_{j \in \mathcal{N}_i} x_j^{k+1},                                                                                       & \text{(communication with neighbours)} \\
+	p_i^{k+1}       & = p_i^k + \frac{\rho}{2} (x_i^{k+1} - \bar{x}_i^{k+1}),                                                                                     & \text{(local update)}
+\end{align*}

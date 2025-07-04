@@ -60,15 +60,16 @@ $N\sim L|x^\star-x_0|^2/\epsilon$
 iterations
 
 \begin{proposition}[Subgradient Method]
-	cl, cv $\mathcal{C}$
-	contained in ball of radius $R$,
-	$x_{0..N-1}$ satisfy
+	$\mathcal{C}_{cl,cv}$
+	contained in $B_R$
+	\vspace{-2mm}
+	$$x_{k+1} = \operatorname{prox}_\mathcal{C}(x_k-Tg_k),
+		g_k\in\partial f(x_k),
+		\vspace{-2mm}
+		T = R/(L_f\sqrt{N})$$
+	$\Rightarrow x_{0..N-1}$ satisfy
 	$f(\frac{1}{N}\sum_{k=0}^{N-1})-f(x^\star)$
 	$\le\frac{RL_f}{\sqrt{N}}$
-	under
-	$x_{k+1} = \operatorname{prox}_\mathcal{C}(x_k-Tg_k)$
-	$g_k\in\partial f(x_k)$,
-	$T = \frac{R}{L_f\sqrt{N}}$
 \end{proposition}
 
 \begin{tabular}{|c|c|c|c|}
@@ -81,3 +82,29 @@ iterations
 	$L$-Lip, cmp set & Subgradient     & $1/\epsilon^2$                   & Yes     \\ \hline
 \end{tabular}
 
+\textbf{Example}
+project $a$  on $l_1$-B:
+$\min_{x \in \mathbb{R}^{n}}\frac{1}{2}|x-a|_2^2$ s.t.$|x|_1\le 1$
+$\mathcal{L}(x,\lambda)=\frac{1}{2}|x-a|_2^2 +\lambda|x|_1-\lambda$
+
+$=\sum_{k=1}^{n}(\frac{1}{2}(x_k-a_k)^2+\lambda|x|_1)-\lambda$
+
+$d_k(\lambda)=\inf_{x_k\in\mathbb{R}}\phi(x_k)
+	=\inf_{x_k\in\mathbb{R}}
+	(\frac{1}{2}(x_k-a_k)^2+\lambda|x|_1)$
+
+$\partial\phi(x_k)=x_k-a_k+\lambda s,
+	s(x_k=0:[1-1],else: sign(x_k))$
+
+$d_k(\lambda) = \{\lambda\le|a_k|:\frac{1}{2}\lambda^2+\lambda|a_k|,
+	else: \frac{1}{2}a_k^2\}$,
+
+$\nabla d_k(\lambda) = \max\{|a_k|-\lambda,0\}$
+
+Dual: $\max d(\lambda)$ s.t. $\lambda\ge0$
+with
+$d(\lambda)=\sum_{n}^{k=1}d_k(\lambda)-\lambda$
+
+$x_k=\{\lambda\ge|a_k|:0;|ak|>0:a_k-\lambda, |ak|<0:a_k+\lambda\}$
+
+\vspace{1mm}

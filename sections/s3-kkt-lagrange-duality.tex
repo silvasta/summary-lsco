@@ -1,17 +1,17 @@
 \section{KKT and Lagrange Duality}
 
-Basic 2d Example for derivation:
-$\min _{x \in \mathbb{R}^2} f(x)$ s.t. $h(x)=0$
-$\rightarrow$
-$\nabla f(x^\star)$, $\nabla h(x^\star)$
-co-linear
-$\Leftrightarrow$
-$\exists\ \nu^\star \in \mathbb{R}: \nabla f(x^\star)+\nu^\star\nabla h(x^\star) = 0$
-$\Leftrightarrow$
-$f(x)+\nu^\star h(x)$ is stationary at $x^\star$
-
-\subsection{Generalization for $n\rightarrow\infty$ and with constraints}
-\vspace{-5mm}
+% Basic 2d Example for derivation:
+% $\min _{x \in \mathbb{R}^2} f(x)$ s.t. $h(x)=0$
+% $\rightarrow$
+% $\nabla f(x^\star)$, $\nabla h(x^\star)$
+% co-linear
+% $\Leftrightarrow$
+% $\exists\ \nu^\star \in \mathbb{R}: \nabla f(x^\star)+\nu^\star\nabla h(x^\star) = 0$
+% $\Leftrightarrow$
+% $f(x)+\nu^\star h(x)$ is stationary at $x^\star$
+%
+% \subsection{Generalization for $n\rightarrow\infty$ and with constraints}
+\vspace{-4mm}
 \begin{equation}
 	\text{We consider}\
 	f^\star = \inf_{x\in\mathcal{\mathbb{R}}^n}f(x)
@@ -66,8 +66,7 @@ $$\begin{aligned}
 			 & \text{(dual feasibility)}
 			\\
 			 & \lambda^{\star T} g(x^\star)=0=\nu^{\star T} h(x^\star)
-			 &
-			\text{KKT-4 }
+			 & \text{KKT-4 }
 			 & \text{(compementary slackness)}
 			\\
 		\end{aligned}$$
@@ -97,8 +96,6 @@ $f(x)\ge f(\bar{x})+\nabla f(\bar{x})\T(x-\bar{x}),\ \forall x,\bar{x}\in \mathb
 	\label{def:subdifferential}
 \end{definition}
 
-%TODO: subdifferential example?
-
 \begin{proposition}[]
 	$f$ (like D\ref{def:subdifferential}),
 	$x^\star\in\argmin_x f(x)
@@ -111,4 +108,6 @@ $f(x)\ge f(\bar{x})+\nabla f(\bar{x})\T(x-\bar{x}),\ \forall x,\bar{x}\in \mathb
 	$y \in \partial f(x) \leftrightarrow x \in \partial f^\star(y)$
 \end{proposition}
 
-\includegraphics[width=\columnwidth]{images/conjugate_subdiff.png}
+\begin{flushright}
+	\includegraphics[width=0.92\columnwidth]{images/conjugate_subdiff.png}
+\end{flushright}
