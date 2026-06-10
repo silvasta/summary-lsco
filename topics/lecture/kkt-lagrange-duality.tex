@@ -1,4 +1,4 @@
-\section{KKT and Lagrange Duality}
+\section{KKT Conditions and Lagrange Duality}
 
 \subsection{Example}
 
@@ -20,120 +20,46 @@ where $\nu^\star$ can be interpreted as cost of violationg constraint
 
 \subsection{Generalization}
 
-Generalization to $n \ge 2$ and presence of inequality constraints
+Consider
+\[
+  f^*=\inf_x f(x)\quad\text{s.t.}\quad h(x)=0,\;g(x)\le 0.
+\]
+The Lagrangian is
+\[
+  \mathcal{L}(x,\lambda,\nu)=f(x)+\lambda^\top g(x)+\nu^\top
+  h(x),\qquad\lambda\ge 0.
+\]
 
-\begin{equation}
-  f^\star = \underset{x \in \mathcal{\mathbb{R}}^n}{inf}f(x) \text{
-  s.t. } h(x)=0,\ g(x) \le 0
-  \label{eq:dual}
-\end{equation}
+\subsection{Weak Duality}
+\(d(\lambda,\nu)=\inf_x\mathcal{L}(x,\lambda,\nu)\le f^*\) for all
+feasible multipliers.
 
-with corresponding Lagrange function
-\begin{equation}
-  \mathcal{L}(x,\lambda,\nu) = f(x) + \lambda\T g(x)+\nu\T h(x)
-\end{equation}
+\subsection{Strong Duality}
+If the problem is convex and Slater’s condition holds
+(\(\exists\hat{x}\) with \(g(\hat{x})<0\), \(h(\hat{x})=0\)), then
+there exist \(\lambda^*\ge 0\), \(\nu^*\) such that \(d(\lambda^*,\nu^*)=f^*\).
 
-where $\lambda_i \ge 0, \nu_i \in \mathbb{R}$ are the dual variables
-or multipliers
-that can be interpreted as cost for violationg constraints.
+\subsection{KKT Optimality Conditions}
+Under convexity + Slater, \(x^*\) is primal optimal and
+\((\lambda^*,\nu^*)\) is dual optimal if and only if
+\begin{align*}
+  \nabla_x\mathcal{L}(x^*,\lambda^*,\nu^*)&=0 &&\text{(stationarity)},\\
+  g(x^*)&\le 0,\;h(x^*)=0 &&\text{(primal feasibility)},\\
+  \lambda^*&\ge 0 &&\text{(dual feasibility)},\\
+  \lambda^{*\top}g(x^*)&=0 &&\text{(complementary slackness)}.
+\end{align*}
+The last equality together with strong duality yields
+\[
+  \sup_{\lambda\ge 0,\nu}d(\lambda,\nu)=\inf_{x\in\mathcal{C}}f(x).
+\]
 
-\begin{proposition}[Weak Duality]
-  The  dual function
-
-  $d(\lambda,\nu) = \underset{x \in
-  \mathcal{\mathbb{R}}^n}{inf}\mathcal{L}(x,\lambda,\nu)$ satisfies
-
-  $d(\lambda,\nu)\le f^\star,\ \forall \lambda\ge 0,\ \nu \in \mathbb{R}^{n_h}$
-
-\end{proposition}
-
-\begin{proof}
-  %TODO: Proof
-\end{proof}
-
-\begin{definition}[Constraint  qualification]
-  $\mathcal{C}$ convex, Slaters Condition holds if
-  $\exists\ \hat{x} \in \mathbb{R}^{n}$ s.t. $h(\hat{x})=0$ and $g(\hat{x})<0$
-\end{definition}
-
-\begin{proposition}[Strong Duality]
-  If Slater's condition holds and (\ref{eq:dual}) is convex then
-  $\exists \lambda \ge 0, \nu \in \mathbb{R}^{n_h}$ s.t.
-  $d(\lambda,\nu)=f^\star$
-\end{proposition}
-
-\begin{proof}
-  %TODO: Proof
-  GRAPHIC
-\end{proof}
-
-\subsection{KKT}
-
-\begin{theorem}[KKT Conditions]
-  Slater's condition holds
-  and (\ref{eq:dual}) is convex
-  $\rightarrow$
-  $x^\star \in \mathbb{R}^{n}$ is a minimizer of the primal (\ref{eq:dual})
-  and $(\lambda^\star \ge 0,\nu^\star) \in
-  \mathbb{R}^{n_g}\times\mathbb{R}^{n_h}$ is a maximizer of the dual
-  $\Leftrightarrow$
-  $$
-  \begin{aligned}
-    & \nabla_x\mathcal{L}(x^\star,\lambda^\star,\nu^\star)=0
-    & \text{KKT-1 }
-    & \text{(Stationary Lagrangian)}
-    \\
-    & g(x^\star)\le0, h(x^\star)=0
-    & \text{KKT-2 }
-    & \text{(primal feasibility)}
-    \\
-    & \lambda^\star\le0, \nu^\star \in \mathbb{R}^{n_h}
-    & \text{KKT-3 }
-    & \text{(dual feasibility)}
-    \\
-    & {\lambda^\star}\T g(x^\star)=0={\nu^\star}\T h(x^\star)
-    \hspace{-3mm} &
-    \text{KKT-4 }
-    & \text{(compementary slackness)}
-    \\
-  \end{aligned}$$
-  In addition we have:
-  $\sup_{\lambda\ge0,\nu\in\mathbb{R}^{n_h}}q(\lambda,\nu)=\inf_{x\in\mathcal{C}}f(x)$
-\end{theorem}
-
-QUESTION Proof?
-
-\textbf{Remark} Without Slater,
-KKT 1 to 4 still implies $x^\star$ minimizes (\ref{eq:dual})
-and (\lambda,\nu) maximizes the dual,
-but the converse is no longer true,
-there can be primal/dual minimizer maximizer that do not satisfy KKT1-4
-
-FORCE BALLANCE %todo
-
-\subsection{What if $f, g$ not differentiable?}
-
-\textbf{Example} $\underset{x \in \mathcal{\mathbb{R}}^n}{inf}|Ax -b|^2 + |x|_1$
-
-where $\mathcal(l_1)$-norm not  differentiable at 0
-
-\subsection{Subdifferential}
-
-for  convex  f... %todo
-
-\begin{definition}
-  $f: \mathbb{R}^{n} \rightarrow \bar{\mathbb{R}}$ convex,
-  the subdifferential of $f$ at $\bar{x}$ is:
-  $\partial f(\bar{x}):= \{\lambda \in \mathbb{R}^{n} \mid f... \}$ %todo
-\end{definition}
-
-\begin{proposition}[]
-  $f: \mathbb{R}^{n} \rightarrow \mathbb{R}$ convex.
-  $x^\star \in argmin...$
-\end{proposition}
-
-\begin{proposition}[Relation to conjugate functions]
-  $f$ convex, $epi(f)$ closed:
-  $y \in \partial f(x) \leftrightarrow x \in \delta f^\star(y)$
-\end{proposition}
+\subsection{Subdifferential (Nonsmooth Case)}
+For a convex function the subdifferential at \(\bar{x}\) is
+\[
+  \partial f(\bar{x})=\{\,v\mid f(x)\ge
+  f(\bar{x})+v^\top(x-\bar{x})\;\forall x\,\}.
+\]
+A point \(x^*\) minimises \(f\) if and only if \(0\in\partial
+f(x^*)\). When \(f\) is differentiable we recover the classical
+gradient condition.
 

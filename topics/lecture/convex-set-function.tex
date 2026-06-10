@@ -1,3 +1,5 @@
+% AI: unify all the versions
+
 \section{Convex sets and convex functions}
 
 \begin{definition}[Convex Set]
@@ -14,9 +16,9 @@
 \textbf{Examples of convex sets:}
 \begin{itemize}
   \item
-    hyperplane $\{x \in \mathbb{R}^n \mid a\T x=b\}$
+    hyperplane $\{x \in \mathbb{R}^n \mid a^T x=b\}$
   \item
-    half-space $\{x \in \mathbb{R}^n \mid a\T x\le b\}$
+    half-space $\{x \in \mathbb{R}^n \mid a^T x\le b\}$
   \item
     polyhedron $\{x \in \mathbb{R}^n \mid Ax \preceq b ,\ Cx = d\}$
 
@@ -46,7 +48,7 @@
   $\mathcal{C} \subseteq \mathbb{R}^{n}$ non-empty closed convex set,
   $y \notin \mathcal{C}$
   $\rightarrow \exists\ a \ne 0, b \in \mathbb{R}$
-  s. t. $a\T x + b < a\T y + b,
+  s. t. $a^T x + b < a^T y + b,
   \forall x \in \mathcal{C}$
 \end{theorem}
 
@@ -61,20 +63,20 @@
   $\Rightarrow \exists\ \hat{x} \in \underset{x \in
   \mathcal{C}}{\operatorname{argmin}}|x-y|$
 
-  Hyperplane, we choose $a:=y-\hat{x}, b:=-a\T\hat{x} = -(y-\hat{x})\T\hat{x}$
+  Hyperplane, we choose $a:=y-\hat{x}, b:=-a^T\hat{x} = -(y-\hat{x})^T\hat{x}$
 
-  As a result, $a\T x + b = (y-\hat{x})\T (x-\hat{x})$
-and therefore $a\T y + b = |y-\hat{x})|^2 > 0$.
-The following claim shows that the hyperplane $a\T y + b$ seperates
+  As a result, $a^T x + b = (y-\hat{x})^T (x-\hat{x})$
+and therefore $a^T y + b = |y-\hat{x})|^2 > 0$.
+The following claim shows that the hyperplane $a^T y + b$ seperates
 $\mathcal{C}$ and $y$.
 
 \textbf{Claim}
-$a\T y + b \le 0\quad \forall x \in \mathcal{C}$
+$a^T y + b \le 0\quad \forall x \in \mathcal{C}$
 
 \textbf{Proof of claim}
 Assume not.
 $\rightarrow \exists\ x \in \mathcal{C}$ s.t.
-$(y-\hat{x})\T (x-\hat{x}) > 0$
+$(y-\hat{x})^T (x-\hat{x}) > 0$
 
 PARAMETRIZE $\theta$
 
@@ -121,10 +123,10 @@ CALCULATION EXAMPLE
 If we know the $\sigma_\mathcal{C}(a)$, we arrive at at
 
 $$  \mathcal{C} = \bigcap_{a \in \mathbb{R}^n} \{x \in \mathbb{R}^n
-\mid a\T x - \sigma_c(a) \leq 0\}$$
+\mid a^T x - \sigma_c(a) \leq 0\}$$
 
 $$   = \{x \in \mathbb{R}^n \mid \underset{a \in
-\mathbb{R}^{n}}{\operatorname{sup}}\ a\T x - \sigma_\mathcal{C}(a) \le 0\}$$
+\mathbb{R}^{n}}{\operatorname{sup}}\ a^T x - \sigma_\mathcal{C}(a) \le 0\}$$
 
 \begin{definition}
 A function $f : \mathbb{R}^n \rightarrow \mathbb{R}$
@@ -132,7 +134,7 @@ is convex if and only if its epigraph is a convex set, where
 $$\operatorname{epi}(f):=\{(x,t)\in \mathbb{R}^{n+1} | f(x) \le t \}$$
 \end{definition}
 
-% IMPORTANT: epigraph more
+% AI: Epigraph important!
 
 $\rightarrow$ this provides a link between convex sets and functions
 
@@ -183,13 +185,155 @@ The conjugate function of $f:
 $f^\star(y)=\underset{x \in \mathbb{R}^{n}}{\operatorname{sup}}y^T x-f(x)$
 \end{definition}
 
-% IMPORTANT: Conjugate Funtion more!
+% IMPORTANT: Conjugate Funtion more for usage!
 
 \subsection{Summary of Concepts}
 
+% # AI: include the following line with the image!
 \includegraphics[width=\columnwidth]{images/summary_set_functions.png}
 
-\begin{theorem}[THEOREM2?]
+\section{Convex Sets and Convex Functions}
 
+\begin{definition}[Convex set]
+A set \(\mathcal{C}\) is convex if and only if
+\[
+\theta x+(1-\theta)y\in\mathcal{C}\qquad\forall
+x,y\in\mathcal{C},\;\theta\in[0,1].
+\]
+\end{definition}
+
+\textbf{Examples.} Hyperplanes, half-spaces, polyhedra, convex hulls,
+positive-semidefinite cone \(\mathbb{S}_+^n\).
+
+\subsection{Operations Preserving Convexity}
+Intersection, affine images/pre-images, Minkowski sums, Cartesian
+products, conic combinations.
+
+\subsection{Separating Hyperplane Theorem}
+Let \(\mathcal{C}\subset\mathbb{R}^n\) be nonempty, closed and convex
+and \(y\notin\mathcal{C}\). Then there exist \(a\neq 0\) and
+\(b\in\mathbb{R}\) such that
+\[
+a^\top x+b\le a^\top y+b\qquad\forall x\in\mathcal{C}.
+\]
+(The proof proceeds by projecting \(y\) onto \(\mathcal{C}\) and
+constructing the normal \(a=y-\hat{x}\).)
+
+\textbf{Corollary.} Every closed convex set is the intersection of
+the closed half-spaces that contain it.
+
+\subsection{Support Function}
+The support function
+\[
+\sigma_{\mathcal{C}}(a)=\sup_{x\in\mathcal{C}}a^\top x
+\]
+completely characterises a closed convex set:
+\[
+\mathcal{C}=\bigcap_{a\in\mathbb{R}^n}\{x\mid a^\top
+x\le\sigma_{\mathcal{C}}(a)\}.
+\]
+
+\subsection{Convex Functions}
+A function \(f:\mathbb{R}^n\to\overline{\mathbb{R}}\) is convex if
+and only if its epigraph is a convex set. Equivalently,
+\[
+f(\theta x+(1-\theta)y)\le\theta f(x)+(1-\theta)f(y).
+\]
+
+\textbf{Operations preserving convexity.} Nonnegative linear
+combinations, pointwise maxima, composition with affine maps, perspective, etc.
+
+\textbf{Indicator function.} \(\psi_{\mathcal{C}}(x)=0\) if
+\(x\in\mathcal{C}\) and \(+\infty\) otherwise. Then
+\[
+\min_{x\in\mathcal{C}}f(x)=\min_{x\in\mathbb{R}^n}f(x)+\psi_{\mathcal{C}}(x).
+\]
+
+\textbf{Conjugate.} \(f^*(y)=\sup_x(y^\top x-f(x))\). For closed
+convex proper \(f\) we have \(y\in\partial f(x)\iff x\in\partial f^*(y)\).
+
+\section{Convex Sets and Convex Functions}
+
+\begin{definition}[Convex set]
+A set $\mathcal{C}\subseteq\mathbb{R}^n$ is convex if for all
+$x,y\in\mathcal{C}$ and $\theta\in[0,1]$ we have $\theta
+x+(1-\theta)y\in\mathcal{C}$.
+\end{definition}
+
+Examples: hyperplanes $\{x\mid a^\top x=b\}$, half-spaces $\{x\mid
+a^\top x\le b\}$, polyhedra $\{x\mid Ax\preceq b,\ Cx=d\}$, convex
+hulls, and balls.
+
+\textbf{Operations preserving convexity (sets):} intersection, affine
+images and pre-images, Minkowski sums, scaling, Cartesian products.
+
+\subsection{Separating and Supporting Hyperplanes}
+\begin{theorem}[Separating Hyperplane]
+Let $\mathcal{C}\subseteq\mathbb{R}^n$ be nonempty, closed, and
+convex, $y\notin\mathcal{C}$. Then there exist $a\neq0$,
+$b\in\mathbb{R}$ such that $a^\top x+b<a^\top y+b$ for all $x\in\mathcal{C}$.
 \end{theorem}
+\begin{proof}[Key ideas (Lecture 2)]
+Let $\hat{x}=\arg\min_{x\in\mathcal{C}}|x-y|$ (exists by closedness
+and coercivity of the distance). Set $a=y-\hat{x}$,
+$b=-a^\top\hat{x}$. The hyperplane $a^\top x+b=0$ separates because
+any violation would allow a point on the line segment closer to $y$
+than $\hat{x}$, a contradiction.
+\end{proof}
+
+A closed convex set is the intersection of all closed half-spaces
+containing it (Corollary from separating theorem). This yields a dual
+representation via the \emph{support function}
+\[
+\sigma_{\mathcal{C}}(a)=\sup_{x\in\mathcal{C}}a^\top x.
+\]
+Then
+\[
+\mathcal{C}=\bigl\{x\mid\sup_{a}(a^\top x-\sigma_{\mathcal{C}}(a))\le0\bigr\}.
+\]
+
+\subsection{Convex Functions}
+A function $f:\mathbb{R}^n\to\overline{\mathbb{R}}$ is convex if and
+only if its epigraph
+\[
+\operatorname{epi}(f)=\{(x,t)\mid f(x)\le t\}
+\]
+is a convex set. This links sets and functions.
+
+\textbf{Operations preserving convexity (functions):} pointwise
+supremum, nonnegative weighted sums, composition with affine maps
+$f(Ax+b)$, infimal convolution.
+
+\textbf{Verification of convexity:}
+- Hessian $\nabla^2f(x)\succeq0$ for all $x$ (twice differentiable case).
+- Restriction to every line $t\mapsto f(x+tv)$ is convex.
+- Composition of known convex functions via the rules above.
+
+The \emph{indicator function} of a convex set $\mathcal{C}$ is
+\[
+\psi_{\mathcal{C}}(x)=
+\begin{cases}0 & x\in\mathcal{C},\\+\infty & \text{otherwise.}
+\end{cases}
+\]
+Then $\min_{x\in\mathcal{C}}f(x)=\min_x(f(x)+\psi_{\mathcal{C}}(x))$.
+
+A function is \emph{proper} if it is bounded below and finite somewhere.
+
+The \emph{conjugate} (Legendre transform) is
+\[
+f^*(y)=\sup_x(y^\top x-f(x)).
+\]
+It represents the epigraph by supporting hyperplanes with slope
+$(y,-1)$. The biconjugate theorem (Lecture 2) states that if $f$ is
+proper, convex, and $\operatorname{epi}(f)$ closed, then $f^{**}=f$
+(and always $f\ge f^{**}$).
+
+A useful summary diagram (Lecture 2, page 8) connects convex sets
+$\leftrightarrow$ supporting hyperplanes $\leftrightarrow$ support
+functions, and convex functions $\leftrightarrow$ epigraph
+$\leftrightarrow$ conjugate functions.
+
+Recitation examples (log-sum-exp as smooth approximation of the max,
+log-barrier for inequalities, norms, nonnegative weighted sums)
+illustrate these concepts in practice.
 

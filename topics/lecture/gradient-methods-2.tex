@@ -1,117 +1,140 @@
+% AI: Combine: less text than in version 1 but more formulas than in version 2
+
 \section{Gradient Methods - Part II}
 
-Projected gradient descent(smooth,strongly convex f)
+\subsection{Projection and Projected Gradient Descent}
+For a closed convex set $\mathcal{C}$ the projection is
+\[
+  \operatorname{prox}_{\mathcal{C}}(x)=\arg\min_{y\in\mathcal{C}}\frac12\|x-y\|^2.
+\]
+It is firmly non-expansive:
+\begin{lemma}
+  $|\operatorname{prox}_{\mathcal{C}}(x)-\operatorname{prox}_{\mathcal{C}}(y)|^2\le(\operatorname{prox}_{\mathcal{C}}(x)-\operatorname{prox}_{\mathcal{C}}(y))^\top(x-y)$,
+  implying
+  $\|\operatorname{prox}_{\mathcal{C}}(x)-\operatorname{prox}_{\mathcal{C}}(y)\|\le\|x-y\|$.
+\end{lemma}
 
-\begin{definition}[]
-  $prox_\mathcal{C}(x)=argmin 1/2|x-y|^2$
-\end{definition}
+The projected gradient step is
+$x_{k+1}=\operatorname{prox}_{\mathcal{C}}(x_k-T\nabla f(x_k))$. For
+$L$-smooth $\mu$-strongly convex $f$ and $T=2/(L+\mu)$ the same
+linear rate as the unconstrained case holds:
+\[
+  \|x_N-x^\star\|\le\Bigl(1-\frac{2}{\kappa+1}\Bigr)^N\|x_0-x^\star\|.
+\]
+Proof (Lecture 6): the fixed point property
+$x^\star=\operatorname{prox}_{\mathcal{C}}(x^\star-T\nabla
+f(x^\star))$ follows from the optimality condition $T\nabla
+f(x^\star)+\partial\psi_{\mathcal{C}}(x^\star)\ni0$; the contraction
+follows by non-expansiveness of the prox and the same contraction of
+$I-TH$ as in the unconstrained quadratic case.
 
-% \begin{lemma}
-C closed convex
+Projections are cheap for Euclidean balls
+($\operatorname{prox}(y)=y/\max(1,\|y\|)$), $\ell_1$-balls
+(soft-thresholding after sorting), probability simplices, and
+low-dimensional affine subspaces.
 
-CAUCHY SCHWARZ
+\subsection{Smooth but Not Strongly Convex ($\mu=0$)}
+Add a small strongly convex regularizer:
+\[
+  \tilde{f}(x)=f(x)+\frac{\mu}{2}\|x-x_0\|^2.
+\]
+Lemma (Lecture 6): $\tilde{f}$ is $(L+\mu)$-smooth and $\mu$-strongly
+convex,
+$f(x)-f(x^\star)\le\tilde{f}(x)-\tilde{f}(\tilde{x}^\star)+(\mu/2)\|x^\star-x_0\|^2$,
+and $\|\tilde{x}^\star-x_0\|\le\|x^\star-x_0\|$.
 
-This implies:
-$|prox_\mathcal{C}(x)-prox_\mathcal{C}(y)|\le|x-y|$
+Applying Nesterov's accelerated method to $\tilde{f}$ and optimizing
+the regularization parameter $\mu\approx(2L\ln N)/N$ yields (after
+using $e^\xi\ge1+\xi$)
+\[
+  f(x_N)-f(x^\star)\le\Bigl(\frac{2L}{N^2}+\frac{9L\ln(N)^2}{2N^2}\Bigr)\|x^\star-x_0\|^2.
+\]
+A refined analysis gives the optimal accelerated rate (Beck–Teboulle FISTA):
+\begin{theorem}
+  The scheme $q_{k+1}=q_k+p_{k+1}$, $p_{k+1}=\beta_k
+  p_k-g_f(q_k+\beta_k p_k)/L$ with $\beta_k=t_k/t_{k+1}$,
+  $t_{k+1}=(1+\sqrt{1+4t_k^2})/2$, $t_0=1$ satisfies
+  \[
+    f(q_N)-f(x^\star)\le\frac{2L\|q_0-x^\star\|^2}{(N+1)^2}.
+  \]
+\end{theorem}
+A matching lower bound of order $1/N^2$ exists.
 
-% \end{lemma}
-%
+Thus, roughly $N\sim\sqrt{L\|x^\star-x_0\|^2/\varepsilon}$ iterations
+suffice for $\varepsilon$-accuracy.
 
-\begin{proof}[Proof Other Information]
-  TODO
-\end{proof}
+\subsection{Non-Smooth Convex Objectives}
+If $f$ is convex and $L_f$-Lipschitz (but not differentiable),
+constant-step gradient descent can oscillate (example $f(x)=|x|$).
+Use a diminishing stepsize. The projected subgradient method with
+$T=R L_f/\sqrt{N}$ on a set of radius $R$ yields
+\[
+  f\Bigl(\frac1N\sum_{k=0}^{N-1}x_k\Bigr)-f(x^\star)\le\frac{R L_f}{\sqrt{N}}.
+\]
+Proof (Lecture 6): combine the subgradient inequality $f(x^\star)\ge
+f(x_k)+g_k^\top(x^\star-x_k)$, the non-expansiveness of the prox
+(distance to $x^\star$ decreases), and telescope; convexity of $f$
+lets us bound the average.
 
-\textbf{Algorithm}
+\begin{table}[ht]
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    Assumptions on $f$ & Method & $N$ for
+    $f(x_N)-f(x^\star)\le\varepsilon$ & Optimal? \\
+    \midrule
+    $\mu$-strongly convex, $L$-smooth & GD / Nesterov &
+    $\sim\kappa\ln(1/\varepsilon)$ /
+    $\sim\sqrt{\kappa}\ln(1/\varepsilon)$ & Yes (Nesterov) \\
+    $L$-smooth convex & Nesterov (accelerated) &
+    $\sim1/\sqrt{\varepsilon}$ & Yes \\
+    $L_f$-Lipschitz, compact $\mathcal{C}$ & Subgradient &
+    $\sim1/\varepsilon^2$ & Yes \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
-\begin{proposition}
-  $f$: $L$-sm, $\mu$-scv
-  $\rightarrow$
-  projected GD with
-  $T=\frac{2}{L+\mu}$
-  satisfies
-  $|x_N - x^\star|\le$
-  $|x_0 - x^\star|(1-\frac{2}{\kappa+1})^N$
-  $(\kappa$ still $\frac{L}{\mu})$
-\end{proposition}
+The plot of error vs.\ iteration (Lecture 6) clearly shows linear,
+$1/k$, $1/k^2$, and $1/\sqrt{k}$ regimes.
 
-\begin{proof}[Proof]
-  Restricted on quadtratic functions:
-  $\frac{1}{2}x^THx+b\T x +c$
+Recitation remarks on adaptive stepsize rules, normalized gradient
+descent, and practical tuning close the algorithmic part. These
+rates, together with the theoretical foundations of the first four
+chapters, provide a complete toolkit for recognizing, formulating,
+and solving large-scale convex problems with first-order methods.
 
-\end{proof}
+\section{Gradient Methods – Part II}
 
-\textbf{when are projetions computationally cheap?}
+\subsection{Projected Gradient Descent}
+Let
+\(\operatorname{prox}_{\mathcal{C}}(x)=\arg\min_{y\in\mathcal{C}}\frac12\|x-y\|^2\).
+For a closed convex set the proximal operator is firmly non-expansive:
+\[
+  \|\operatorname{prox}_{\mathcal{C}}(x)-\operatorname{prox}_{\mathcal{C}}(y)\|\le\|x-y\|.
+\]
+The iteration \(x_{k+1}=\operatorname{prox}_{\mathcal{C}}(x_k-T\nabla
+f(x_k))\) with \(T=2/(L+\mu)\) converges exactly as the unconstrained
+method when \(f\) is smooth and strongly convex.
 
--- norm ball
+\textbf{Cheap projections.} Euclidean ball, \(\ell_1\)-ball,
+probability simplex, affine subspaces.
 
-- probability simplex
+\subsection{Non-Strongly-Convex Case}
+Regularise:
+\[
+  \tilde f(x)=f(x)+\tfrac\mu2\|x-x_0\|^2.
+\]
+Apply accelerated gradient descent to \(\tilde f\) and optimise the
+regularisation parameter \(\mu\sim L\log N/N\). The resulting sub-linear rate is
+\[
+  f(x_N)-f(x^*)\le O\Bigl(\frac{L\|x_0-x^*\|^2}{N}\Bigr).
+\]
+Hence \(N\sim L\|x_0-x^*\|^2/\varepsilon\) iterations are necessary
+and sufficient.
 
-\textbf{What if f is not strongly convex?} ($\mu=0$)
+\subsection{Non-Smooth Case}
+When \(f\) is merely Lipschitz (subgradient method) the best
+achievable rate on a bounded domain is \(O(1/\sqrt N)\). This rate is optimal.
 
-\rightarrow idea: apply small amount of regulairzation
-
-% \begin{lemma}
-$f: \mathbb{R}^{n}\rightarrow \mathbb{R}$ $L$-smooth, convex
-
-\[\hat{f}(x) = f(x)+\frac{\mu}{2}|x-x_0|^2\]
-
-and
-
-XXX (IEQ 1 2)
-
-are satisfied $\forall x_0 \ in \mathbb{R}^{n}, \mu > 0,$
-where...x(hat)star argmin f(hat)
-
-% \end{lemma}
-
-\begin{proof}[Proof]
-  XXX
-\end{proof}
-
-hence we can apply GD or Nesterov
-
-calc
-
-For Nesterov:
-... $e^{sqrt{\frac{\mu}{L + \mu}}}$...
-
-sqrt ESSENCE of morning
-
-chose .. $\frac{2\ln(N)}{N}$
-
-BOX
-Hence if f smooth and (not strongly) convex we need
-aproximately $N$ tilde $L|x^\star - x_0|^2/epsilon$ iterations
-to reach $f(x_N)-f(x_0)\le \epsilon$
-%
-% \begin{theorem} The procedure
-%   $$q_{k+1} = q_k + p_{k+1} $$
-%   $$p_{k+1} = \beta_k p_k - g_f( q_k+\beta_k p_k) $$
-%
-% \end{theorem}
-
-\textbf{What if f is non-smooth?}
-
-i.e. $L_f$ Lipschitz but nor neccessairly differentiable
-
-Example $f(x)=|x|$
-
-Leads to osciliations with $\nabla f = \{+1\mid-1\}$
-
-\begin{proposition}[Subgradient Method]
-  Closed, convex set $\mathcal{C}$ contained in ball of $r=R$
-
-  Consider update rule:
-  $x_{k+1}=prox_\mathcal{C}(x_k-Tg_k), \dots$
-  then $x_0,...$
-\end{proposition}
-
-\begin{proof}[Proof]
-  NOT SHOWED
-
-\end{proof}
-
-TABLE
-
-gRAPH with rates, IMPORTANTe
+\clearpage
 

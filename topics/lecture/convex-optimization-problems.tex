@@ -1,126 +1,39 @@
-\section{Convex Optimization Problems}
+\section{Convex Optimization Problem Classes}
 
-Recall general optimization Problem
-\begin{equation}
-  \begin{aligned}
-    \operatorname{minimize}\quad & f(x)                               \\
-    \text{s.t.}                  & g_i(x) \le 0,\quad i = 1,\dots,n_g \\
-    & h_i(x) = 0,\quad i = 1,\dots,n_h   \\
-  \end{aligned}
-\end{equation}
+\subsection{Feasibility Problems}
+Reduce to checking whether the optimal value of an auxiliary problem
+with slack \(s\) is non-positive.
 
-OPTIMAL VALUE
+\subsection{Linear Programming (LP)}
+\[
+  \min c^\top x\quad\text{s.t.}\quad Ax-b\ge 0,\;x\ge 0.
+\]
+Its dual is again an LP. Optimal solutions, when they exist, lie at
+vertices of the polyhedron.
 
-\subsection{Feasibility  Problem}
+\subsection{Quadratic Programming (QP)}
+\[
+  \min\tfrac12 x^\top Px+q^\top x\quad\text{s.t.}\quad Gx\le h,\;Ax=b.
+\]
+Convex when \(P\succeq 0\).
 
-\begin{equation}
-  \begin{aligned}
-    \operatorname{minimize}\quad & s                                  \\
-    \text{s.t.}                  & g_i(x) \le s,\quad i = 1,\dots,n_g \\
-    & h_i(x) = 0,\quad i = 1,\dots,n_h   \\
-  \end{aligned}
-\end{equation}
+\subsection{Second-Order Cone Programming (SOCP)}
+\[
+  \min f^\top x\quad\text{s.t.}\quad \|A_ix+b_i\|\le c_i^\top x+d_i.
+\]
+The second-order cone \(C_{n+1}=\{(x,t):\|x\|\le t\}\) is self-dual
+and admits efficient projection.
 
-\subsection{Linear Programming}
+\subsection{Semidefinite Programming (SDP)}
+\[
+  \min\langle C,X\rangle\quad\text{s.t.}\quad\langle
+  F_i,X\rangle=b_i,\;X\succeq 0.
+\]
+SDP is the most general convex problem class that can still be solved
+in polynomial time (to any fixed accuracy) by interior-point methods.
 
-\begin{equation}
-  \begin{aligned}
-    \operatorname{minimize}\  & c\T x & \text{s.t.}\  & Ax-b \ge 0,\ x\ge0
-  \end{aligned}
-\end{equation}
-
-Derive dual problem:
-
-Step 1: $\mathcal{L}(x,\lambda_1,\lambda_2) = c\T x-\lambda_1\T
-(Ax-b) -\lambda_2\T x,\ \lambda_i \ge0$
-
-Step 2:$\underset{x \in
-\mathcal{\mathbb{R}}^n}{inf}\mathcal{L}(x,\lambda_1,\lambda_2)
-=
-\begin{cases} \lambda_1\T b & \text{if }c-A\T\lambda_1-\lambda_2=0  \\
-  -\infty       & \text{if } c-A\T\lambda_1-\lambda_2=0
-\end{cases}$
-
-Step 3: Dual Problem (again linear programm)
-\begin{equation}
-  \begin{aligned}
-    \operatorname{maximize}\  & b\T\lambda & \text{s.t.}\  &
-    c-A\T\lambda \ge 0,\ \lambda\ge0
-  \end{aligned}
-\end{equation}
-
-\subsubsection{Skech}
-
-- Polyhedron
-
-- c-vector normal gives 'Levelsets'
-
-- Optimal solution in or trough a corner (if exists)
-
-\begin{proposition}
-  The optimal solution of a linear program (if it exists)
-  lies always on the boundary of the feasible set
-  and there exists an optimal solution that is a vertex of the feasible set.
-\end{proposition}
-
-\subsubsection{Shortest Path}
-
-Analogie with Fluid
-
-Soltuion greater 0, not optimal edges = 0
-
-\subsection{Quadratic Programming}
-
-minimmize $\frac{1}{2}x\T Px+q\T x$
-s.t. $Gx\le h,\ Ax=b$
-
-Interpretation: minimize a convex quadratic function over a polyhedron.
-
-If $P=P\T$ is positive semi-definite
-then the problem is convex.
-
-\textbf{Example} [optimal control] (basis for mpc)
-%todo
-
-\subsubsection{Second-order cone program (SOCP)}
-
-minimmize $f\T x$
-
-s.t. $|A_ix+b|\le c_i\T x+d_i,\ Fx=g$
-
-Second-order cone
-$C_{n+1}=\{ (x,t)\mid
-x\in\mathbb{R}^{n}, t\in \mathbb{R}, |x|\le t \}$
-
-\textbf{Example} [Markovitz portfolio optimization:]
-
-\begin{itemize}
-  \item $n$ number of assets/stocks
-  \item $x_i$ relative value of asset $i$
-  \item $p_i$ price change of stock $i$
-  \item $p^Tx$ overall return
-\end{itemize}
-
-Constraints
-
-\begin{itemize}
-  \item $x^T\textbf{1} = B$, total amount
-  \item $x\ge0$, no short position
-\end{itemize}
-
-CALCULATIONS
-
-\subsection{Semidefinite programming (SDP)}
-
-minimmize $c\T x$
-
-s.t. $x_1F_1,\dots+x_nF_n <= 0$ and $Ax-b=b$
-
-$\rightarrow$ the 'standard' form
-
-$$\min _{x \in \mathbb{R}^{n*n}} tr(CX)$$
-
-Problem Classes
+\textbf{Hierarchy of problem classes.} LP \(\subset\) QP \(\subset\)
+SOCP \(\subset\) SDP.
 
 \includegraphics[width=\columnwidth]{images/problem_class.png}
 
