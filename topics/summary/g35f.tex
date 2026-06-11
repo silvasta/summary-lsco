@@ -1,0 +1,123 @@
+\section*{1. Convex Sets \& Functions}
+\textbf{Convex Set:} $x,y \in C, \theta \in [0,1] \Rightarrow \theta
+x + (1-\theta)y \in C$.
+\textbf{Preserving Set Convexity:} Intersection (any), Affine map
+$f(x)=Ax+b$ (image and pre-image), Minkowski sum $C_1+C_2$.
+\textbf{Convex Function:} $f(\theta x + (1-\theta)y) \le \theta f(x)
++ (1-\theta)f(y)$.
+$\iff$ \textbf{Epigraph} $\{(x,t) \mid f(x) \le t\}$ is a convex set.
+\textbf{Properties:}
+\begin{itemize}
+  \item $f$ convex $\Rightarrow$ Local min is Global min.
+  \item \textbf{Jensen:} $f(E[x]) \le E[f(x)]$.
+  \item \textbf{1st Order:} $f(y) \ge f(x) + \nabla f(x)^T(y-x)$.
+  \item \textbf{2nd Order:} $\nabla^2 f(x) \succeq 0$ (PSD).
+  \item \textbf{Strict Convexity:} $\nabla^2 f(x) \succ 0
+    \Rightarrow$ unique minimizer.
+\end{itemize}
+\textbf{Preserving Function Convexity:}
+\begin{itemize}
+  \item $w_i f_i(x)$ with $w_i \ge 0$.
+  \item Pointwise \textbf{MAX}: $g(x) = \max(f_1(x), f_2(x))$.
+  \item Affine composition: $f(Ax+b)$.
+  \item \textit{Note:} Pointwise MIN is usually NOT convex.
+\end{itemize}
+
+\section*{2. Conjugate Function $f^*(y)$}
+$f^*(y) = \sup_{x \in dom f} \{y^T x - f(x)\}$.
+\textbf{Properties:} $f^*$ is always convex (even if $f$ isn't). If
+$f$ is closed, proper, convex: $f^{**} = f$.
+\textbf{Common Pairs:}
+\begin{itemize}
+  \item $f(x) = ax+b \Rightarrow f^*(a)=-b$, else $\infty$.
+  \item $f(x) = \frac{1}{2}x^T Q x \Rightarrow f^*(y) =
+    \frac{1}{2}y^T Q^{-1} y$.
+  \item $f(x) = |x| \Rightarrow f^*(y)=0$ if $|y|\le 1$, else $\infty$.
+  \item $f(x) = -\ln x \Rightarrow f^*(y) = -1-\ln(-y)$ for $y<0$.
+  \item $f(x) = e^x \Rightarrow f^*(y) = y \ln y - y$ for $y>0$.
+  \item $f(x) = I_C(x) \text{ (ind.)} \Rightarrow f^*(y) =
+    \sigma_C(y) \text{ (supp.)}$.
+\end{itemize}
+\textbf{Dual trick:} $y \in \partial f(x) \iff x \in \partial f^*(y)
+\iff f(x)+f^*(y) = y^T x$.
+
+\section*{3. Subdifferentials}
+$\partial f(x) = \{g \mid f(y) \ge f(x) + g^T(y-x) \forall y\}$.
+\textbf{Optimality:} $x^*$ is global min $\iff 0 \in \partial f(x^*)$.
+\textbf{Examples:}
+\begin{itemize}
+  \item $f(x) = |x| \Rightarrow \partial f(0) = [-1, 1]$.
+  \item $f(x) = \max(f_1, f_2) \Rightarrow \partial f(x) = conv(\cup
+    \partial f_i(x))$.
+\end{itemize}
+
+\section*{4. Duality \& KKT}
+\textbf{Primal:} $\min f(x)$ s.t. $g_i(x) \le 0, h_j(x) = 0$.
+\textbf{Lagrangian:} $\mathcal{L}(x, \lambda, \nu) = f(x) + \sum
+\lambda_i g_i(x) + \sum \nu_j h_j(x)$.
+\textbf{Dual Function:} $d(\lambda, \nu) = \inf_x \mathcal{L}(x, \lambda, \nu)$.
+\textbf{Weak Duality:} $d^* \le f^*$ always.
+\textbf{Strong Duality:} $d^* = f^*$. Holds if:
+1. Convex problem + \textbf{Slater's Condition} ($\exists x: g_i(x) <
+0$ for all non-affine $g_i$).
+\textbf{KKT Conditions (Stationarity, Primal Feas, Dual Feas, Comp. Slackness):}
+1. $\nabla f(x^*) + \sum \lambda_i^* \nabla g_i(x^*) + \sum \nu_j^*
+\nabla h_j(x^*) = 0$
+2. $g_i(x^*) \le 0, h_j(x^*) = 0$
+3. $\lambda_i^* \ge 0$
+4. $\lambda_i^* g_i(x^*) = 0$
+
+\section*{5. Problem Classes}
+\textbf{LP:} Linear obj, linear constraints.
+\textbf{QP:} Quad obj $P \succeq 0$, linear constraints.
+\textbf{QCQP:} Quad obj, quad constraints $P_i \succeq 0$.
+\textbf{SOCP:} Linear obj, cone: $\|Ax+b\|_2 \le c^T x + d$.
+\textbf{SDP:} Linear obj, LMI: $x_1 F_1 + ... + x_n F_n + G \preceq 0$.
+\textbf{Hierarchy:} LP $\subset$ QP $\subset$ QCQP $\subset$ SOCP $\subset$ SDP.
+
+\section*{6. Smoothness \& Strong Conv.}
+\textbf{$L$-Smooth:} $\|\nabla f(x) - \nabla f(y)\| \le L \|x-y\|$.
+$\iff f(y) \le f(x) + \nabla f(x)^T(y-x) + \frac{L}{2}\|x-y\|^2$.
+$\iff \nabla^2 f(x) \preceq L I$.
+\textbf{$\mu$-Strongly Convex:} $f(y) \ge f(x) + \nabla f(x)^T(y-x) +
+\frac{\mu}{2}\|x-y\|^2$.
+$\iff \nabla^2 f(x) \succeq \mu I$.
+\textbf{Condition Number:} $\kappa = L/\mu \ge 1$.
+
+\section*{7. Algorithms}
+\textbf{Gradient Descent (GD):} $x_{k+1} = x_k - T \nabla f(x_k)$.
+\begin{itemize}
+  \item $L$-smooth, $\mu$-str. conv: $T = \frac{2}{L+\mu}$.
+    Dist to opt: $\|x_k - x^*\| \le (\frac{\kappa-1}{\kappa+1})^k
+    \|x_0 - x^*\|$.
+    Rate: \textbf{Linear} $O(\kappa \ln(1/\epsilon))$.
+  \item $L$-smooth only: $T = 1/L$. Rate: $O(1/k)$.
+\end{itemize}
+\textbf{Nesterov Accelerated:}
+\begin{itemize}
+  \item $L$-smooth, $\mu$-str. conv: Rate: $O(\sqrt{\kappa} \ln(1/\epsilon))$.
+  \item $L$-smooth only: Rate: $O(1/k^2)$.
+\end{itemize}
+\textbf{Subgradient Method:} $x_{k+1} = x_k - T_k g_k$, $g_k \in
+\partial f(x_k)$.
+Rate: $O(1/\epsilon^2)$ iterations ($O(1/\sqrt{k})$ convergence).
+\textbf{Projected GD (PGD):} $x_{k+1} = proj_C(x_k - T \nabla f(x_k))$.
+$proj_C(z) = \text{argmin}_{x \in C} \|x-z\|^2$.
+\begin{itemize}
+  \item $\ell_2$ ball: $z / \max(1, \|z\|_2)$.
+  \item $\ell_\infty$ ball: $clamp(z, -1, 1)$ element-wise.
+  \item $\ell_1$ ball: Soft-thresholding.
+\end{itemize}
+
+\section*{8. Useful Formulas}
+\textbf{Matrix Calculus:}
+$\nabla_x(a^T x) = a$, $\nabla_x(x^T A x) = (A+A^T)x$.
+$\nabla^2_x(x^T A x) = A+A^T$.
+\textbf{Quadratics:} $f(x) = \frac{1}{2}x^T Q x + b^T x + c$.
+$\nabla f = Qx+b$, $\nabla^2 f = Q$.
+Min at $x^* = -Q^{-1}b$.
+\textbf{SVM Hyperplane:} $\min \frac{1}{2}\|a\|^2$ s.t. $y_i(a^T x_i
++ b) \ge 1$.
+Dual: $\max \sum \lambda_i - \frac{1}{2}\sum \lambda_i \lambda_j y_i
+y_j x_i^T x_j$.
+

@@ -1,0 +1,169 @@
+
+\section*{Convexity (Prob 1 every year)}
+\textbf{Def.} $f:\mathbb{R}^n\to\overline{\mathbb{R}}$ convex $\iff$
+epi$(f)=\{(x,t):f(x)\le t\}$ convex set $\iff$
+\[
+  f(\theta x+(1-\theta)y)\le\theta f(x)+(1-\theta)f(y)\ \forall\theta\in[0,1].
+\]
+\textbf{Characterizations (use these!)}
+\begin{itemize}
+  \item Twice diff.: $\nabla^2 f(x)\succeq 0\ \forall x$ (Hessian
+    PSD; check eigenvalues for quadratics $x^\top Qx$).
+  \item 1st-order: $f(y)\ge f(x)+\nabla f(x)^\top(y-x)\ \forall x,y$.
+  \item Monotone gradient: $(\nabla f(x)-\nabla f(y))^\top(x-y)\ge0$.
+  \item Restriction to any line $t\mapsto f(x+tv)$ convex.
+  \item $f^{**}=f$ (proper, closed epi).
+\end{itemize}
+
+\textbf{Sets:} Intersection, affine image/preimage, half-spaces,
+polyhedra, balls, $\mathbb{S}_+^n$ convex. Separating hyperplane thm
+always holds for disjoint closed convex $C_1,C_2$.
+
+\textbf{Operations preserving conv.:} nonnegative lin.\ comb.,
+pointwise max/sup, composition w/ affine, indicator $\psi_C$.
+
+\textbf{Does \emph{NOT} imply convex (common MC/TF traps):}
+\begin{itemize}
+  \item Unique/global minimizer (counterex: $f(x)=|x|$ on $[-1,1]$,
+    $1$ outside -- local min at 0 but not convex).
+  \item Single local min = global min.
+  \item $\nabla^2 f$ bounded below.
+  \item $|\nabla f(x)-\nabla f(y)|\ge\mu|x-y|$ (strong mono
+    $\implies$ strong conv).
+  \item Pointwise min of convex $f_i$ (counterex: $f_1=(x+1)^2$, $f_2=(x-1)^2$).
+  \item Product $f_1 f_2$ (counterex: $x\cdot(-x)=-x^2$ concave).
+  \item $g(x)=\exp(f(x))$ if $f$ convex (not always).
+  \item $f(x)=1/\ln x$ ($x>1$) -- check Hessian.
+\end{itemize}
+
+\textbf{Examples:} $1/x$ convex ($x>0$), $\sqrt{x}$ on $[0,1]$:
+$\nabla f\to\infty$ at 0 $\implies$ \textbf{no finite Lip const}.
+$\frac12x^2+p\ln x$ convex on $[1,\infty)$ iff $p\le1$ (Hessian $1-p/x^2\ge0$).
+
+\textbf{Tactic (MC/TF):} Test Hessian or give counterex. Check
+proper/closed epi for $f=f^{**}$.
+
+\section*{Conjugates $f^*(y)=\sup_x(y^\top x-f(x))$}
+\textbf{Prop.:} $f$ proper convex closed epi $\implies f^{**}=f$.
+$y\in\partial f(x)\iff x\in\partial f^*(y)$.
+
+\textbf{Compute:} Solve unconstrained max of $yx-f(x)$ (set deriv=0),
+check if in domain; else evaluate at boundaries. Cases often needed.
+
+\textbf{Quiz examples:}
+\begin{itemize}
+  \item $f(x)=-x^2$, $x\in[-1,1]$: $f^*(y)=1+|y|$ (V-shape plot).
+  \item $f(x)=-\ln x$ ($x>0$): $f^*(y)=-1-\ln(-y)$ for $y<0$, $+\infty$ else.
+  \item $f(x)=e^x$: $f^*(y)=y\ln y-y$ ($y>0$), $+\infty$ else.
+  \item $f(x)=x^2+x$, $x\in[-1,1]$:
+    \[
+      f^*(y)=
+      \begin{cases}
+        -y & y\le-1,\\
+        \frac14(y-1)^2 & -1\le y\le3,\\
+        y-2 & y\ge3.
+      \end{cases}
+    \]
+\end{itemize}
+
+\textbf{Tactic:} Stationary point $x=y/2$ or similar; piecewise
+linear/quadratic result common. Plot for 2023-style.
+
+\section*{Subdifferentials \& Nonsmooth}
+$\partial f(\bar x)=\{v:f(x)\ge f(\bar x)+v^\top(x-\bar x)\ \forall x\}$.
+
+\textbf{Optimality:} $x^*$ minimizer $\iff 0\in\partial f(x^*)$.
+
+\textbf{Example:} $f(x)=|x|$,
+\[
+  \partial f(x)=
+  \begin{cases}
+    \{-1\} & x<0,\\
+    [-1,1] & x=0,\\
+    \{1\} & x>0.
+  \end{cases}
+\]
+Minimizer where $0\in\partial f$ (at B in plotted subdiff questions).
+
+\section*{Duality, Lagrangian, KKT}
+Lagrangian: $\mathcal{L}(x,\lambda,\nu)=f(x)+\lambda^\top
+g(x)+\nu^\top h(x)$, $\lambda\ge0$.
+
+Dual fn: $d(\lambda,\nu)=\inf_x\mathcal{L}(x,\lambda,\nu)\le f^*$
+(weak duality \emph{always}).
+
+\textbf{Strong duality:} Convex + Slater ($\exists\hat x$ strict
+ineq.\ feasible) $\implies d^*=f^*$.
+
+\textbf{KKT (nec.\& suff.\ under convex+Slater):}
+\begin{align*}
+  \nabla_x\mathcal{L}(x^*,\lambda^*,\nu^*)&=0 &&\text{(stat.)}\\
+  g(x^*)&\le0,\ h(x^*)=0 &&\text{(primal feas.)}\\
+  \lambda^*&\ge0 &&\text{(dual feas.)}\\
+  \lambda^{*\top}g(x^*)&=0 &&\text{(compl.\ slack.)}
+\end{align*}
+
+\textbf{2023 SVM dual ex.:} $\max_{\lambda\ge0}
+2\lambda_B-4\lambda_B^2$ $\implies\lambda_A=\lambda_B=1/4$,
+$a^*=(1/2,1/2)^\top$, $b^*=-1$. Hyperplane plot through midpoint.
+
+\textbf{2024 ex.:} $f=1/x_1+4/x_2$, box constraints; solve KKT
+explicitly for $x^*,p^*$.
+
+\textbf{Tactic:} Write full Lagrangian $\to$ dual $\to$ solve small
+QP. Check Slater for suff.
+
+\section*{Convex Problem Classes}
+\textbf{Hierarchy:} LP $\subset$ QP $\subset$ SOCP $\subset$ SDP.
+
+\begin{itemize}
+  \item \textbf{LP:} lin.\ obj + lin.\ ineq/eq.
+  \item \textbf{QP:} $\frac12x^\top Px+q^\top x$ ($P\succeq0$), lin.\ constr.
+  \item \textbf{QCQP:} quad.\ obj + quad.\ constr.
+  \item \textbf{SOCP:} lin.\ obj + $\|A_ix+b_i\|\le c_i^\top x+d_i$.
+  \item \textbf{SDP:} $\langle C,X\rangle$, $X\succeq0$, lin.\ matrix ineq.
+\end{itemize}
+
+\textbf{Common trap (2024):} $|A_ix+b_i|^2\le c^\top x+d_i$ is SOCP
+(not always QP/SDP).
+
+\section*{Algorithms \& Rates (Large-Scale)}
+$\mu$-strong conv., $L$-smooth $\implies\kappa=L/\mu$.
+
+\textbf{Convergence ($f(x_N)-f(x^*)\le\varepsilon$):}
+\begin{table}[h]
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    Assump. & Method & $N$ (optimal)\\
+    \midrule
+    $\mu$-str, $L$-sm & GD & $\sim\kappa\ln(1/\varepsilon)$\\
+    & Nesterov & $\sim\sqrt{\kappa}\ln(1/\varepsilon)$\\
+    $L$-sm conv & Nesterov & $\sim\sqrt{L\|x_0-x^*\|^2/\varepsilon}$
+    ($\sim1/\sqrt{\varepsilon}$) \\
+    $L_f$-Lip conv (bdd set) & Subgrad & $\sim R
+    L_f/(\varepsilon\sqrt{N})$ ($\sim1/\varepsilon^2$)\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Projected GD:} same rates (prox nonexpansive). Prox onto
+$\ell_\infty$-ball, simplex, $\ell_1$-ball cheap.
+
+\textbf{Lipschitz const:} smallest $L$ s.t.\ $\| \nabla f(x)-\nabla
+f(y)\|\le L\|x-y\|$ (or for $f$). $\sqrt{x}$ on $[0,1]$: \textbf{does
+not exist}.
+
+\textbf{Tactic:} Identify $\mu,L$ from Hessian eigenvalues. For
+$\mu=0$ regularize or use accel. rate $O(1/N^2)$. Plot
+directions/hyperplanes when asked.
+
+\vspace{1mm}
+\textbf{General tips:}
+\begin{itemize}
+  \item Convexity: Hessian/counterex.
+  \item Conjugate/KKT: explicit deriv + cases.
+  \item Rates: match assumptions to table.
+  \item Always weak duality. $f=f^{**}$ needs proper+closed epi.
+\end{itemize}
+\textbf{Common funcs:} $\ln$, $e^x$, $1/x_i$, quadratics, norms.
+

@@ -1,0 +1,68 @@
+\textbf{Convexity Tests}
+\begin{itemize}
+  \item \(f\) convex $\iff$ epi\((f)\) convex
+  \item Twice diff: \(\nabla^2f\succeq0\ \forall x\)
+  \item 1st-order: \(f(y)\ge f(x)+\nabla f(x)^\top(y-x)\)
+  \item Monotone grad: \((\nabla f(x)-\nabla f(y))^\top(x-y)\ge0\)
+  \item \(f\) convex \(\implies\) \(e^f\) convex; pointwise max of
+    convex = convex
+  \item \textbf{Not} convex: unique min, single local min, product of
+    convex, \(\sqrt x\) on \([0,1]\) (Lip const. nonexistent)
+  \item Quadratic \(x^\top Qx\): convex \(\iff Q\succeq0\) (check eigenvalues)
+  \item Separating hyperplane: disjoint convex \(C_1,C_2\)
+    \(\implies\exists a\neq0,b\) s.t. \(a^\top x+b\le a^\top
+    y+b\ \forall x\in C_1,y\in C_2\)
+\end{itemize}
+
+\textbf{Conjugate \(f^*\)}
+\[
+  f^*(y)=\sup_x\bigl(y^\top x-f(x)\bigr)
+\]
+\begin{itemize}
+  \item \(f=f^{**}\) if proper, convex, closed epi
+  \item Ex: \(f(x)=-x^2\) on \([-1,1]\) \(\to f^*=1+|y|\)
+  \item Ex: \(f(x)=-\ln x\) (\(x>0\)) \(\to f^*(y)=-1-\ln(-y)\) (\(y<0\))
+  \item Ex: \(f(x)=e^x\) \(\to f^*=y\ln y-y\) (\(y>0\))
+\end{itemize}
+
+\textbf{KKT \& Duality}
+Lagrangian \(\mathcal L(x,\lambda,\nu)=f(x)+\lambda^\top g(x)+\nu^\top h(x)\)
+
+Dual: \(\max_{\lambda\ge0,\nu}d(\lambda,\nu)\), \(d=\inf_x\mathcal L\)
+
+\textbf{Weak duality} always: \(d\le p^*\)
+
+\textbf{Strong duality + KKT} (convex + Slater \(\exists\hat x:g(\hat x)<0\)):
+\begin{align*}
+  &\nabla_x\mathcal L(x^*,\lambda^*,\nu^*)=0\\
+  &g(x^*)\le0,\ h(x^*)=0,\ \lambda^*\ge0\\
+  &\lambda^{*\top}g(x^*)=0
+\end{align*}
+(Sufficiency: any KKT pt. is optimal)
+
+\textbf{Subdifferential}
+\(0\in\partial f(x^*)\iff x^*\) min (\(|x|\): \(\partial f(0)=[-1,1]\))
+
+\textbf{Problem Classes}
+LP \(\subset\) QP (\(P\succeq0\)) \(\subset\) SOCP \(\subset\) SDP
+
+\textbf{1st-order Methods \& Rates} (\(\kappa=L/\mu\))
+\begin{itemize}
+  \item GD (smooth \(\mu\)-sc): \(N\sim\kappa\ln(1/\varepsilon)\)
+  \item Nesterov: \(N\sim\sqrt\kappa\ln(1/\varepsilon)\)
+  \item Smooth convex: Nesterov \(N\sim\sqrt{LR^2/\varepsilon}\)
+  \item Lipschitz convex (subgrad): \(N\sim(RL_f/\varepsilon)^2\)
+  \item Proj. GD = GD rate if prox cheap (\(\ell_1,\) ball, simplex)
+\end{itemize}
+
+\textbf{Tactics}
+\begin{itemize}
+  \item Convexity MCQ/TF: test Hessian/1st-order; give counter-ex.
+    (e.g. \(f(x)=|x|\) on \([-1,1]\) not convex)
+  \item Conjugate: use def., split cases on argmax (domain, stationary pt.)
+  \item Dual/KKT: write \(\mathcal L\), set \(\nabla_x=0\), solve for
+    \(\lambda^*\) via comp. slackness
+  \item Rates: identify \(\mu,L\) (or \(\kappa\)); remember
+    \(1/N^2\), \(1/\sqrt N\)
+\end{itemize}
+

@@ -3,10 +3,10 @@
 % Document Type
 %-----------------------------------------------------------------
 % % Full layout
-\documentclass[columns=2,secnumdepth=0]{sst-custom}
+% \documentclass[columns=2,secnumdepth=0]{sst-custom}
 %-----------------------------------------------------------------
 % % Summary Layout
-% \documentclass[layout=summary,columns=4,secnumdepth=2,tight]{sst-custom}
+\documentclass[layout=summary,columns=4,secnumdepth=2,tight]{sst-custom}
 %-----------------------------------------------------------------
 % % Computer preview layout
 % \documentclass[layout=preview1col,columns=1,secnumdepth=0]{sst-custom}
@@ -27,7 +27,7 @@
   % Column width is: \the\columnwidth\\
   % Preview width is: \the\previewwidth
   %-----------------------------------------------------------------
-  % \input{title/title-blue-grey.tex}
+  \input{title/title-blue-grey.tex}
   %-----------------------------------------------------------------
   \iftoggle{use-small-font}{\footnotesize}{}
   %-----------------------------------------------------------------
@@ -36,8 +36,8 @@
 
   %-----------------------------------------------------------------
   % \columnbreak
-  \input{topics/lecture.tex}
-  % \input{topics/summary.tex}
+  % \input{topics/lecture.tex}
+  \input{topics/summary.tex}
   %-----------------------------------------------------------------
   % \input{sections/old.tex}
   %-----------------------------------------------------------------
