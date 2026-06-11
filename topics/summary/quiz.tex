@@ -1,2 +1,289 @@
-% AI: Provide the content that will be placed here
+\section*{Convexity }
+\textbf{Def.} \(f\) convex \(\iff\) epi\((f)\) convex \(\iff f(\theta
+x+(1-\theta)y)\le\theta f(x)+(1-\theta)f(y)\) \(\forall\theta\in[0,1]\).
 
+\textbf{Characterizations (use these):}
+\begin{itemize}[leftmargin=*,itemsep=-1pt]
+  \item Twice diff.: \(\nabla^2 f(x)\succeq0\ \forall x\) (evals for
+    \(x^\top Qx\)).
+  \item 1st-order: \(f(y)\ge f(x)+\nabla f(x)^\top(y-x)\ \forall x,y\).
+  \item Monotone grad: \((\nabla f(x)-\nabla f(y))^\top(x-y)\ge0\).
+  \item \(f^{**}=f\) (proper, closed epi).
+  \item Restriction to any line is convex.
+\end{itemize}
+
+\textbf{Preserving ops:} nonnegative lin.\ comb., pointwise
+\textbf{max}, affine comp.\(f(Ax+b)\), intersection of convex sets.
+
+\textbf{Does \emph{NOT} imply convex (traps + counterex.):}
+\begin{itemize}[leftmargin=*,itemsep=-1pt]
+  \item Unique/global or single local min (\(f(x)=|x|\) on
+    \([-1,1]\), \(1\) outside).
+  \item \(\nabla^2 f\) bounded below (must be \(\succeq0\)).
+  \item \(|\nabla f(x)-\nabla f(y)|\ge\mu|x-y|\) (\(\mu>0\)).
+  \item Pointwise \textbf{min} of convex: e.g.\(f_1=(x+1)^2\), \(f_2=(x-1)^2\).
+  \item Product \(f_1f_2\): e.g.\(x\cdot(-x)=-x^2\) (concave).
+  \item \(\exp(f(x))\) or \(g(x)=1/\ln x\) (\(x>1\)) (Hessian neg.).
+  \item \(\sqrt{x}\) on \([0,1]\): no finite Lip.\ const.\ (\(\nabla
+    f\to\infty\) at 0).
+\end{itemize}
+
+\textbf{Examples:}
+\begin{itemize}[leftmargin=*,itemsep=-1pt]
+  \item \(\frac12 x^2 + p\ln x\) on \([1,\infty)\): convex \(\iff
+    p\le1\) (\(\nabla^2=1-p/x^2\succeq0\)).
+  \item \(1/x_i\) convex on \(\{x>0\}\).
+  \item Quadratic \(x^\top Qx\) convex \(\iff Q\succeq0\).
+\end{itemize}
+\textbf{Tactic (MC/TF):} Test Hessian/1st-order or give counterex.
+Local min = global \(\nRightarrow\) convex.
+
+\section*{Conjugate \(f^*(y)=\sup_x(y^\top x-f(x))\)}
+\(f\) proper convex closed: \\
+\( f^{**}=f\). \(y\in\partial
+f(x)\iff x\in\partial f^*(y)\).
+
+\textbf{4-Step Recipe:}
+\begin{enumerate}[leftmargin=*,itemsep=-1pt]
+  \item Set \(\nabla_x(y^\top x - f(x))=0\implies\nabla f(x)=y\).
+  \item Solve for stationary \(x_y\).
+  \item If \(x_y\in\text{int}(\text{dom }f)\), \(f^*(y)=y^\top x_y - f(x_y)\).
+  \item Restricted domain \([a,b]\): evaluate boundaries (\(x_y<a\to
+    x=a\), \(x_y>b\to x=b\)).
+\end{enumerate}
+
+\textbf{Quiz Examples:}
+\begin{itemize}[leftmargin=*,itemsep=-1pt]
+  \item \(f(x)=-x^2\), \(x\in[-1,1]\): \(f^*(y)=1+|y|\) (V-shape
+    plot, label axes).
+  \item \(f(x)=x^2+x\), \(x\in[-1,1]\): stationary \(x=\frac12(y-1)\),
+    \[
+      f^*(y)=
+      \begin{cases}
+        -y & y\le-1\\
+        \frac14(y-1)^2 & -1\le y\le3\\
+        y-2 & y\ge3
+      \end{cases}
+    \]
+  \item \(f(x)=-\ln x\) (\(x>0\)): \(f^*(y)=-1-\ln(-y)\) (\(y<0\)),
+    \(\infty\) else.
+  \item \(f(x)=e^x\): \(f^*(y)=y\ln y-y\) (\(y>0\)), \(\infty\) else.
+  \item \(f(x)=\frac12 x^\top Qx\): \(f^*(y)=\frac12 y^\top Q^{-1}y\).
+\end{itemize}
+\textbf{Tactic:} Plot if asked (label axes). Stationary often
+quadratic; always check boundaries.
+
+\section*{Subdifferential \& Optimality}
+\(\partial f(\bar x)=\{v\mid f(x)\ge f(\bar x)+v^\top(x-\bar x)\ \forall x\}\).
+
+\textbf{Optimality:} \(0\in\partial f(x^*)\iff x^*\) global minimizer
+(unique if strict convex).
+
+\textbf{Example \(f(x)=|x|\):}
+\[
+  \partial f(x)=
+  \begin{cases}
+    \{-1\} & x<0\\
+    [-1,1] & x=0\\
+    \{1\} & x>0
+  \end{cases}
+\]
+Minimizer at points where subdifferential plot contains \(0\)
+(vertical segment over \(y=0\)).
+
+\textbf{Tactic (plot Q):} Find point where subdiff.\ interval/segment
+includes \(0\).
+
+\textbf{Projections (PGD):} \(x_{k+1}=\mathrm{prox}_{T,C}(x_k-T\nabla f(x_k))\).
+\begin{itemize}[leftmargin=*,itemsep=-1pt]
+  \item \(\|x\|_\infty\le1\): clamp each coord to \([-1,1]\).
+  \item \(\|x\|_2\le1\): \(z/\max(1,\|z\|_2)\).
+  \item \(\ell_1\)-ball: soft-thresholding.
+\end{itemize}
+
+\section*{Duality, Lagrangian, KKT}
+
+\begin{sstTitleBox}{
+    Lagrange Duality
+  }
+  \begin{centering}
+    \vspace{-1.5mm}
+    \begin{equation}\text{Consider }
+      f^\star = \inf_{x\in\mathcal{\mathbb{R}}^n}f(x)
+      \text{ s.t.}\ g(x)\le0,h(x)=0
+      \label{eq:dual}
+    \end{equation}
+
+    %TODO: Definitions lambda...
+
+    \begin{sstFullFrame}
+      {\color{white}
+        \vspace{-2mm}
+        \[
+          \begin{aligned}
+            & \textbf{Lagrangian}
+            & \hspace{-4mm}  \mathcal{L}(x,\lambda,\nu)
+            & = f(x) + \lambda^T g(x)+\nu^T h(x)
+            \\
+            \\
+            & \textbf{Dual Function}
+            & \hspace{-4mm}    d(\lambda,\nu)            & = \inf_{x
+            \in \mathcal{\mathbb{R}}^n}\mathcal{L}(x,\lambda,\nu)
+        \end{aligned}\]
+        \vspace{-2.7mm}
+      }
+    \end{sstFullFrame}
+  \end{centering}
+\end{sstTitleBox}
+
+\textbf{Weak duality:} \(d^*\le p^*\) \textbf{always}.
+
+\textbf{Strong duality + KKT} (convex + Slater: \(\exists\hat x\),
+\(g_i(\hat x)<0\)):
+\begin{align*}
+  \nabla_x\mathcal L(x^*,\lambda^*,\nu^*)&=0,\\
+  g(x^*)&\le0,\ h(x^*)=0,\ \lambda^*\ge0,\\
+  \lambda^{*\top}g(x^*)&=0\ (\text{compl.\ slackness}).
+\end{align*}
+
+\begin{sstTitleBox}[BrickRed]{\textbf{\large
+    KKT  Conditions}
+  \normalsize(Karush-Kuhn-Tucker)}
+  % \begin{theorem}[KKT Conditions]
+  \begin{sstOnlyFrame}[BrickRed]
+
+    If Slater's condition holds and
+    OP is convex
+    $\rightarrow$
+    $x^\star \in \mathbb{R}^{n}$ is a minimizer of the primal
+    and
+    $(\lambda^\star\ge0,\nu^\star)\in\mathbb{R}^{n_g}\times\mathbb{R}^{n_h}$
+    is a maximizer of the dual $\Leftrightarrow$
+    to the following statements:
+  \end{sstOnlyFrame}
+  \begin{sstFullFrame}[BrickRed]
+    \vspace{-3mm}
+    \color{white}
+    \small
+    \[
+      \begin{aligned}
+        \textbf{KKT-1 } & \text{\footnotesize (Stationary
+        Lagrangian)} \hspace{-2mm} &  &
+        \nabla_x\mathcal{L}(x^\star,\lambda^\star,\nu^\star)  =  0
+        \\
+        \textbf{KKT-2 } & \text{\footnotesize (primal
+        feasibility)}                  &  & g(x^\star)\le0,
+        h(x^\star)                            =                            0
+        \\
+        \textbf{KKT-3 } & \text{\footnotesize (dual feasibility)}
+        &  & \lambda^\star  , \nu^\star \in \mathbb{R}^{n_h}
+        \ge       0
+        \\
+        \textbf{KKT-4 } & \text{\footnotesize (complementary}
+          &  & \lambda^{\star T} g(x^\star)
+          =                          0
+          \\
+        & \text{\footnotesize slackness)}
+        &  & \nu^{\star T} h(x^\star)                              =  0
+    \end{aligned}\]
+    \vspace{-4mm}
+  \end{sstFullFrame}
+  \begin{sstOnlyFrame}[BrickRed]
+    In addition we have:
+    $\sup_{\lambda\ge0,\nu\in\mathbb{R}^{n_h}}q(\lambda,\nu)=\inf_{x\in\mathcal{C}}f(x)$
+    % \end{theorem}
+  \end{sstOnlyFrame}
+\end{sstTitleBox}
+\textbf{Example} \(\min\frac12\|a\|^2\) s.t.\ \(y_i(a^\top
+x_i+b)\ge1\); dual \(\max_{\lambda\ge0}d(\lambda)\). Solves to
+\(\lambda_A^*=\lambda_B^*=1/4\).
+
+\textbf{Example} \(f=1/x_1+4/x_2\), \(x_1+x_2\le3\),
+\(x_{1,2}\ge1\): write full \(\mathcal L\), solve stationarity+slack.
+
+\textbf{Tactic:} Write full \(\mathcal L\), set \(\nabla_x\mathcal
+L=0\), substitute \(x^*\) into \(d(\lambda)\), maximize (often
+quadratic). Check Slater. Compl.\ slackness key.
+
+\section*{Problem Classes (Hierarchy)}
+LP \(\subset\) QP (\(P\succeq0\)) \(\subset\) QCQP \(\subset\) SOCP
+\(\subset\) SDP.
+
+\textbf{2024 Trap:} \(\min f^\top x\) s.t.\ \(|A_ix+b_i|^2\le
+c_i^\top x+d_i\), \(Fx=g\):
+\begin{itemize}[leftmargin=*,itemsep=-1pt]
+  \item SOCP: yes (\(\|A_ix+b_i\|_2\le c_i^\top x + d_i\)).
+  \item \textbf{Not} always QP/QCQP/SDP (quadratic-over-linear
+    constr.\ not quadratic form).
+\end{itemize}
+
+\section*{Smoothness, Strong Conv., Rates}
+\(\mu\)-str.\ conv.\(+\) \(L\)-smooth \(\implies\kappa=L/\mu\).
+
+\textbf{Defs:}
+\begin{itemize}[leftmargin=*,itemsep=-1pt]
+  \item \(L\)-smooth: \(\|\nabla f(x)-\nabla f(y)\|\le
+    L\|x-y\|\iff\nabla^2\preceq LI\).
+  \item \(\mu\)-str.\ conv.: \(f(y)\ge f(x)+\nabla
+    f(x)^\top(y-x)+\frac\mu2\|x-y\|^2\iff\nabla^2\succeq\mu I\).
+  \item Lip.\ convex (\(L_f\)): subgradient method.
+\end{itemize}
+
+\begin{table}[H]
+  \footnotesize
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    \textbf{Assumptions} & \textbf{Method} &
+    \textbf{\(f(x_N)-f(x^*)\le\varepsilon\)} \\ \midrule
+    \(\mu\)-sc + \(L\)-sm & GD/PGD & \(N\sim\kappa\ln(1/\varepsilon)\) \\
+    \(\mu\)-sc + \(L\)-sm & Nesterov &
+    \(N\sim\sqrt{\kappa}\ln(1/\varepsilon)\) \\
+    \(L\)-sm (no \(\mu\)) & Nesterov &
+    \(N\sim\sqrt{LR^2/\varepsilon}\) (\(O(1/\sqrt{\varepsilon})\)) \\
+    Lip.\ convex (\(L_f\)) & Subgrad. & \(N\sim(RL_f/\varepsilon)^2\)
+    (\(O(1/\varepsilon^2)\)) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\textbf{Tactic:} Match assumptions exactly. Projected GD has same
+rate as GD (cheap proj.: simplex, \(\ell_1\)/\(\ell_\infty\)-balls).
+\(\sqrt{x}\) on \([0,1]\): no Lip.\ const.
+
+\section*{Handy Formulas \& Tactics}
+\textbf{Matrix:}
+\(\nabla(x^\top Ax)=(A+A^\top)x\), \(\nabla^2=A+A^\top\).
+
+Quadratic \(f(x)=\frac12 x^\top Qx + b^\top x\): min at \(-Q^{-1}b\)
+(\(Q\succ0\)), \(\mu=\lambda_\mathrm{min}(Q)\),
+\(L=\lambda_\mathrm{max}(Q)\).
+
+\textbf{2x2 Eigenvalues:}
+\(\lambda^2-\mathrm{Tr}(A)\lambda+\det(A)=0\implies\lambda=\frac{\mathrm{Tr}\pm\sqrt{\mathrm{Tr}^2-4\det}}{2}\).
+
+\textbf{2x2 Inverse:} \(A^{-1}=\frac1{\det(A)}
+  \begin{pmatrix}d&-b\\-c&a
+\end{pmatrix}\).
+
+\textbf{Schur (KKT):}
+\[
+  \begin{bmatrix}Q&A^\top\\A&0
+  \end{bmatrix}
+  \begin{bmatrix}x\\\nu
+  \end{bmatrix}=
+  \begin{bmatrix}-c\\b
+  \end{bmatrix}
+  \implies\nu=-(AQ^{-1}A^\top)^{-1}(AQ^{-1}c+b),\quad
+  x=-Q^{-1}(A^\top\nu+c).
+\]
+
+\textbf{General Tips:}
+\begin{itemize}[leftmargin=*,itemsep=-1pt]
+  \item Weak duality always holds. Strong duality + KKT under
+    convexity + Slater.
+  \item \(\partial f(0)=[-1,1]\) for \(|x|\).
+  \item Check domains (\(x>0\) for \(\ln\)).
+  \item Common conjugates: \(\pm x^2\) (restricted), \(\ln\),
+    \(\exp\), \(1/x_i\), \(x^2+x\), norms.
+  \item One A4 priority: convexity traps, conjugate recipe+examples,
+    KKT steps, rates table, matrix hacks.
+\end{itemize}
