@@ -1,3 +1,6 @@
+% summary.tex
+% Вставь этот файл вместо текущего topics/summary.tex
+
 \section*{Convexity }
 \textbf{Def.} \(f\) convex \(\iff\) epi\((f)\) convex \(\iff f(\theta
 x+(1-\theta)y)\le\theta f(x)+(1-\theta)f(y)\) \(\forall\theta\in[0,1]\).
@@ -114,8 +117,6 @@ includes \(0\).
       \label{eq:dual}
     \end{equation}
 
-    %TODO: Definitions lambda...
-
     \begin{sstFullFrame}
       {\color{white}
         \vspace{-2mm}
@@ -147,11 +148,10 @@ includes \(0\).
 \end{align*}
 
 \begin{sstTitleBox}[BrickRed]{\textbf{\large
-    KKT  Conditions}
+      KKT  Conditions
+    }
   \normalsize(Karush-Kuhn-Tucker)}
-  % \begin{theorem}[KKT Conditions]
   \begin{sstOnlyFrame}[BrickRed]
-
     If Slater's condition holds and
     OP is convex
     $\rightarrow$
@@ -165,9 +165,6 @@ includes \(0\).
     \vspace{-3mm}
     \color{white}
     \small
-    % NEXT: check numbering of KKT with lecture script!
-    % - same numbering for easy usage at Exam
-    %   - use f.e. KK2-2 instead of full name
     \[
       \begin{aligned}
         \textbf{KKT-1 } & \text{\footnotesize (Stationary
@@ -193,9 +190,30 @@ includes \(0\).
   \begin{sstOnlyFrame}[BrickRed]
     In addition we have:
     $\sup_{\lambda\ge0,\nu\in\mathbb{R}^{n_h}}q(\lambda,\nu)=\inf_{x\in\mathcal{C}}f(x)$
-    % \end{theorem}
   \end{sstOnlyFrame}
 \end{sstTitleBox}
+
+\textbf{How to solve any KKT problem (exam tactic):}
+\begin{enumerate}[leftmargin=*,itemsep=-1pt]
+  \item Write problem as \(\min f(x)\) s.t. \(h(x) \leq 0, g(x) = 0\)
+    (ensure \(\leq 0\) format).
+  \item Write Lagrangian: \(\mathcal{L}(x, \lambda, \nu) = f(x) +
+    \lambda h(x) + \nu g(x)\).
+  \item List the 4 KKT conditions (as above).
+  \item Solve by branching on complementary slackness:
+    \begin{itemize}[leftmargin=*,itemsep=-1pt]
+      \item \textit{Case A:} Assume \(\lambda = 0\) (constraint
+        inactive), solve \(\nabla_x \mathcal{L}=0\) for \(x\), check
+        if \(h(x)\leq 0\).
+      \item \textit{Case B:} Assume \(\lambda > 0 \implies h(x)=0\)
+        (constraint active), use this equality to solve for
+        \(x,\lambda\), check \(\lambda \geq 0\).
+    \end{itemize}
+\end{enumerate}
+\textbf{Tactic:} Write full \(\mathcal L\), set \(\nabla_x\mathcal
+L=0\), substitute \(x^*\) into \(d(\lambda)\), maximize (often
+quadratic). Check Slater. Compl.\ slackness key.
+
 \textbf{Example} \(\min\frac12\|a\|^2\) s.t.\ \(y_i(a^\top
 x_i+b)\ge1\); dual \(\max_{\lambda\ge0}d(\lambda)\). Solves to
 \(\lambda_A^*=\lambda_B^*=1/4\).
@@ -203,90 +221,45 @@ x_i+b)\ge1\); dual \(\max_{\lambda\ge0}d(\lambda)\). Solves to
 \textbf{Example} \(f=1/x_1+4/x_2\), \(x_1+x_2\le3\),
 \(x_{1,2}\ge1\): write full \(\mathcal L\), solve stationarity+slack.
 
-\textbf{Tactic:} Write full \(\mathcal L\), set \(\nabla_x\mathcal
-L=0\), substitute \(x^*\) into \(d(\lambda)\), maximize (often
-quadratic). Check Slater. Compl.\ slackness key.
+\section*{ADMM Derivation (mechanical steps)}
 
-\section*{Problem Classes (Hierarchy)}
-LP \(\subset\) QP (\(P\succeq0\)) \(\subset\) QCQP \(\subset\) SOCP
-\(\subset\) SDP.
-
-\textbf{2024 Trap:} \(\min f^\top x\) s.t.\ \(|A_ix+b_i|^2\le
-c_i^\top x+d_i\), \(Fx=g\):
-\begin{itemize}[leftmargin=*,itemsep=-1pt]
-  \item SOCP: yes (\(\|A_ix+b_i\|_2\le c_i^\top x + d_i\)).
-  \item \textbf{Not} always QP/QCQP/SDP (quadratic-over-linear
-    constr.\ not quadratic form).
-\end{itemize}
-
-\section*{Smoothness, Strong Conv., Rates}
-\(\mu\)-str.\ conv.\(+\) \(L\)-smooth \(\implies\kappa=L/\mu\).
-
-\textbf{Defs:}
-\begin{itemize}[leftmargin=*,itemsep=-1pt]
-  \item \(L\)-smooth: \(\|\nabla f(x)-\nabla f(y)\|\le
-    L\|x-y\|\iff\nabla^2\preceq LI\).
-  \item \(\mu\)-str.\ conv.: \(f(y)\ge f(x)+\nabla
-    f(x)^\top(y-x)+\frac\mu2\|x-y\|^2\iff\nabla^2\succeq\mu I\).
-  \item Lip.\ convex (\(L_f\)): subgradient method.
-\end{itemize}
-
-\begin{table}[H]
-  \footnotesize
-  \begin{tabular}{@{}lll@{}}
-    \toprule
-    \textbf{Assumptions} & \textbf{Method} &
-    \textbf{\(f(x_N)-f(x^*)\le\varepsilon\)} \\ \midrule
-    \(\mu\)-sc + \(L\)-sm & GD/PGD & \(N\sim\kappa\ln(1/\varepsilon)\) \\
-    \(\mu\)-sc + \(L\)-sm & Nesterov &
-    \(N\sim\sqrt{\kappa}\ln(1/\varepsilon)\) \\
-    \(L\)-sm (no \(\mu\)) & Nesterov &
-    \(N\sim\sqrt{LR^2/\varepsilon}\) (\(O(1/\sqrt{\varepsilon})\)) \\
-    Lip.\ convex (\(L_f\)) & Subgrad. & \(N\sim(RL_f/\varepsilon)^2\)
-    (\(O(1/\varepsilon^2)\)) \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-\textbf{Tactic:} Match assumptions exactly. Projected GD has same
-rate as GD (cheap proj.: simplex, \(\ell_1\)/\(\ell_\infty\)-balls).
-\(\sqrt{x}\) on \([0,1]\): no Lip.\ const.
-
-\section*{Handy Formulas \& Tactics}
-\textbf{Matrix:}
-\(\nabla(x^\top Ax)=(A+A^\top)x\), \(\nabla^2=A+A^\top\).
-
-Quadratic \(f(x)=\frac12 x^\top Qx + b^\top x\): min at \(-Q^{-1}b\)
-(\(Q\succ0\)), \(\mu=\lambda_\mathrm{min}(Q)\),
-\(L=\lambda_\mathrm{max}(Q)\).
-
-\textbf{2x2 Eigenvalues:}
-\(\lambda^2-\mathrm{Tr}(A)\lambda+\det(A)=0\implies\lambda=\frac{\mathrm{Tr}\pm\sqrt{\mathrm{Tr}^2-4\det}}{2}\).
-
-\textbf{2x2 Inverse:} \(A^{-1}=\frac1{\det(A)}
-  \begin{pmatrix}d&-b\\-c&a
-\end{pmatrix}\).
-
-\textbf{Schur (KKT):}
+\textbf{Step 1:} Reformulate problem to have separated variables:
 \[
-  \begin{bmatrix}Q&A^\top\\A&0
-  \end{bmatrix}
-  \begin{bmatrix}x\\\nu
-  \end{bmatrix}=
-  \begin{bmatrix}-c\\b
-  \end{bmatrix}
-  \implies\nu=-(AQ^{-1}A^\top)^{-1}(AQ^{-1}c+b),\quad
-  x=-Q^{-1}(A^\top\nu+c).
+  \min_{x,z} f(x) + g(z) \quad \text{s.t. } Ax - z = c.
 \]
 
-\textbf{General Tips:}
+\textbf{Step 2:} Write Augmented Lagrangian:
+\[
+  \mathcal{L}_\rho(x,z,\lambda) = f(x) + g(z) + \lambda^\top(Ax - z -
+  c) + \frac{\rho}{2}\|Ax - z - c\|_2^2.
+\]
+
+\textbf{Step 3:} Update \(x\): Set \(\nabla_x \mathcal{L}_\rho = 0\).
+This usually results in a linear system:
+\[
+  (A^\top A + \text{something})x = \dots
+\]
+
+\textbf{Step 4:} Update \(z\): If \(g(z)\) is an \(L_1\) norm (e.g.,
+\(|z|_1\)), the solution is exactly the proximal operator/soft-thresholding:
+\[
+  z_{k+1} = \text{prox}_{1/\rho}(Ax_{k+1} - c + \lambda_k/\rho).
+\]
+
+\textbf{Step 5:} Update \(\lambda\):
+\[
+  \lambda_{k+1} = \lambda_k + \rho(Ax_{k+1} - z_{k+1} - c).
+\]
+\textbf{Tactic:} Memorize the 5 steps; the \(x\)-update reduces to
+solving a linear system; the \(z\)-update is often a closed-form
+proximal operator.
+
+\section*{Reformulating max and absolute values (Epigraph)}
+
+When minimizing \(\max(f(x), g(x))\) or \(|f(x)|\):
+
 \begin{itemize}[leftmargin=*,itemsep=-1pt]
-  \item Weak duality always holds. Strong duality + KKT under
-    convexity + Slater.
-  \item \(\partial f(0)=[-1,1]\) for \(|x|\).
-  \item Check domains (\(x>0\) for \(\ln\)).
-  \item Common conjugates: \(\pm x^2\) (restricted), \(\ln\),
-    \(\exp\), \(1/x_i\), \(x^2+x\), norms.
-  \item One A4 priority: convexity traps, conjugate recipe+examples,
-    KKT steps, rates table, matrix hacks.
-\end{itemize}
+  \item Introduce an auxiliary variable \(t\).
+  \item New objective: \(\min t\).
+  \item For \(\max\): constraints are \(f(x) \le t\) and \(g(x
 
